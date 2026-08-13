@@ -1,0 +1,443 @@
+<!DOCTYPE html>
+<html lang="vi" class="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard Giám Sát Sản Xuất Cọc Bê Tông Ly Tâm | VGSI</title>
+    
+    <!-- Google Fonts: Plus Jakarta Sans & Inter -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        display: ['Plus Jakarta Sans', 'sans-serif'],
+                    },
+                    colors: {
+                        industrial: {
+                            50: '#f0f4f8',
+                            100: '#d9e2ec',
+                            200: '#bcccdc',
+                            300: '#9fb3c8',
+                            400: '#829ab1',
+                            500: '#627d98',
+                            600: '#486581',
+                            700: '#334e68',
+                            800: '#243b53',
+                            900: '#102a43',
+                            950: '#0b1d30'
+                        },
+                        accent: {
+                            DEFAULT: '#0ea5e9',
+                            hover: '#0284c7'
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    
+    <!-- Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    
+    <style>
+        body {
+            background-color: #0b1d30;
+            color: #f0f4f8;
+            font-family: 'Inter', sans-serif;
+        }
+        h1, h2, h3, h4, h5, h6, .display-font {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+        }
+        .glass-panel {
+            background: rgba(36, 59, 83, 0.4);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(130, 154, 177, 0.15);
+            border-radius: 1rem;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+        }
+        .stat-card {
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+        .stat-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.2), 0 4px 6px -2px rgba(0, 0, 0, 0.1);
+            border-color: rgba(14, 165, 233, 0.4);
+        }
+        
+        /* Table Styles */
+        .table-container {
+            overflow-x: auto;
+            scrollbar-width: thin;
+            scrollbar-color: #486581 transparent;
+        }
+        .table-container::-webkit-scrollbar {
+            height: 6px;
+        }
+        .table-container::-webkit-scrollbar-track {
+            background: transparent;
+        }
+        .table-container::-webkit-scrollbar-thumb {
+            background-color: #486581;
+            border-radius: 20px;
+        }
+        
+        tbody tr {
+            border-bottom: 1px solid rgba(130, 154, 177, 0.1);
+            transition: background-color 0.15s ease;
+        }
+        tbody tr:hover {
+            background-color: rgba(51, 78, 104, 0.4);
+        }
+        tbody tr:last-child {
+            border-bottom: none;
+        }
+        
+        .status-badge {
+            padding: 0.25rem 0.75rem;
+            border-radius: 9999px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            letter-spacing: 0.025em;
+        }
+        .status-stocking {
+            background-color: rgba(16, 185, 129, 0.15);
+            color: #34d399;
+            border: 1px solid rgba(16, 185, 129, 0.3);
+        }
+        .status-demoulding {
+            background-color: rgba(245, 158, 11, 0.15);
+            color: #fbbf24;
+            border: 1px solid rgba(245, 158, 11, 0.3);
+        }
+        
+        .qc-badge {
+            padding: 0.25rem 0.5rem;
+            border-radius: 0.375rem;
+            font-size: 0.7rem;
+            font-weight: 600;
+        }
+        .qc-caution {
+            background-color: rgba(245, 158, 11, 0.15);
+            color: #fbbf24;
+        }
+        .qc-ng {
+            background-color: rgba(239, 68, 68, 0.15);
+            color: #f87171;
+        }
+    </style>
+</head>
+<body class="antialiased min-h-screen flex flex-col">
+    <!-- Navbar -->
+    <nav class="glass-panel mx-4 mt-4 mb-6 px-6 py-4 flex justify-between items-center sticky top-4 z-50">
+        <div class="flex items-center gap-3">
+            <div class="w-10 h-10 rounded-lg bg-accent flex items-center justify-center shadow-lg shadow-accent/20">
+                <i class="fa-solid fa-industry text-white text-xl"></i>
+            </div>
+            <div>
+                <h1 class="text-xl font-bold text-white tracking-tight">VGSI Dashboard</h1>
+                <p class="text-xs text-industrial-300">Giám sát sản xuất Cọc Bê Tông Ly Tâm</p>
+            </div>
+        </div>
+        <div class="flex items-center gap-4">
+            <div class="text-right hidden sm:block">
+                <p class="text-sm font-semibold text-white" id="current-date">--/--/----</p>
+                <p class="text-xs text-industrial-300" id="current-time">--:--:--</p>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="flex-grow px-4 pb-8 max-w-7xl mx-auto w-full space-y-6">
+        
+        <!-- ROW 1: KPI Cards -->
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+            <!-- Total Production -->
+            <div class="glass-panel stat-card p-5 relative overflow-hidden group">
+                <div class="absolute -right-4 -top-4 w-24 h-24 bg-blue-500/10 rounded-full blur-2xl group-hover:bg-blue-500/20 transition-all"></div>
+                <div class="flex justify-between items-start mb-4">
+                    <div>
+                        <p class="text-industrial-300 text-sm font-medium mb-1">Tổng Số Lượng Cọc</p>
+                        <h2 class="text-3xl font-bold text-white display-font" id="kpi-total">0</h2>
+                    </div>
+                    <div class="w-10 h-10 rounded-lg bg-blue-500/20 flex items-center justify-center text-blue-400">
+                        <i class="fa-solid fa-cubes-stacked"></i>
+                    </div>
+                </div>
+                <p class="text-xs text-industrial-400">Sản xuất trong ngày</p>
+            </div>
+
+            <!-- Shift A -->
+            <div class="glass-panel stat-card p-5 relative overflow-hidden group">
+                <div class="absolute -right-4 -top-4 w-24 h-24 bg-emerald-500/10 rounded-full blur-2xl group-hover:bg-emerald-500/20 transition-all"></div>
+                <div class="flex justify-between items-start mb-4">
+                    <div>
+                        <p class="text-industrial-300 text-sm font-medium mb-1">Sản Xuất Ca A</p>
+                        <h2 class="text-3xl font-bold text-white display-font" id="kpi-shift-a">0</h2>
+                    </div>
+                    <div class="w-10 h-10 rounded-lg bg-emerald-500/20 flex items-center justify-center text-emerald-400">
+                        <i class="fa-solid fa-sun"></i>
+                    </div>
+                </div>
+                <p class="text-xs text-industrial-400" id="kpi-shift-a-percent">0% tổng sản lượng</p>
+            </div>
+
+            <!-- Shift B -->
+            <div class="glass-panel stat-card p-5 relative overflow-hidden group">
+                <div class="absolute -right-4 -top-4 w-24 h-24 bg-purple-500/10 rounded-full blur-2xl group-hover:bg-purple-500/20 transition-all"></div>
+                <div class="flex justify-between items-start mb-4">
+                    <div>
+                        <p class="text-industrial-300 text-sm font-medium mb-1">Sản Xuất Ca B</p>
+                        <h2 class="text-3xl font-bold text-white display-font" id="kpi-shift-b">0</h2>
+                    </div>
+                    <div class="w-10 h-10 rounded-lg bg-purple-500/20 flex items-center justify-center text-purple-400">
+                        <i class="fa-solid fa-moon"></i>
+                    </div>
+                </div>
+                <p class="text-xs text-industrial-400" id="kpi-shift-b-percent">0% tổng sản lượng</p>
+            </div>
+
+            <!-- Top Diameter -->
+            <div class="glass-panel stat-card p-5 relative overflow-hidden group">
+                <div class="absolute -right-4 -top-4 w-24 h-24 bg-amber-500/10 rounded-full blur-2xl group-hover:bg-amber-500/20 transition-all"></div>
+                <div class="flex justify-between items-start mb-4">
+                    <div>
+                        <p class="text-industrial-300 text-sm font-medium mb-1">Đường Kính Phổ Biến</p>
+                        <h2 class="text-3xl font-bold text-white display-font" id="kpi-top-dia">D---</h2>
+                    </div>
+                    <div class="w-10 h-10 rounded-lg bg-amber-500/20 flex items-center justify-center text-amber-400">
+                        <i class="fa-solid fa-circle-notch"></i>
+                    </div>
+                </div>
+                <p class="text-xs text-industrial-400" id="kpi-top-dia-count">0 cọc</p>
+            </div>
+        </div>
+
+        <!-- ROW 2: Chart -->
+        <div class="glass-panel p-6">
+            <div class="flex items-center justify-between mb-6">
+                <h3 class="text-lg font-bold text-white display-font flex items-center gap-2">
+                    <i class="fa-solid fa-chart-simple text-accent"></i> Phân Bổ Theo Đường Kính
+                </h3>
+            </div>
+            <div class="relative h-72 w-full">
+                <canvas id="diameterChart"></canvas>
+            </div>
+        </div>
+
+        <!-- ROW 3: Data Table -->
+        <div class="glass-panel p-6">
+            <div class="flex items-center justify-between mb-6">
+                <h3 class="text-lg font-bold text-white display-font flex items-center gap-2">
+                    <i class="fa-solid fa-list-check text-accent"></i> Nhật Ký Sản Xuất (10 Mới Nhất)
+                </h3>
+            </div>
+            <div class="table-container">
+                <table class="w-full text-left border-collapse">
+                    <thead>
+                        <tr class="text-xs uppercase text-industrial-300 border-b border-industrial-600/50">
+                            <th class="pb-3 px-4 font-semibold whitespace-nowrap">#</th>
+                            <th class="pb-3 px-4 font-semibold whitespace-nowrap">Mã VGSI (Serial)</th>
+                            <th class="pb-3 px-4 font-semibold min-w-[180px]">Mã Cọc (Pile Code)</th>
+                            <th class="pb-3 px-4 font-semibold">Đường Kính</th>
+                            <th class="pb-3 px-4 font-semibold">Ca</th>
+                            <th class="pb-3 px-4 font-semibold">Giờ Đúc</th>
+                            <th class="pb-3 px-4 font-semibold min-w-[150px]">Dự Án</th>
+                            <th class="pb-3 px-4 font-semibold">QC</th>
+                            <th class="pb-3 px-4 font-semibold text-right">Trạng Thái</th>
+                        </tr>
+                    </thead>
+                    <tbody id="table-body" class="text-sm">
+                        <!-- Rows rendered via JS -->
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+    </main>
+
+    <!-- JS LOGIC & DATA -->
+    <script>
+        // --- REAL EXCEL DATASET ---
+        const RAW_DATA = [{"id":1,"serial":"260811004","shift":"A","pileCode":"A350_12_MIDDLE_60","diameter":"D350","length":"12m","type":"Middle","status":"Đã Nhập Kho","rawStatus":"proStocking","qc":"Cần Chú Ý","customer":"SUNNHATRANG","conTimeStr":"21:49","castingHour":21},{"id":2,"serial":"260811005","shift":"A","pileCode":"A350_12_MIDDLE_60","diameter":"D350","length":"12m","type":"Middle","status":"Đã Nhập Kho","rawStatus":"proStocking","qc":"Cần Chú Ý","customer":"SUNNHATRANG","conTimeStr":"21:44","castingHour":21},{"id":3,"serial":"260811006","shift":"A","pileCode":"A350_12_MIDDLE_60","diameter":"D350","length":"12m","type":"Middle","status":"Đã Nhập Kho","rawStatus":"proStocking","qc":"Cần Chú Ý","customer":"SUNNHATRANG","conTimeStr":"21:39","castingHour":21},{"id":4,"serial":"260811007","shift":"A","pileCode":"A350_10_MIDDLE_60","diameter":"D350","length":"10m","type":"Middle","status":"Đã Nhập Kho","rawStatus":"proStocking","qc":"Chưa Đạt (N.G)","customer":"SUNNHATRANG","conTimeStr":"21:37","castingHour":21},{"id":5,"serial":"260811008","shift":"A","pileCode":"A350_6_MIDDLE_60","diameter":"D350","length":"6m","type":"Middle","status":"Đã Nhập Kho","rawStatus":"proStocking","qc":"Chưa Đạt (N.G)","customer":"SUNNHATRANG","conTimeStr":"21:37","castingHour":21},{"id":6,"serial":"260811015","shift":"A","pileCode":"A350_10_MIDDLE_60","diameter":"D350","length":"10m","type":"Middle","status":"Đã Nhập Kho","rawStatus":"proStocking","qc":"Chưa Đạt (N.G)","customer":"SUNNHATRANG","conTimeStr":"21:34","castingHour":21},{"id":7,"serial":"260811016","shift":"A","pileCode":"A350_6_MIDDLE_60","diameter":"D350","length":"6m","type":"Middle","status":"Đã Nhập Kho","rawStatus":"proStocking","qc":"Chưa Đạt (N.G)","customer":"SUNNHATRANG","conTimeStr":"21:34","castingHour":21},{"id":8,"serial":"260811013","shift":"A","pileCode":"A350_10_MIDDLE_60","diameter":"D350","length":"10m","type":"Middle","status":"Đã Nhập Kho","rawStatus":"proStocking","qc":"Chưa Đạt (N.G)","customer":"SUNNHATRANG","conTimeStr":"21:29","castingHour":21},{"id":9,"serial":"260811014","shift":"A","pileCode":"A350_6_MIDDLE_60","diameter":"D350","length":"6m","type":"Middle","status":"Đã Nhập Kho","rawStatus":"proStocking","qc":"Chưa Đạt (N.G)","customer":"SUNNHATRANG","conTimeStr":"21:30","castingHour":21},{"id":10,"serial":"260811011","shift":"A","pileCode":"A350_10_MIDDLE_60","diameter":"D350","length":"10m","type":"Middle","status":"Đã Nhập Kho","rawStatus":"proStocking","qc":"Chưa Đạt (N.G)","customer":"SUNNHATRANG","conTimeStr":"21:28","castingHour":21},{"id":11,"serial":"260811012","shift":"A","pileCode":"A350_6_MIDDLE_60","diameter":"D350","length":"6m","type":"Middle","status":"Đã Nhập Kho","rawStatus":"proStocking","qc":"Chưa Đạt (N.G)","customer":"SUNNHATRANG","conTimeStr":"21:28","castingHour":21},{"id":12,"serial":"260811009","shift":"A","pileCode":"A350_10_MIDDLE_60","diameter":"D350","length":"10m","type":"Middle","status":"Đã Nhập Kho","rawStatus":"proStocking","qc":"Chưa Đạt (N.G)","customer":"SUNNHATRANG","conTimeStr":"21:26","castingHour":21},{"id":13,"serial":"260811010","shift":"A","pileCode":"A350_6_MIDDLE_60","diameter":"D350","length":"6m","type":"Middle","status":"Đã Nhập Kho","rawStatus":"proStocking","qc":"Chưa Đạt (N.G)","customer":"SUNNHATRANG","conTimeStr":"21:26","castingHour":21},{"id":14,"serial":"260811017","shift":"A","pileCode":"A400_8_MIDDLE_70","diameter":"D400","length":"8m","type":"Middle","status":"Đã Nhập Kho","rawStatus":"proStocking","qc":"Chưa Đạt (N.G)","customer":"TONDONGA","conTimeStr":"21:13","castingHour":21},{"id":15,"serial":"260811018","shift":"A","pileCode":"A400_8_MIDDLE_70","diameter":"D400","length":"8m","type":"Middle","status":"Đã Nhập Kho","rawStatus":"proStocking","qc":"Chưa Đạt (N.G)","customer":"TONDONGA","conTimeStr":"21:13","castingHour":21},{"id":16,"serial":"260811022","shift":"A","pileCode":"A400_10_MIDDLE_65","diameter":"D400","length":"10m","type":"Middle","status":"Đã Nhập Kho","rawStatus":"proStocking","qc":"Cần Chú Ý","customer":"KSM ENGVINA","conTimeStr":"21:10","castingHour":21},{"id":17,"serial":"260811021","shift":"A","pileCode":"A400_10_MIDDLE_65","diameter":"D400","length":"10m","type":"Middle","status":"Đã Nhập Kho","rawStatus":"proStocking","qc":"Cần Chú Ý","customer":"KSM ENGVINA","conTimeStr":"21:08","castingHour":21},{"id":18,"serial":"260811020","shift":"A","pileCode":"A400_10_MIDDLE_65","diameter":"D400","length":"10m","type":"Middle","status":"Đã Nhập Kho","rawStatus":"proStocking","qc":"Cần Chú Ý","customer":"KSM ENGVINA","conTimeStr":"21:01","castingHour":21},{"id":19,"serial":"260811019","shift":"A","pileCode":"A400_10_MIDDLE_65","diameter":"D400","length":"10m","type":"Middle","status":"Đã Nhập Kho","rawStatus":"proStocking","qc":"Cần Chú Ý","customer":"KSM ENGVINA","conTimeStr":"20:58","castingHour":20},{"id":20,"serial":"260811023","shift":"A","pileCode":"A400_10_MIDDLE_65","diameter":"D400","length":"10m","type":"Middle","status":"Đã Nhập Kho","rawStatus":"proStocking","qc":"Cần Chú Ý","customer":"KSM ENGVINA","conTimeStr":"20:56","castingHour":20},{"id":21,"serial":"260811031","shift":"A","pileCode":"A400_11_MIDDLE_65","diameter":"D400","length":"11m","type":"Middle","status":"Đã Nhập Kho","rawStatus":"proStocking","qc":"Cần Chú Ý","customer":"VAMCO PORT","conTimeStr":"20:50","castingHour":20},{"id":22,"serial":"260811024","shift":"A","pileCode":"A400_12_MIDDLE_70","diameter":"D400","length":"12m","type":"Middle","status":"Đã Nhập Kho","rawStatus":"proStocking","qc":"Cần Chú Ý","customer":"TONDONGA","conTimeStr":"20:46","castingHour":20},{"id":23,"serial":"260811027","shift":"A","pileCode":"A400_12_MIDDLE_70","diameter":"D400","length":"12m","type":"Middle","status":"Đã Nhập Kho","rawStatus":"proStocking","qc":"Cần Chú Ý","customer":"TONDONGA","conTimeStr":"20:44","castingHour":20},{"id":24,"serial":"260811026","shift":"A","pileCode":"A400_12_MIDDLE_70","diameter":"D400","length":"12m","type":"Middle","status":"Đã Nhập Kho","rawStatus":"proStocking","qc":"Cần Chú Ý","customer":"TONDONGA","conTimeStr":"20:38","castingHour":20},{"id":25,"serial":"260811025","shift":"A","pileCode":"A400_12_MIDDLE_70","diameter":"D400","length":"12m","type":"Middle","status":"Đã Nhập Kho","rawStatus":"proStocking","qc":"Cần Chú Ý","customer":"TONDONGA","conTimeStr":"20:36","castingHour":20},{"id":26,"serial":"260811028","shift":"A","pileCode":"A400_12_MIDDLE_70","diameter":"D400","length":"12m","type":"Middle","status":"Đã Nhập Kho","rawStatus":"proStocking","qc":"Cần Chú Ý","customer":"TONDONGA","conTimeStr":"20:33","castingHour":20},{"id":27,"serial":"260811029","shift":"A","pileCode":"A400_12_MIDDLE_70","diameter":"D400","length":"12m","type":"Middle","status":"Đã Nhập Kho","rawStatus":"proStocking","qc":"Cần Chú Ý","customer":"TONDONGA","conTimeStr":"20:29","castingHour":20},{"id":28,"serial":"260811030","shift":"A","pileCode":"A400_12_MIDDLE_70","diameter":"D400","length":"12m","type":"Middle","status":"Đã Nhập Kho","rawStatus":"proStocking","qc":"Cần Chú Ý","customer":"TONDONGA","conTimeStr":"20:27","castingHour":20},{"id":29,"serial":"260811032","shift":"A","pileCode":"A400_14_MIDDLE_65","diameter":"D400","length":"14m","type":"Middle","status":"Đã Nhập Kho","rawStatus":"proStocking","qc":"Cần Chú Ý","customer":"VAMCO PORT","conTimeStr":"20:22","castingHour":20},{"id":30,"serial":"260811036","shift":"A","pileCode":"A400_14_MIDDLE_65","diameter":"D400","length":"14m","type":"Middle","status":"Đã Nhập Kho","rawStatus":"proStocking","qc":"Cần Chú Ý","customer":"VAMCO PORT","conTimeStr":"20:17","castingHour":20},{"id":31,"serial":"260811035","shift":"A","pileCode":"A400_14_MIDDLE_65","diameter":"D400","length":"14m","type":"Middle","status":"Đã Nhập Kho","rawStatus":"proStocking","qc":"Cần Chú Ý","customer":"VAMCO PORT","conTimeStr":"20:12","castingHour":20},{"id":32,"serial":"260811034","shift":"A","pileCode":"A400_14_MIDDLE_65","diameter":"D400","length":"14m","type":"Middle","status":"Đã Nhập Kho","rawStatus":"proStocking","qc":"Cần Chú Ý","customer":"VAMCO PORT","conTimeStr":"20:10","castingHour":20},{"id":33,"serial":"260811033","shift":"A","pileCode":"A400_14_MIDDLE_65","diameter":"D400","length":"14m","type":"Middle","status":"Đã Nhập Kho","rawStatus":"proStocking","qc":"Cần Chú Ý","customer":"VAMCO PORT","conTimeStr":"20:03","castingHour":20},{"id":34,"serial":"260811001","shift":"A","pileCode":"A300_10_MIDDLE_60","diameter":"D300","length":"10m","type":"Middle","status":"Đã Nhập Kho","rawStatus":"proStocking","qc":"Cần Chú Ý","customer":"VAMCO PORT","conTimeStr":"20:03","castingHour":20},{"id":35,"serial":"260811002","shift":"A","pileCode":"A300_10_MIDDLE_65","diameter":"D300","length":"10m","type":"Middle","status":"Đã Nhập Kho","rawStatus":"proStocking","qc":"Cần Chú Ý","customer":"PHANTHIET","conTimeStr":"19:53","castingHour":19},{"id":36,"serial":"260811003","shift":"A","pileCode":"A300_10_MIDDLE_65","diameter":"D300","length":"10m","type":"Middle","status":"Đã Nhập Kho","rawStatus":"proStocking","qc":"Cần Chú Ý","customer":"PHANTHIET","conTimeStr":"19:50","castingHour":19},{"id":37,"serial":"N/A","shift":"B","pileCode":"A300_10_MIDDLE_65","diameter":"D300","length":"10m","type":"Middle","status":"Đang Tháo Khuôn","rawStatus":"proDemoulding","qc":"Cần Chú Ý","customer":"PHANTHIET","conTimeStr":"19:50","castingHour":19},{"id":38,"serial":"N/A","shift":"B","pileCode":"A300_10_MIDDLE_65","diameter":"D300","length":"10m","type":"Middle","status":"Đang Tháo Khuôn","rawStatus":"proDemoulding","qc":"Cần Chú Ý","customer":"PHANTHIET","conTimeStr":"19:42","castingHour":19},{"id":39,"serial":"N/A","shift":"B","pileCode":"A300_10_MIDDLE_65","diameter":"D300","length":"10m","type":"Middle","status":"Đang Tháo Khuôn","rawStatus":"proDemoulding","qc":"Cần Chú Ý","customer":"PHANTHIET","conTimeStr":"19:40","castingHour":19},{"id":40,"serial":"N/A","shift":"B","pileCode":"A300_10_MIDDLE_65","diameter":"D300","length":"10m","type":"Middle","status":"Đang Tháo Khuôn","rawStatus":"proDemoulding","qc":"Cần Chú Ý","customer":"PHANTHIET","conTimeStr":"19:37","castingHour":19},{"id":41,"serial":"N/A","shift":"B","pileCode":"A300_10_MIDDLE_65","diameter":"D300","length":"10m","type":"Middle","status":"Đang Tháo Khuôn","rawStatus":"proDemoulding","qc":"Cần Chú Ý","customer":"PHANTHIET","conTimeStr":"19:34","castingHour":19},{"id":42,"serial":"N/A","shift":"B","pileCode":"A300_10_MIDDLE_65","diameter":"D300","length":"10m","type":"Middle","status":"Đang Tháo Khuôn","rawStatus":"proDemoulding","qc":"Cần Chú Ý","customer":"PHANTHIET","conTimeStr":"19:28","castingHour":19},{"id":43,"serial":"N/A","shift":"B","pileCode":"A300_10_MIDDLE_65","diameter":"D300","length":"10m","type":"Middle","status":"Đang Tháo Khuôn","rawStatus":"proDemoulding","qc":"Cần Chú Ý","customer":"PHANTHIET","conTimeStr":"19:21","castingHour":19},{"id":44,"serial":"N/A","shift":"B","pileCode":"A300_10_MIDDLE_65","diameter":"D300","length":"10m","type":"Middle","status":"Đang Tháo Khuôn","rawStatus":"proDemoulding","qc":"Cần Chú Ý","customer":"PHANTHIET","conTimeStr":"19:18","castingHour":19},{"id":45,"serial":"N/A","shift":"B","pileCode":"A300_10_MIDDLE_65","diameter":"D300","length":"10m","type":"Middle","status":"Đang Tháo Khuôn","rawStatus":"proDemoulding","qc":"Cần Chú Ý","customer":"AQUACITY","conTimeStr":"19:17","castingHour":19},{"id":46,"serial":"N/A","shift":"B","pileCode":"A300_10_MIDDLE_65","diameter":"D300","length":"10m","type":"Middle","status":"Đang Tháo Khuôn","rawStatus":"proDemoulding","qc":"Cần Chú Ý","customer":"AQUACITY","conTimeStr":"19:14","castingHour":19},{"id":47,"serial":"N/A","shift":"B","pileCode":"A300_10_MIDDLE_65","diameter":"D300","length":"10m","type":"Middle","status":"Đang Tháo Khuôn","rawStatus":"proDemoulding","qc":"Cần Chú Ý","customer":"AQUACITY","conTimeStr":"19:11","castingHour":19},{"id":48,"serial":"N/A","shift":"B","pileCode":"A300_10_MIDDLE_65","diameter":"D300","length":"10m","type":"Middle","status":"Đang Tháo Khuôn","rawStatus":"proDemoulding","qc":"Cần Chú Ý","customer":"AQUACITY","conTimeStr":"19:03","castingHour":19},{"id":49,"serial":"N/A","shift":"B","pileCode":"A300_10_MIDDLE_65","diameter":"D300","length":"10m","type":"Middle","status":"Đang Tháo Khuôn","rawStatus":"proDemoulding","qc":"Cần Chú Ý","customer":"AQUACITY","conTimeStr":"19:00","castingHour":19},{"id":50,"serial":"N/A","shift":"B","pileCode":"A300_12_MIDDLE_65","diameter":"D300","length":"12m","type":"Middle","status":"Đang Tháo Khuôn","rawStatus":"proDemoulding","qc":"Cần Chú Ý","customer":"AQUACITY","conTimeStr":"18:59","castingHour":18},{"id":51,"serial":"N/A","shift":"B","pileCode":"A300_12_MIDDLE_65","diameter":"D300","length":"12m","type":"Middle","status":"Đang Tháo Khuôn","rawStatus":"proDemoulding","qc":"Cần Chú Ý","customer":"AQUACITY","conTimeStr":"18:54","castingHour":18},{"id":52,"serial":"N/A","shift":"B","pileCode":"A300_12_MIDDLE_65","diameter":"D300","length":"12m","type":"Middle","status":"Đang Tháo Khuôn","rawStatus":"proDemoulding","qc":"Cần Chú Ý","customer":"AQUACITY","conTimeStr":"18:46","castingHour":18},{"id":53,"serial":"N/A","shift":"B","pileCode":"A300_12_MIDDLE_65","diameter":"D300","length":"12m","type":"Middle","status":"Đang Tháo Khuôn","rawStatus":"proDemoulding","qc":"Cần Chú Ý","customer":"AQUACITY","conTimeStr":"18:44","castingHour":18},{"id":54,"serial":"N/A","shift":"B","pileCode":"A300_12_MIDDLE_65","diameter":"D300","length":"12m","type":"Middle","status":"Đang Tháo Khuôn","rawStatus":"proDemoulding","qc":"Cần Chú Ý","customer":"AQUACITY","conTimeStr":"18:33","castingHour":18},{"id":55,"serial":"N/A","shift":"B","pileCode":"A300_12_MIDDLE_65","diameter":"D300","length":"12m","type":"Middle","status":"Đang Tháo Khuôn","rawStatus":"proDemoulding","qc":"Cần Chú Ý","customer":"AQUACITY","conTimeStr":"18:30","castingHour":18},{"id":56,"serial":"N/A","shift":"B","pileCode":"A300_12_MIDDLE_65","diameter":"D300","length":"12m","type":"Middle","status":"Đang Tháo Khuôn","rawStatus":"proDemoulding","qc":"Cần Chú Ý","customer":"AQUACITY","conTimeStr":"18:27","castingHour":18},{"id":57,"serial":"260811037","shift":"A","pileCode":"C90_A500_14_MIDDLE_85","diameter":"D500","length":"14m","type":"Middle","status":"Đã Nhập Kho","rawStatus":"proStocking","qc":"Cần Chú Ý","customer":"HOAPHATC90","conTimeStr":"18:24","castingHour":18},{"id":58,"serial":"260811038","shift":"A","pileCode":"C90_A500_14_MIDDLE_85","diameter":"D500","length":"14m","type":"Middle","status":"Đã Nhập Kho","rawStatus":"proStocking","qc":"Cần Chú Ý","customer":"HOAPHATC90","conTimeStr":"18:16","castingHour":18},{"id":59,"serial":"260811039","shift":"A","pileCode":"C90_A500_14_MIDDLE_85","diameter":"D500","length":"14m","type":"Middle","status":"Đã Nhập Kho","rawStatus":"proStocking","qc":"Cần Chú Ý","customer":"HOAPHATC90","conTimeStr":"18:05","castingHour":18},{"id":60,"serial":"260811040","shift":"A","pileCode":"C90_A500_14_MIDDLE_85","diameter":"D500","length":"14m","type":"Middle","status":"Đã Nhập Kho","rawStatus":"proStocking","qc":"Cần Chú Ý","customer":"HOAPHATC90","conTimeStr":"17:56","castingHour":17},{"id":61,"serial":"260811041","shift":"A","pileCode":"C90_A500_14_MIDDLE_85","diameter":"D500","length":"14m","type":"Middle","status":"Đã Nhập Kho","rawStatus":"proStocking","qc":"Cần Chú Ý","customer":"HOAPHATC90","conTimeStr":"17:56","castingHour":17},{"id":62,"serial":"260811042","shift":"A","pileCode":"C90_A500_15_MIDDLE_85","diameter":"D500","length":"15m","type":"Middle","status":"Đã Nhập Kho","rawStatus":"proStocking","qc":"Cần Chú Ý","customer":"HOAPHATC90","conTimeStr":"17:55","castingHour":17},{"id":63,"serial":"260811043","shift":"A","pileCode":"C90_A500_15_MIDDLE_85","diameter":"D500","length":"15m","type":"Middle","status":"Đã Nhập Kho","rawStatus":"proStocking","qc":"Cần Chú Ý","customer":"HOAPHATC90","conTimeStr":"17:53","castingHour":17},{"id":64,"serial":"260811046","shift":"A","pileCode":"C90_A500_15_MIDDLE_85","diameter":"D500","length":"15m","type":"Middle","status":"Đã Nhập Kho","rawStatus":"proStocking","qc":"Cần Chú Ý","customer":"HOAPHATC90","conTimeStr":"17:52","castingHour":17},{"id":65,"serial":"260811045","shift":"A","pileCode":"C90_A500_15_MIDDLE_85","diameter":"D500","length":"15m","type":"Middle","status":"Đã Nhập Kho","rawStatus":"proStocking","qc":"Cần Chú Ý","customer":"HOAPHATC90","conTimeStr":"17:00","castingHour":17},{"id":66,"serial":"260811053","shift":"A","pileCode":"C90_A400_9_MIDDLE_65","diameter":"D400","length":"9m","type":"Middle","status":"Đã Nhập Kho","rawStatus":"proStocking","qc":"Chưa Đạt (N.G)","customer":"SEAH2C90","conTimeStr":"16:41","castingHour":16},{"id":67,"serial":"260811054","shift":"A","pileCode":"C90_A400_7_MIDDLE_65","diameter":"D400","length":"7m","type":"Middle","status":"Đã Nhập Kho","rawStatus":"proStocking","qc":"Chưa Đạt (N.G)","customer":"SEAH2C90","conTimeStr":"16:41","castingHour":16},{"id":68,"serial":"260811044","shift":"A","pileCode":"C90_A500_15_MIDDLE_85","diameter":"D500","length":"15m","type":"Middle","status":"Đã Nhập Kho","rawStatus":"proStocking","qc":"Cần Chú Ý","customer":"HOAPHATC90","conTimeStr":"16:56","castingHour":16},{"id":69,"serial":"260811051","shift":"A","pileCode":"C90_A400_9_MIDDLE_65","diameter":"D400","length":"9m","type":"Middle","status":"Đã Nhập Kho","rawStatus":"proStocking","qc":"Chưa Đạt (N.G)","customer":"SEAH2C90","conTimeStr":"16:37","castingHour":16},{"id":70,"serial":"260811052","shift":"A","pileCode":"C90_A400_7_MIDDLE_65","diameter":"D400","length":"7m","type":"Middle","status":"Đã Nhập Kho","rawStatus":"proStocking","qc":"Chưa Đạt (N.G)","customer":"SEAH2C90","conTimeStr":"16:37","castingHour":16},{"id":71,"serial":"260811047","shift":"A","pileCode":"A400_8_MIDDLE_70","diameter":"D400","length":"8m","type":"Middle","status":"Đã Nhập Kho","rawStatus":"proStocking","qc":"Chưa Đạt (N.G)","customer":"TONDONGA","conTimeStr":"16:32","castingHour":16},{"id":72,"serial":"260811048","shift":"A","pileCode":"A400_8_MIDDLE_70","diameter":"D400","length":"8m","type":"Middle","status":"Đã Nhập Kho","rawStatus":"proStocking","qc":"Chưa Đạt (N.G)","customer":"TONDONGA","conTimeStr":"16:32","castingHour":16},{"id":73,"serial":"260811049","shift":"A","pileCode":"A400_8_MIDDLE_70","diameter":"D400","length":"8m","type":"Middle","status":"Đã Nhập Kho","rawStatus":"proStocking","qc":"Chưa Đạt (N.G)","customer":"TONDONGA","conTimeStr":"16:23","castingHour":16},{"id":74,"serial":"260811050","shift":"A","pileCode":"A400_8_MIDDLE_70","diameter":"D400","length":"8m","type":"Middle","status":"Đã Nhập Kho","rawStatus":"proStocking","qc":"Chưa Đạt (N.G)","customer":"TONDONGA","conTimeStr":"16:23","castingHour":16},{"id":75,"serial":"260811057","shift":"A","pileCode":"A400_14_MIDDLE_65","diameter":"D400","length":"14m","type":"Middle","status":"Đã Nhập Kho","rawStatus":"proStocking","qc":"Cần Chú Ý","customer":"VAMCO PORT","conTimeStr":"16:23","castingHour":16},{"id":76,"serial":"260811056","shift":"A","pileCode":"A400_14_MIDDLE_65","diameter":"D400","length":"14m","type":"Middle","status":"Đã Nhập Kho","rawStatus":"proStocking","qc":"Cần Chú Ý","customer":"VAMCO PORT","conTimeStr":"16:18","castingHour":16},{"id":77,"serial":"260811055","shift":"A","pileCode":"A400_14_MIDDLE_65","diameter":"D400","length":"14m","type":"Middle","status":"Đã Nhập Kho","rawStatus":"proStocking","qc":"Cần Chú Ý","customer":"VAMCO PORT","conTimeStr":"16:15","castingHour":16},{"id":78,"serial":"260811059","shift":"A","pileCode":"A400_14_MIDDLE_65","diameter":"D400","length":"14m","type":"Middle","status":"Đã Nhập Kho","rawStatus":"proStocking","qc":"Cần Chú Ý","customer":"VAMCO PORT","conTimeStr":"16:14","castingHour":16},{"id":79,"serial":"260811058","shift":"A","pileCode":"A400_14_MIDDLE_65","diameter":"D400","length":"14m","type":"Middle","status":"Đã Nhập Kho","rawStatus":"proStocking","qc":"Cần Chú Ý","customer":"VAMCO PORT","conTimeStr":"16:01","castingHour":16},{"id":80,"serial":"260811060","shift":"A","pileCode":"A400_12_MIDDLE_70","diameter":"D400","length":"12m","type":"Middle","status":"Đã Nhập Kho","rawStatus":"proStocking","qc":"Cần Chú Ý","customer":"TONDONGA","conTimeStr":"16:00","castingHour":16},{"id":81,"serial":"260811061","shift":"A","pileCode":"A400_12_MIDDLE_70","diameter":"D400","length":"12m","type":"Middle","status":"Đã Nhập Kho","rawStatus":"proStocking","qc":"Cần Chú Ý","customer":"TONDONGA","conTimeStr":"15:56","castingHour":15},{"id":82,"serial":"260811062","shift":"A","pileCode":"A400_11_MIDDLE_65","diameter":"D400","length":"11m","type":"Middle","status":"Đã Nhập Kho","rawStatus":"proStocking","qc":"Cần Chú Ý","customer":"VAMCO PORT","conTimeStr":"15:50","castingHour":15},{"id":83,"serial":"260811063","shift":"A","pileCode":"A400_11_MIDDLE_65","diameter":"D400","length":"11m","type":"Middle","status":"Đã Nhập Kho","rawStatus":"proStocking","qc":"Cần Chú Ý","customer":"VAMCO PORT","conTimeStr":"15:48","castingHour":15},{"id":84,"serial":"260811064","shift":"A","pileCode":"A400_11_MIDDLE_65","diameter":"D400","length":"11m","type":"Middle","status":"Đã Nhập Kho","rawStatus":"proStocking","qc":"Cần Chú Ý","customer":"VAMCO PORT","conTimeStr":"15:43","castingHour":15},{"id":85,"serial":"260811068","shift":"A","pileCode":"A400_11_MIDDLE_65","diameter":"D400","length":"11m","type":"Middle","status":"Đã Nhập Kho","rawStatus":"proStocking","qc":"Cần Chú Ý","customer":"VAMCO PORT","conTimeStr":"15:39","castingHour":15},{"id":86,"serial":"260811065","shift":"A","pileCode":"A400_11_MIDDLE_65","diameter":"D400","length":"11m","type":"Middle","status":"Đã Nhập Kho","rawStatus":"proStocking","qc":"Cần Chú Ý","customer":"VAMCO PORT","conTimeStr":"15:33","castingHour":15},{"id":87,"serial":"260811066","shift":"A","pileCode":"A400_11_MIDDLE_65","diameter":"D400","length":"11m","type":"Middle","status":"Đã Nhập Kho","rawStatus":"proStocking","qc":"Cần Chú Ý","customer":"VAMCO PORT","conTimeStr":"15:31","castingHour":15},{"id":88,"serial":"260811067","shift":"A","pileCode":"A400_11_MIDDLE_65","diameter":"D400","length":"11m","type":"Middle","status":"Đã Nhập Kho","rawStatus":"proStocking","qc":"Cần Chú Ý","customer":"VAMCO PORT","conTimeStr":"15:27","castingHour":15},{"id":89,"serial":"N/A","shift":"B","pileCode":"A400_11_MIDDLE_65","diameter":"D400","length":"11m","type":"Middle","status":"Đang Tháo Khuôn","rawStatus":"proDemoulding","qc":"Cần Chú Ý","customer":"VAMCO PORT","conTimeStr":"15:25","castingHour":15},{"id":90,"serial":"N/A","shift":"B","pileCode":"A400_11_MIDDLE_65","diameter":"D400","length":"11m","type":"Middle","status":"Đang Tháo Khuôn","rawStatus":"proDemoulding","qc":"Cần Chú Ý","customer":"VAMCO PORT","conTimeStr":"15:20","castingHour":15},{"id":91,"serial":"N/A","shift":"B","pileCode":"A400_11_MIDDLE_65","diameter":"D400","length":"11m","type":"Middle","status":"Đang Tháo Khuôn","rawStatus":"proDemoulding","qc":"Cần Chú Ý","customer":"VAMCO PORT","conTimeStr":"15:17","castingHour":15},{"id":92,"serial":"N/A","shift":"B","pileCode":"A400_11_MIDDLE_65","diameter":"D400","length":"11m","type":"Middle","status":"Đang Tháo Khuôn","rawStatus":"proDemoulding","qc":"Cần Chú Ý","customer":"VAMCO PORT","conTimeStr":"15:11","castingHour":15},{"id":93,"serial":"N/A","shift":"B","pileCode":"A400_11_MIDDLE_65","diameter":"D400","length":"11m","type":"Middle","status":"Đang Tháo Khuôn","rawStatus":"proDemoulding","qc":"Cần Chú Ý","customer":"VAMCO PORT","conTimeStr":"15:06","castingHour":15},{"id":94,"serial":"N/A","shift":"B","pileCode":"A400_11_MIDDLE_65","diameter":"D400","length":"11m","type":"Middle","status":"Đang Tháo Khuôn","rawStatus":"proDemoulding","qc":"Cần Chú Ý","customer":"VAMCO PORT","conTimeStr":"15:04","castingHour":15},{"id":95,"serial":"N/A","shift":"B","pileCode":"A400_11_MIDDLE_65","diameter":"D400","length":"11m","type":"Middle","status":"Đang Tháo Khuôn","rawStatus":"proDemoulding","qc":"Cần Chú Ý","customer":"VAMCO PORT","conTimeStr":"14:58","castingHour":14},{"id":96,"serial":"N/A","shift":"B","pileCode":"C90_A300_7_MIDDLE_60","diameter":"D300","length":"7m","type":"Middle","status":"Đang Tháo Khuôn","rawStatus":"proDemoulding","qc":"Chưa Đạt (N.G)","customer":"PHANTHIETC90","conTimeStr":"14:54","castingHour":14},{"id":97,"serial":"N/A","shift":"B","pileCode":"C90_A300_7_MIDDLE_60","diameter":"D300","length":"7m","type":"Middle","status":"Đang Tháo Khuôn","rawStatus":"proDemoulding","qc":"Chưa Đạt (N.G)","customer":"PHANTHIETC90","conTimeStr":"14:54","castingHour":14},{"id":98,"serial":"N/A","shift":"B","pileCode":"C90_A300_7_MIDDLE_60","diameter":"D300","length":"7m","type":"Middle","status":"Đang Tháo Khuôn","rawStatus":"proDemoulding","qc":"Chưa Đạt (N.G)","customer":"PHANTHIETC90","conTimeStr":"14:53","castingHour":14},{"id":99,"serial":"N/A","shift":"B","pileCode":"C90_A300_7_MIDDLE_60","diameter":"D300","length":"7m","type":"Middle","status":"Đang Tháo Khuôn","rawStatus":"proDemoulding","qc":"Chưa Đạt (N.G)","customer":"PHANTHIETC90","conTimeStr":"14:53","castingHour":14},{"id":100,"serial":"N/A","shift":"B","pileCode":"C90_A300_7_MIDDLE_60","diameter":"D300","length":"7m","type":"Middle","status":"Đang Tháo Khuôn","rawStatus":"proDemoulding","qc":"Chưa Đạt (N.G)","customer":"PHANTHIETC90","conTimeStr":"14:40","castingHour":14},{"id":101,"serial":"N/A","shift":"B","pileCode":"C90_A300_7_MIDDLE_60","diameter":"D300","length":"7m","type":"Middle","status":"Đang Tháo Khuôn","rawStatus":"proDemoulding","qc":"Chưa Đạt (N.G)","customer":"PHANTHIETC90","conTimeStr":"14:40","castingHour":14},{"id":102,"serial":"N/A","shift":"B","pileCode":"C90_A300_7_MIDDLE_60","diameter":"D300","length":"7m","type":"Middle","status":"Đang Tháo Khuôn","rawStatus":"proDemoulding","qc":"Chưa Đạt (N.G)","customer":"PHANTHIETC90","conTimeStr":"14:40","castingHour":14},{"id":103,"serial":"N/A","shift":"B","pileCode":"C90_A300_7_MIDDLE_60","diameter":"D300","length":"7m","type":"Middle","status":"Đang Tháo Khuôn","rawStatus":"proDemoulding","qc":"Chưa Đạt (N.G)","customer":"PHANTHIETC90","conTimeStr":"14:40","castingHour":14},{"id":104,"serial":"N/A","shift":"B","pileCode":"C90_A300_7_MIDDLE_60","diameter":"D300","length":"7m","type":"Middle","status":"Đang Tháo Khuôn","rawStatus":"proDemoulding","qc":"Chưa Đạt (N.G)","customer":"PHANTHIETC90","conTimeStr":"14:35","castingHour":14},{"id":105,"serial":"N/A","shift":"B","pileCode":"C90_A300_7_MIDDLE_60","diameter":"D300","length":"7m","type":"Middle","status":"Đang Tháo Khuôn","rawStatus":"proDemoulding","qc":"Chưa Đạt (N.G)","customer":"PHANTHIETC90","conTimeStr":"14:35","castingHour":14},{"id":106,"serial":"N/A","shift":"B","pileCode":"C90_A300_7_MIDDLE_60","diameter":"D300","length":"7m","type":"Middle","status":"Đang Tháo Khuôn","rawStatus":"proDemoulding","qc":"Chưa Đạt (N.G)","customer":"PHANTHIETC90","conTimeStr":"14:23","castingHour":14},{"id":107,"serial":"N/A","shift":"B","pileCode":"C90_A300_7_MIDDLE_60","diameter":"D300","length":"7m","type":"Middle","status":"Đang Tháo Khuôn","rawStatus":"proDemoulding","qc":"Chưa Đạt (N.G)","customer":"PHANTHIETC90","conTimeStr":"14:23","castingHour":14},{"id":108,"serial":"N/A","shift":"B","pileCode":"C90_A300_7_MIDDLE_60","diameter":"D300","length":"7m","type":"Middle","status":"Đang Tháo Khuôn","rawStatus":"proDemoulding","qc":"Chưa Đạt (N.G)","customer":"PHANTHIETC90","conTimeStr":"14:17","castingHour":14},{"id":109,"serial":"N/A","shift":"B","pileCode":"C90_A300_7_MIDDLE_60","diameter":"D300","length":"7m","type":"Middle","status":"Đang Tháo Khuôn","rawStatus":"proDemoulding","qc":"Chưa Đạt (N.G)","customer":"PHANTHIETC90","conTimeStr":"14:17","castingHour":14},{"id":110,"serial":"N/A","shift":"B","pileCode":"C90_A300_7_MIDDLE_60","diameter":"D300","length":"7m","type":"Middle","status":"Đang Tháo Khuôn","rawStatus":"proDemoulding","qc":"Chưa Đạt (N.G)","customer":"PHANTHIETC90","conTimeStr":"14:14","castingHour":14},{"id":111,"serial":"N/A","shift":"B","pileCode":"C90_A300_7_MIDDLE_60","diameter":"D300","length":"7m","type":"Middle","status":"Đang Tháo Khuôn","rawStatus":"proDemoulding","qc":"Chưa Đạt (N.G)","customer":"PHANTHIETC90","conTimeStr":"14:14","castingHour":14},{"id":112,"serial":"N/A","shift":"B","pileCode":"C90_A300_7_MIDDLE_60","diameter":"D300","length":"7m","type":"Middle","status":"Đang Tháo Khuôn","rawStatus":"proDemoulding","qc":"Chưa Đạt (N.G)","customer":"PHANTHIETC90","conTimeStr":"14:05","castingHour":14},{"id":113,"serial":"N/A","shift":"B","pileCode":"C90_A300_7_MIDDLE_60","diameter":"D300","length":"7m","type":"Middle","status":"Đang Tháo Khuôn","rawStatus":"proDemoulding","qc":"Chưa Đạt (N.G)","customer":"PHANTHIETC90","conTimeStr":"14:05","castingHour":14},{"id":114,"serial":"N/A","shift":"B","pileCode":"C90_A300_7_MIDDLE_60","diameter":"D300","length":"7m","type":"Middle","status":"Đang Tháo Khuôn","rawStatus":"proDemoulding","qc":"Chưa Đạt (N.G)","customer":"PHANTHIETC90","conTimeStr":"14:00","castingHour":14},{"id":115,"serial":"N/A","shift":"B","pileCode":"C90_A300_7_MIDDLE_60","diameter":"D300","length":"7m","type":"Middle","status":"Đang Tháo Khuôn","rawStatus":"proDemoulding","qc":"Chưa Đạt (N.G)","customer":"PHANTHIETC90","conTimeStr":"14:00","castingHour":14},{"id":116,"serial":"N/A","shift":"B","pileCode":"C90_A300_7_MIDDLE_60","diameter":"D300","length":"7m","type":"Middle","status":"Đang Tháo Khuôn","rawStatus":"proDemoulding","qc":"Chưa Đạt (N.G)","customer":"PHANTHIETC90","conTimeStr":"13:54","castingHour":13},{"id":117,"serial":"N/A","shift":"B","pileCode":"C90_A300_7_MIDDLE_60","diameter":"D300","length":"7m","type":"Middle","status":"Đang Tháo Khuôn","rawStatus":"proDemoulding","qc":"Chưa Đạt (N.G)","customer":"PHANTHIETC90","conTimeStr":"13:54","castingHour":13},{"id":118,"serial":"N/A","shift":"B","pileCode":"A350_12_MIDDLE_60","diameter":"D350","length":"12m","type":"Middle","status":"Đang Tháo Khuôn","rawStatus":"proDemoulding","qc":"Cần Chú Ý","customer":"SUNNHATRANG","conTimeStr":"13:46","castingHour":13},{"id":119,"serial":"N/A","shift":"B","pileCode":"A350_12_MIDDLE_65","diameter":"D350","length":"12m","type":"Middle","status":"Đang Tháo Khuôn","rawStatus":"proDemoulding","qc":"Cần Chú Ý","customer":"AQUACITY","conTimeStr":"13:41","castingHour":13},{"id":120,"serial":"N/A","shift":"B","pileCode":"A350_12_MIDDLE_65","diameter":"D350","length":"12m","type":"Middle","status":"Đang Tháo Khuôn","rawStatus":"proDemoulding","qc":"Cần Chú Ý","customer":"AQUACITY","conTimeStr":"13:39","castingHour":13},{"id":121,"serial":"N/A","shift":"B","pileCode":"A350_12_MIDDLE_65","diameter":"D350","length":"12m","type":"Middle","status":"Đang Tháo Khuôn","rawStatus":"proDemoulding","qc":"Cần Chú Ý","customer":"AQUACITY","conTimeStr":"13:35","castingHour":13},{"id":122,"serial":"N/A","shift":"B","pileCode":"A350_12_MIDDLE_65","diameter":"D350","length":"12m","type":"Middle","status":"Đang Tháo Khuôn","rawStatus":"proDemoulding","qc":"Cần Chú Ý","customer":"AQUACITY","conTimeStr":"13:34","castingHour":13},{"id":123,"serial":"N/A","shift":"B","pileCode":"A350_12_MIDDLE_65","diameter":"D350","length":"12m","type":"Middle","status":"Đang Tháo Khuôn","rawStatus":"proDemoulding","qc":"Cần Chú Ý","customer":"AQUACITY","conTimeStr":"13:33","castingHour":13},{"id":124,"serial":"N/A","shift":"B","pileCode":"A350_12_MIDDLE_65","diameter":"D350","length":"12m","type":"Middle","status":"Đang Tháo Khuôn","rawStatus":"proDemoulding","qc":"Cần Chú Ý","customer":"AQUACITY","conTimeStr":"13:24","castingHour":13},{"id":125,"serial":"N/A","shift":"B","pileCode":"A350_7_MIDDLE_60","diameter":"D350","length":"7m","type":"Middle","status":"Đang Tháo Khuôn","rawStatus":"proDemoulding","qc":"Chưa Đạt (N.G)","customer":"SUNNHATRANG","conTimeStr":"13:23","castingHour":13},{"id":126,"serial":"N/A","shift":"B","pileCode":"A350_7_MIDDLE_60","diameter":"D350","length":"7m","type":"Middle","status":"Đang Tháo Khuôn","rawStatus":"proDemoulding","qc":"Chưa Đạt (N.G)","customer":"SUNNHATRANG","conTimeStr":"13:23","castingHour":13},{"id":127,"serial":"N/A","shift":"B","pileCode":"A350_7_MIDDLE_60","diameter":"D350","length":"7m","type":"Middle","status":"Đang Tháo Khuôn","rawStatus":"proDemoulding","qc":"Chưa Đạt (N.G)","customer":"SUNNHATRANG","conTimeStr":"13:22","castingHour":13},{"id":128,"serial":"N/A","shift":"B","pileCode":"A350_7_MIDDLE_60","diameter":"D350","length":"7m","type":"Middle","status":"Đang Tháo Khuôn","rawStatus":"proDemoulding","qc":"Chưa Đạt (N.G)","customer":"SUNNHATRANG","conTimeStr":"13:22","castingHour":13},{"id":129,"serial":"N/A","shift":"B","pileCode":"A350_7_MIDDLE_60","diameter":"D350","length":"7m","type":"Middle","status":"Đang Tháo Khuôn","rawStatus":"proDemoulding","qc":"Chưa Đạt (N.G)","customer":"SUNNHATRANG","conTimeStr":"13:13","castingHour":13},{"id":130,"serial":"N/A","shift":"B","pileCode":"A350_7_MIDDLE_60","diameter":"D350","length":"7m","type":"Middle","status":"Đang Tháo Khuôn","rawStatus":"proDemoulding","qc":"Chưa Đạt (N.G)","customer":"SUNNHATRANG","conTimeStr":"13:13","castingHour":13},{"id":131,"serial":"N/A","shift":"B","pileCode":"A350_7_MIDDLE_60","diameter":"D350","length":"7m","type":"Middle","status":"Đang Tháo Khuôn","rawStatus":"proDemoulding","qc":"Chưa Đạt (N.G)","customer":"SUNNHATRANG","conTimeStr":"13:04","castingHour":13},{"id":132,"serial":"N/A","shift":"B","pileCode":"A350_7_MIDDLE_60","diameter":"D350","length":"7m","type":"Middle","status":"Đang Tháo Khuôn","rawStatus":"proDemoulding","qc":"Chưa Đạt (N.G)","customer":"SUNNHATRANG","conTimeStr":"13:04","castingHour":13},{"id":133,"serial":"N/A","shift":"B","pileCode":"A350_7_MIDDLE_60","diameter":"D350","length":"7m","type":"Middle","status":"Đang Tháo Khuôn","rawStatus":"proDemoulding","qc":"Chưa Đạt (N.G)","customer":"SUNNHATRANG","conTimeStr":"12:00","castingHour":12},{"id":134,"serial":"N/A","shift":"B","pileCode":"A350_7_MIDDLE_60","diameter":"D350","length":"7m","type":"Middle","status":"Đang Tháo Khuôn","rawStatus":"proDemoulding","qc":"Chưa Đạt (N.G)","customer":"SUNNHATRANG","conTimeStr":"12:00","castingHour":12},{"id":135,"serial":"260810166","shift":"A","pileCode":"A400_8_MIDDLE_70","diameter":"D400","length":"8m","type":"Middle","status":"Đã Nhập Kho","rawStatus":"proStocking","qc":"Chưa Đạt (N.G)","customer":"TONDONGA","conTimeStr":"12:00","castingHour":12},{"id":136,"serial":"260810167","shift":"A","pileCode":"A400_8_MIDDLE_70","diameter":"D400","length":"8m","type":"Middle","status":"Đã Nhập Kho","rawStatus":"proStocking","qc":"Chưa Đạt (N.G)","customer":"TONDONGA","conTimeStr":"12:00","castingHour":12},{"id":137,"serial":"260810174","shift":"A","pileCode":"A350_10_MIDDLE_60","diameter":"D350","length":"10m","type":"Middle","status":"Đã Nhập Kho","rawStatus":"proStocking","qc":"Chưa Đạt (N.G)","customer":"SUNNHATRANG","conTimeStr":"11:59","castingHour":11},{"id":138,"serial":"260810175","shift":"A","pileCode":"A350_6_MIDDLE_60","diameter":"D350","length":"6m","type":"Middle","status":"Đã Nhập Kho","rawStatus":"proStocking","qc":"Chưa Đạt (N.G)","customer":"SUNNHATRANG","conTimeStr":"11:59","castingHour":11},{"id":139,"serial":"260810168","shift":"A","pileCode":"A350_10_MIDDLE_60","diameter":"D350","length":"10m","type":"Middle","status":"Đã Nhập Kho","rawStatus":"proStocking","qc":"Chưa Đạt (N.G)","customer":"SUNNHATRANG","conTimeStr":"11:56","castingHour":11},{"id":140,"serial":"260810169","shift":"A","pileCode":"A350_6_MIDDLE_60","diameter":"D350","length":"6m","type":"Middle","status":"Đã Nhập Kho","rawStatus":"proStocking","qc":"Chưa Đạt (N.G)","customer":"SUNNHATRANG","conTimeStr":"11:56","castingHour":11},{"id":141,"serial":"260810170","shift":"A","pileCode":"A350_10_MIDDLE_60","diameter":"D350","length":"10m","type":"Middle","status":"Đã Nhập Kho","rawStatus":"proStocking","qc":"Chưa Đạt (N.G)","customer":"SUNNHATRANG","conTimeStr":"11:55","castingHour":11},{"id":142,"serial":"260810171","shift":"A","pileCode":"A350_6_MIDDLE_60","diameter":"D350","length":"6m","type":"Middle","status":"Đã Nhập Kho","rawStatus":"proStocking","qc":"Chưa Đạt (N.G)","customer":"SUNNHATRANG","conTimeStr":"11:55","castingHour":11},{"id":143,"serial":"260810172","shift":"A","pileCode":"A350_10_MIDDLE_60","diameter":"D350","length":"10m","type":"Middle","status":"Đã Nhập Kho","rawStatus":"proStocking","qc":"Chưa Đạt (N.G)","customer":"SUNNHATRANG","conTimeStr":"11:51","castingHour":11},{"id":144,"serial":"260810173","shift":"A","pileCode":"A350_6_MIDDLE_60","diameter":"D350","length":"6m","type":"Middle","status":"Đã Nhập Kho","rawStatus":"proStocking","qc":"Chưa Đạt (N.G)","customer":"SUNNHATRANG","conTimeStr":"11:51","castingHour":11},{"id":145,"serial":"260810176","shift":"A","pileCode":"A350_10_MIDDLE_60","diameter":"D350","length":"10m","type":"Middle","status":"Đã Nhập Kho","rawStatus":"proStocking","qc":"Chưa Đạt (N.G)","customer":"SUNNHATRANG","conTimeStr":"11:29","castingHour":11},{"id":146,"serial":"260810177","shift":"A","pileCode":"A350_6_MIDDLE_60","diameter":"D350","length":"6m","type":"Middle","status":"Đã Nhập Kho","rawStatus":"proStocking","qc":"Chưa Đạt (N.G)","customer":"SUNNHATRANG","conTimeStr":"11:29","castingHour":11},{"id":147,"serial":"260810181","shift":"A","pileCode":"A350_12_MIDDLE_65","diameter":"D350","length":"12m","type":"Middle","status":"Đã Nhập Kho","rawStatus":"proStocking","qc":"Cần Chú Ý","customer":"AQUACITY","conTimeStr":"11:28","castingHour":11},{"id":148,"serial":"260810180","shift":"A","pileCode":"A350_12_MIDDLE_65","diameter":"D350","length":"12m","type":"Middle","status":"Đã Nhập Kho","rawStatus":"proStocking","qc":"Cần Chú Ý","customer":"AQUACITY","conTimeStr":"11:21","castingHour":11},{"id":149,"serial":"260810179","shift":"A","pileCode":"A350_12_MIDDLE_65","diameter":"D350","length":"12m","type":"Middle","status":"Đã Nhập Kho","rawStatus":"proStocking","qc":"Cần Chú Ý","customer":"AQUACITY","conTimeStr":"11:17","castingHour":11},{"id":150,"serial":"260810178","shift":"A","pileCode":"A350_12_MIDDLE_65","diameter":"D350","length":"12m","type":"Middle","status":"Đã Nhập Kho","rawStatus":"proStocking","qc":"Cần Chú Ý","customer":"AQUACITY","conTimeStr":"11:14","castingHour":11},{"id":151,"serial":"260810148","shift":"A","pileCode":"A400_14_MIDDLE_65","diameter":"D400","length":"14m","type":"Middle","status":"Đã Nhập Kho","rawStatus":"proStocking","qc":"Cần Chú Ý","customer":"VAMCO PORT","conTimeStr":"11:12","castingHour":11},{"id":152,"serial":"260810149","shift":"A","pileCode":"A400_14_MIDDLE_65","diameter":"D400","length":"14m","type":"Middle","status":"Đã Nhập Kho","rawStatus":"proStocking","qc":"Cần Chú Ý","customer":"VAMCO PORT","conTimeStr":"10:51","castingHour":10},{"id":153,"serial":"260810150","shift":"A","pileCode":"A400_14_MIDDLE_65","diameter":"D400","length":"14m","type":"Middle","status":"Đã Nhập Kho","rawStatus":"proStocking","qc":"Cần Chú Ý","customer":"VAMCO PORT","conTimeStr":"11:09","castingHour":11},{"id":154,"serial":"260810151","shift":"A","pileCode":"A400_14_MIDDLE_65","diameter":"D400","length":"14m","type":"Middle","status":"Đã Nhập Kho","rawStatus":"proStocking","qc":"Cần Chú Ý","customer":"VAMCO PORT","conTimeStr":"11:02","castingHour":11},{"id":155,"serial":"260810152","shift":"A","pileCode":"A400_14_MIDDLE_65","diameter":"D400","length":"14m","type":"Middle","status":"Đã Nhập Kho","rawStatus":"proStocking","qc":"Cần Chú Ý","customer":"VAMCO PORT","conTimeStr":"10:52","castingHour":10},{"id":156,"serial":"260810153","shift":"A","pileCode":"A400_12_MIDDLE_70","diameter":"D400","length":"12m","type":"Middle","status":"Đã Nhập Kho","rawStatus":"proStocking","qc":"Cần Chú Ý","customer":"TONDONGA","conTimeStr":"10:47","castingHour":10},{"id":157,"serial":"260810154","shift":"A","pileCode":"A400_12_MIDDLE_70","diameter":"D400","length":"12m","type":"Middle","status":"Đã Nhập Kho","rawStatus":"proStocking","qc":"Cần Chú Ý","customer":"TONDONGA","conTimeStr":"10:44","castingHour":10},{"id":158,"serial":"260810155","shift":"A","pileCode":"A400_12_MIDDLE_70","diameter":"D400","length":"12m","type":"Middle","status":"Đã Nhập Kho","rawStatus":"proStocking","qc":"Cần Chú Ý","customer":"TONDONGA","conTimeStr":"10:44","castingHour":10},{"id":159,"serial":"260810156","shift":"A","pileCode":"A400_12_MIDDLE_70","diameter":"D400","length":"12m","type":"Middle","status":"Đã Nhập Kho","rawStatus":"proStocking","qc":"Cần Chú Ý","customer":"TONDONGA","conTimeStr":"10:43","castingHour":10},{"id":160,"serial":"260810157","shift":"A","pileCode":"A400_12_MIDDLE_70","diameter":"D400","length":"12m","type":"Middle","status":"Đã Nhập Kho","rawStatus":"proStocking","qc":"Cần Chú Ý","customer":"TONDONGA","conTimeStr":"10:42","castingHour":10},{"id":161,"serial":"260810158","shift":"A","pileCode":"A400_12_MIDDLE_70","diameter":"D400","length":"12m","type":"Middle","status":"Đã Nhập Kho","rawStatus":"proStocking","qc":"Cần Chú Ý","customer":"TONDONGA","conTimeStr":"10:41","castingHour":10},{"id":162,"serial":"260810159","shift":"A","pileCode":"A400_12_MIDDLE_70","diameter":"D400","length":"12m","type":"Middle","status":"Đã Nhập Kho","rawStatus":"proStocking","qc":"Cần Chú Ý","customer":"TONDONGA","conTimeStr":"10:29","castingHour":10},{"id":163,"serial":"260810160","shift":"A","pileCode":"A400_11_MIDDLE_65","diameter":"D400","length":"11m","type":"Middle","status":"Đã Nhập Kho","rawStatus":"proStocking","qc":"Cần Chú Ý","customer":"VAMCO PORT","conTimeStr":"10:28","castingHour":10},{"id":164,"serial":"N/A","shift":"B","pileCode":"A300_12_MIDDLE_65","diameter":"D300","length":"12m","type":"Middle","status":"Đang Tháo Khuôn","rawStatus":"proDemoulding","qc":"Cần Chú Ý","customer":"AQUACITY","conTimeStr":"10:10","castingHour":10},{"id":165,"serial":"260810182","shift":"A","pileCode":"A300_10_MIDDLE_65","diameter":"D300","length":"10m","type":"Middle","status":"Đã Nhập Kho","rawStatus":"proStocking","qc":"Cần Chú Ý","customer":"AQUACITY","conTimeStr":"10:10","castingHour":10},{"id":166,"serial":"260810183","shift":"A","pileCode":"A300_10_MIDDLE_65","diameter":"D300","length":"10m","type":"Middle","status":"Đã Nhập Kho","rawStatus":"proStocking","qc":"Cần Chú Ý","customer":"AQUACITY","conTimeStr":"10:07","castingHour":10},{"id":167,"serial":"260810184","shift":"A","pileCode":"A300_10_MIDDLE_65","diameter":"D300","length":"10m","type":"Middle","status":"Đã Nhập Kho","rawStatus":"proStocking","qc":"Cần Chú Ý","customer":"AQUACITY","conTimeStr":"10:06","castingHour":10},{"id":168,"serial":"260810185","shift":"A","pileCode":"A300_10_MIDDLE_60","diameter":"D300","length":"10m","type":"Middle","status":"Đã Nhập Kho","rawStatus":"proStocking","qc":"Cần Chú Ý","customer":"VAMCO PORT","conTimeStr":"10:06","castingHour":10},{"id":169,"serial":"260810186","shift":"A","pileCode":"A300_10_MIDDLE_60","diameter":"D300","length":"10m","type":"Middle","status":"Đã Nhập Kho","rawStatus":"proStocking","qc":"Cần Chú Ý","customer":"VAMCO PORT","conTimeStr":"10:05","castingHour":10},{"id":170,"serial":"260810187","shift":"A","pileCode":"A300_10_MIDDLE_60","diameter":"D300","length":"10m","type":"Middle","status":"Đã Nhập Kho","rawStatus":"proStocking","qc":"Cần Chú Ý","customer":"VAMCO PORT","conTimeStr":"09:57","castingHour":9},{"id":171,"serial":"260810191","shift":"A","pileCode":"A300_10_MIDDLE_60","diameter":"D300","length":"10m","type":"Middle","status":"Đã Nhập Kho","rawStatus":"proStocking","qc":"Cần Chú Ý","customer":"VAMCO PORT","conTimeStr":"09:47","castingHour":9},{"id":172,"serial":"260810190","shift":"A","pileCode":"A300_10_MIDDLE_60","diameter":"D300","length":"10m","type":"Middle","status":"Đã Nhập Kho","rawStatus":"proStocking","qc":"Cần Chú Ý","customer":"VAMCO PORT","conTimeStr":"09:43","castingHour":9},{"id":173,"serial":"260810189","shift":"A","pileCode":"A300_10_MIDDLE_60","diameter":"D300","length":"10m","type":"Middle","status":"Đã Nhập Kho","rawStatus":"proStocking","qc":"Cần Chú Ý","customer":"VAMCO PORT","conTimeStr":"09:38","castingHour":9},{"id":174,"serial":"260810188","shift":"A","pileCode":"A300_10_MIDDLE_60","diameter":"D300","length":"10m","type":"Middle","status":"Đã Nhập Kho","rawStatus":"proStocking","qc":"Cần Chú Ý","customer":"VAMCO PORT","conTimeStr":"09:36","castingHour":9},{"id":175,"serial":"260810135","shift":"A","pileCode":"A300_10_MIDDLE_60","diameter":"D300","length":"10m","type":"Middle","status":"Đã Nhập Kho","rawStatus":"proStocking","qc":"Cần Chú Ý","customer":"VAMCO PORT","conTimeStr":"09:32","castingHour":9},{"id":176,"serial":"260810136","shift":"A","pileCode":"A300_10_MIDDLE_60","diameter":"D300","length":"10m","type":"Middle","status":"Đã Nhập Kho","rawStatus":"proStocking","qc":"Cần Chú Ý","customer":"VAMCO PORT","conTimeStr":"09:31","castingHour":9},{"id":177,"serial":"260810137","shift":"A","pileCode":"A300_10_MIDDLE_60","diameter":"D300","length":"10m","type":"Middle","status":"Đã Nhập Kho","rawStatus":"proStocking","qc":"Cần Chú Ý","customer":"VAMCO PORT","conTimeStr":"09:28","castingHour":9},{"id":178,"serial":"260810138","shift":"A","pileCode":"A300_10_MIDDLE_60","diameter":"D300","length":"10m","type":"Middle","status":"Đã Nhập Kho","rawStatus":"proStocking","qc":"Cần Chú Ý","customer":"VAMCO PORT","conTimeStr":"09:19","castingHour":9},{"id":179,"serial":"260810141","shift":"A","pileCode":"A300_10_MIDDLE_60","diameter":"D300","length":"10m","type":"Middle","status":"Đã Nhập Kho","rawStatus":"proStocking","qc":"Cần Chú Ý","customer":"VAMCO PORT","conTimeStr":"09:13","castingHour":9},{"id":180,"serial":"260810140","shift":"A","pileCode":"A300_10_MIDDLE_60","diameter":"D300","length":"10m","type":"Middle","status":"Đã Nhập Kho","rawStatus":"proStocking","qc":"Cần Chú Ý","customer":"VAMCO PORT","conTimeStr":"09:09","castingHour":9},{"id":181,"serial":"260810139","shift":"A","pileCode":"A300_10_MIDDLE_60","diameter":"D300","length":"10m","type":"Middle","status":"Đã Nhập Kho","rawStatus":"proStocking","qc":"Cần Chú Ý","customer":"VAMCO PORT","conTimeStr":"09:08","castingHour":9},{"id":182,"serial":"260810142","shift":"A","pileCode":"A300_10_MIDDLE_60","diameter":"D300","length":"10m","type":"Middle","status":"Đã Nhập Kho","rawStatus":"proStocking","qc":"Cần Chú Ý","customer":"VAMCO PORT","conTimeStr":"09:00","castingHour":9},{"id":183,"serial":"260810143","shift":"A","pileCode":"A300_10_MIDDLE_60","diameter":"D300","length":"10m","type":"Middle","status":"Đã Nhập Kho","rawStatus":"proStocking","qc":"Cần Chú Ý","customer":"VAMCO PORT","conTimeStr":"08:55","castingHour":8},{"id":184,"serial":"260810144","shift":"A","pileCode":"A300_10_MIDDLE_60","diameter":"D300","length":"10m","type":"Middle","status":"Đã Nhập Kho","rawStatus":"proStocking","qc":"Cần Chú Ý","customer":"VAMCO PORT","conTimeStr":"08:54","castingHour":8},{"id":185,"serial":"260810145","shift":"A","pileCode":"A300_10_MIDDLE_60","diameter":"D300","length":"10m","type":"Middle","status":"Đã Nhập Kho","rawStatus":"proStocking","qc":"Cần Chú Ý","customer":"VAMCO PORT","conTimeStr":"08:53","castingHour":8},{"id":186,"serial":"260810146","shift":"A","pileCode":"A300_10_MIDDLE_60","diameter":"D300","length":"10m","type":"Middle","status":"Đã Nhập Kho","rawStatus":"proStocking","qc":"Cần Chú Ý","customer":"VAMCO PORT","conTimeStr":"08:41","castingHour":8},{"id":187,"serial":"260810147","shift":"A","pileCode":"A300_10_MIDDLE_60","diameter":"D300","length":"10m","type":"Middle","status":"Đã Nhập Kho","rawStatus":"proStocking","qc":"Cần Chú Ý","customer":"VAMCO PORT","conTimeStr":"08:40","castingHour":8},{"id":188,"serial":"260810161","shift":"A","pileCode":"A400_10_MIDDLE_65","diameter":"D400","length":"10m","type":"Middle","status":"Đã Nhập Kho","rawStatus":"proStocking","qc":"Cần Chú Ý","customer":"KSM ENGVINA","conTimeStr":"08:33","castingHour":8},{"id":189,"serial":"260810164","shift":"A","pileCode":"A400_10_MIDDLE_65","diameter":"D400","length":"10m","type":"Middle","status":"Đã Nhập Kho","rawStatus":"proStocking","qc":"Cần Chú Ý","customer":"KSM ENGVINA","conTimeStr":"08:29","castingHour":8},{"id":190,"serial":"260810163","shift":"A","pileCode":"A400_10_MIDDLE_65","diameter":"D400","length":"10m","type":"Middle","status":"Đã Nhập Kho","rawStatus":"proStocking","qc":"Cần Chú Ý","customer":"KSM ENGVINA","conTimeStr":"08:26","castingHour":8},{"id":191,"serial":"260810165","shift":"A","pileCode":"A400_10_MIDDLE_65","diameter":"D400","length":"10m","type":"Middle","status":"Đã Nhập Kho","rawStatus":"proStocking","qc":"Cần Chú Ý","customer":"KSM ENGVINA","conTimeStr":"08:20","castingHour":8},{"id":192,"serial":"260810162","shift":"A","pileCode":"A400_10_MIDDLE_65","diameter":"D400","length":"10m","type":"Middle","status":"Đã Nhập Kho","rawStatus":"proStocking","qc":"Cần Chú Ý","customer":"KSM ENGVINA","conTimeStr":"08:19","castingHour":8}];
+
+        // --- DASHBOARD LOGIC ---
+        function initDashboard() {
+            // Update Clock
+            const updateTime = () => {
+                const now = new Date();
+                document.getElementById('current-date').textContent = now.toLocaleDateString('vi-VN');
+                document.getElementById('current-time').textContent = now.toLocaleTimeString('vi-VN');
+            };
+            setInterval(updateTime, 1000);
+            updateTime();
+
+            const totalCount = RAW_DATA.length;
+            const shiftA = RAW_DATA.filter(d => d.shift === 'A').length;
+            const shiftB = RAW_DATA.filter(d => d.shift === 'B').length;
+            
+            // Calculate diameter counts
+            const diaCounts = {};
+            RAW_DATA.forEach(d => {
+                const dia = d.diameter;
+                diaCounts[dia] = (diaCounts[dia] || 0) + 1;
+            });
+            
+            // Find top diameter
+            let topDia = "N/A";
+            let topDiaCount = 0;
+            for(const [dia, count] of Object.entries(diaCounts)) {
+                if(count > topDiaCount) {
+                    topDiaCount = count;
+                    topDia = dia;
+                }
+            }
+
+            // Update KPI DOM
+            document.getElementById('kpi-total').textContent = totalCount;
+            document.getElementById('kpi-shift-a').textContent = shiftA;
+            document.getElementById('kpi-shift-b').textContent = shiftB;
+            
+            if(totalCount > 0) {
+                document.getElementById('kpi-shift-a-percent').textContent = Math.round((shiftA / totalCount) * 100) + '% tổng sản lượng';
+                document.getElementById('kpi-shift-b-percent').textContent = Math.round((shiftB / totalCount) * 100) + '% tổng sản lượng';
+            }
+            
+            document.getElementById('kpi-top-dia').textContent = topDia;
+            document.getElementById('kpi-top-dia-count').textContent = topDiaCount + ' cọc';
+
+            // Render Chart
+            renderChart(diaCounts);
+
+            // Render Table (Top 10)
+            renderTable(RAW_DATA.slice(0, 10));
+        }
+
+        function renderChart(diaCounts) {
+            const ctx = document.getElementById('diameterChart').getContext('2d');
+            
+            // Sort labels for consistent display
+            const labels = Object.keys(diaCounts).sort();
+            const data = labels.map(l => diaCounts[l]);
+            
+            // Gradient fill
+            const gradient = ctx.createLinearGradient(0, 0, 0, 400);
+            gradient.addColorStop(0, 'rgba(14, 165, 233, 0.8)'); // accent color
+            gradient.addColorStop(1, 'rgba(14, 165, 233, 0.1)');
+
+            new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: labels,
+                    datasets: [{
+                        label: 'Số Lượng Cọc',
+                        data: data,
+                        backgroundColor: gradient,
+                        borderColor: '#0ea5e9',
+                        borderWidth: 1,
+                        borderRadius: 6,
+                        barPercentage: 0.6
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: { display: false },
+                        tooltip: {
+                            backgroundColor: 'rgba(16, 42, 67, 0.9)',
+                            titleFont: { family: 'Plus Jakarta Sans', size: 13 },
+                            bodyFont: { family: 'Inter', size: 14, weight: 'bold' },
+                            padding: 12,
+                            borderColor: 'rgba(130, 154, 177, 0.2)',
+                            borderWidth: 1,
+                            displayColors: false
+                        }
+                    },
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                            grid: {
+                                color: 'rgba(130, 154, 177, 0.1)',
+                                drawBorder: false
+                            },
+                            ticks: {
+                                color: '#9fb3c8',
+                                font: { family: 'Inter', size: 12 },
+                                stepSize: 10
+                            }
+                        },
+                        x: {
+                            grid: { display: false },
+                            ticks: {
+                                color: '#9fb3c8',
+                                font: { family: 'Plus Jakarta Sans', size: 13, weight: '600' }
+                            }
+                        }
+                    },
+                    animation: {
+                        duration: 1500,
+                        easing: 'easeOutQuart'
+                    }
+                }
+            });
+        }
+
+        function renderTable(data) {
+            const tbody = document.getElementById('table-body');
+            tbody.innerHTML = '';
+            
+            data.forEach((row, index) => {
+                // Status styling
+                let statusClass = 'status-stocking';
+                if(row.rawStatus === 'proDemoulding') {
+                    statusClass = 'status-demoulding';
+                }
+                
+                // QC styling
+                let qcHtml = `<span class="text-industrial-300">-</span>`;
+                if(row.qc) {
+                    if(row.qc.includes('N.G')) {
+                        qcHtml = `<span class="qc-badge qc-ng"><i class="fa-solid fa-xmark mr-1"></i>N.G</span>`;
+                    } else if(row.qc.includes('Cần Chú Ý') || row.qc.includes('Caution')) {
+                        qcHtml = `<span class="qc-badge qc-caution"><i class="fa-solid fa-triangle-exclamation mr-1"></i>Chú ý</span>`;
+                    }
+                }
+
+                const tr = document.createElement('tr');
+                tr.innerHTML = `
+                    <td class="py-4 px-4 text-industrial-400 font-medium">${index + 1}</td>
+                    <td class="py-4 px-4 font-mono text-xs text-white">${row.serial}</td>
+                    <td class="py-4 px-4 font-semibold text-accent">${row.pileCode}</td>
+                    <td class="py-4 px-4">
+                        <span class="bg-industrial-800 text-industrial-200 px-2 py-1 rounded text-xs font-bold border border-industrial-700">${row.diameter}</span>
+                    </td>
+                    <td class="py-4 px-4 font-bold text-white">${row.length}</td>
+                    <td class="py-4 px-4 text-industrial-300">${row.type}</td>
+                    <td class="py-4 px-4 text-industrial-200 font-medium text-xs">${row.customer || ''}</td>
+                    <td class="py-4 px-4">${qcHtml}</td>
+                    <td class="py-4 px-4 text-right">
+                        <span class="status-badge ${statusClass}">${row.status}</span>
+                    </td>
+                `;
+                tbody.appendChild(tr);
+            });
+        }
+
+        // Initialize when DOM is ready
+        document.addEventListener('DOMContentLoaded', initDashboard);
+    </script>
+</body>
+</html>
