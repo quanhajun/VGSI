@@ -163,7 +163,7 @@
     <main class="flex-grow px-4 pb-8 max-w-7xl mx-auto w-full space-y-6">
         
         <!-- ROW 1: KPI Cards -->
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-6 gap-4">
             <!-- Total Production -->
             <div class="glass-panel stat-card p-5 relative overflow-hidden group">
                 <div class="absolute -right-4 -top-4 w-24 h-24 bg-blue-500/10 rounded-full blur-2xl group-hover:bg-blue-500/20 transition-all"></div>
@@ -177,6 +177,21 @@
                     </div>
                 </div>
                 <p class="text-xs text-industrial-400">Sản xuất trong ngày</p>
+            </div>
+
+            <!-- Total Meters -->
+            <div class="glass-panel stat-card p-5 relative overflow-hidden group">
+                <div class="absolute -right-4 -top-4 w-24 h-24 bg-cyan-500/10 rounded-full blur-2xl group-hover:bg-cyan-500/20 transition-all"></div>
+                <div class="flex justify-between items-start mb-4">
+                    <div>
+                        <p class="text-industrial-300 text-sm font-medium mb-1">Tổng Chiều Dài</p>
+                        <h2 class="text-3xl font-bold text-white display-font" id="kpi-total-meters">0 m</h2>
+                    </div>
+                    <div class="w-10 h-10 rounded-lg bg-cyan-500/20 flex items-center justify-center text-cyan-400">
+                        <i class="fa-solid fa-ruler-combined"></i>
+                    </div>
+                </div>
+                <p class="text-xs text-industrial-400">Tổng số mét cọc đúc</p>
             </div>
 
             <!-- Shift A -->
@@ -209,23 +224,90 @@
                 <p class="text-xs text-industrial-400" id="kpi-shift-b-percent">0% tổng sản lượng</p>
             </div>
 
-            <!-- Top Diameter -->
+            <!-- Hourly Average -->
+            <div class="glass-panel stat-card p-5 relative overflow-hidden group">
+                <div class="absolute -right-4 -top-4 w-24 h-24 bg-indigo-500/10 rounded-full blur-2xl group-hover:bg-indigo-500/20 transition-all"></div>
+                <div class="flex justify-between items-start mb-4">
+                    <div>
+                        <p class="text-industrial-300 text-sm font-medium mb-1">Năng Suất TB / Giờ</p>
+                        <h2 class="text-3xl font-bold text-white display-font" id="kpi-hourly-avg">0</h2>
+                    </div>
+                    <div class="w-10 h-10 rounded-lg bg-indigo-500/20 flex items-center justify-center text-indigo-400">
+                        <i class="fa-solid fa-gauge-high"></i>
+                    </div>
+                </div>
+                <p class="text-xs text-industrial-400" id="kpi-hourly-avg-sub">0 m/giờ trung bình</p>
+            </div>
+
+            <!-- Peak Hour -->
             <div class="glass-panel stat-card p-5 relative overflow-hidden group">
                 <div class="absolute -right-4 -top-4 w-24 h-24 bg-amber-500/10 rounded-full blur-2xl group-hover:bg-amber-500/20 transition-all"></div>
                 <div class="flex justify-between items-start mb-4">
                     <div>
-                        <p class="text-industrial-300 text-sm font-medium mb-1">Đường Kính Phổ Biến</p>
-                        <h2 class="text-3xl font-bold text-white display-font" id="kpi-top-dia">D---</h2>
+                        <p class="text-industrial-300 text-sm font-medium mb-1">Giờ Đỉnh Điểm</p>
+                        <h2 class="text-3xl font-bold text-white display-font" id="kpi-peak-hour">--:--</h2>
                     </div>
                     <div class="w-10 h-10 rounded-lg bg-amber-500/20 flex items-center justify-center text-amber-400">
-                        <i class="fa-solid fa-circle-notch"></i>
+                        <i class="fa-solid fa-fire-flame-curved"></i>
                     </div>
                 </div>
-                <p class="text-xs text-industrial-400" id="kpi-top-dia-count">0 cọc</p>
+                <p class="text-xs text-industrial-400" id="kpi-peak-hour-sub">0 cọc (0m)</p>
             </div>
         </div>
 
-        <!-- ROW 2: Chart -->
+        <!-- ROW 2: Hourly Productivity Chart -->
+        <div class="glass-panel p-6">
+            <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 mb-6">
+                <div>
+                    <h3 class="text-lg font-bold text-white display-font flex items-center gap-2">
+                        <i class="fa-solid fa-chart-line text-accent"></i> Thống Kê Năng Suất Sản Xuất Theo Giờ
+                    </h3>
+                    <p class="text-xs text-industrial-300 mt-1">Biểu diễn số lượng cọc đúc (cột) và tổng chiều dài mét cọc (đường) theo từng khung giờ trong ngày</p>
+                </div>
+                <div class="flex items-center gap-3 text-xs">
+                    <span class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-industrial-800/80 border border-industrial-700 text-industrial-200">
+                        <span class="w-2.5 h-2.5 rounded-full bg-accent inline-block"></span> Số Cọc (cọc)
+                    </span>
+                    <span class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-industrial-800/80 border border-industrial-700 text-industrial-200">
+                        <span class="w-2.5 h-2.5 rounded-full bg-amber-500 inline-block"></span> Tổng Dài (m)
+                    </span>
+                </div>
+            </div>
+            <div class="relative h-80 w-full">
+                <canvas id="hourlyChart"></canvas>
+            </div>
+        </div>
+
+        <!-- ROW 3: Hourly Detailed Breakdown Table -->
+        <div class="glass-panel p-6">
+            <div class="flex items-center justify-between mb-6">
+                <div>
+                    <h3 class="text-lg font-bold text-white display-font flex items-center gap-2">
+                        <i class="fa-solid fa-clock text-accent"></i> Chi Tiết Sản Lượng & Hiệu Suất Từng Khung Giờ
+                    </h3>
+                    <p class="text-xs text-industrial-300 mt-1">Bảng tổng hợp năng suất, phân bổ ca và cơ cấu đường kính cọc theo từng giờ</p>
+                </div>
+            </div>
+            <div class="table-container">
+                <table class="w-full text-left border-collapse">
+                    <thead>
+                        <tr class="text-xs uppercase text-industrial-300 border-b border-industrial-600/50">
+                            <th class="pb-3 px-4 font-semibold whitespace-nowrap">Khung Giờ</th>
+                            <th class="pb-3 px-4 font-semibold whitespace-nowrap">Ca</th>
+                            <th class="pb-3 px-4 font-semibold">Số Cọc Đúc</th>
+                            <th class="pb-3 px-4 font-semibold">Tổng Dài (Mét)</th>
+                            <th class="pb-3 px-4 font-semibold">Cơ Cấu Đường Kính</th>
+                            <th class="pb-3 px-4 font-semibold text-right">Đánh Giá Hiệu Suất</th>
+                        </tr>
+                    </thead>
+                    <tbody id="hourly-table-body" class="text-sm">
+                        <!-- Rows rendered via JS -->
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- ROW 4: Diameter Chart -->
         <div class="glass-panel p-6">
             <div class="flex items-center justify-between mb-6">
                 <h3 class="text-lg font-bold text-white display-font flex items-center gap-2">
@@ -237,7 +319,7 @@
             </div>
         </div>
 
-        <!-- ROW 3: Data Table -->
+        <!-- ROW 5: Data Table -->
         <div class="glass-panel p-6">
             <div class="flex items-center justify-between mb-6">
                 <h3 class="text-lg font-bold text-white display-font flex items-center gap-2">
@@ -252,8 +334,8 @@
                             <th class="pb-3 px-4 font-semibold whitespace-nowrap">Mã VGSI (Serial)</th>
                             <th class="pb-3 px-4 font-semibold min-w-[180px]">Mã Cọc (Pile Code)</th>
                             <th class="pb-3 px-4 font-semibold">Đường Kính</th>
-                            <th class="pb-3 px-4 font-semibold">Ca</th>
-                            <th class="pb-3 px-4 font-semibold">Giờ Đúc</th>
+                            <th class="pb-3 px-4 font-semibold">Chiều Dài</th>
+                            <th class="pb-3 px-4 font-semibold">Loại</th>
                             <th class="pb-3 px-4 font-semibold min-w-[150px]">Dự Án</th>
                             <th class="pb-3 px-4 font-semibold">QC</th>
                             <th class="pb-3 px-4 font-semibold text-right">Trạng Thái</th>
@@ -288,6 +370,9 @@
             const shiftA = RAW_DATA.filter(d => d.shift === 'A').length;
             const shiftB = RAW_DATA.filter(d => d.shift === 'B').length;
             
+            // Calculate total meters
+            const totalMetersSum = RAW_DATA.reduce((sum, d) => sum + (parseFloat(d.length) || 0), 0);
+
             // Calculate diameter counts
             const diaCounts = {};
             RAW_DATA.forEach(d => {
@@ -305,8 +390,24 @@
                 }
             }
 
+            // Process hourly data
+            const hourlyData = processHourlyData(RAW_DATA);
+            const activeHours = hourlyData.filter(h => h.count > 0);
+            const activeHoursCount = activeHours.length || 1;
+            const avgPilesPerHour = (totalCount / activeHoursCount).toFixed(1);
+            const avgMetersPerHour = Math.round(totalMetersSum / activeHoursCount);
+
+            // Find peak hour
+            let peakHourObj = { hour: 0, label: '--:--', count: 0, totalMeters: 0 };
+            hourlyData.forEach(h => {
+                if (h.count > peakHourObj.count) {
+                    peakHourObj = h;
+                }
+            });
+
             // Update KPI DOM
             document.getElementById('kpi-total').textContent = totalCount;
+            document.getElementById('kpi-total-meters').textContent = totalMetersSum.toLocaleString('vi-VN') + ' m';
             document.getElementById('kpi-shift-a').textContent = shiftA;
             document.getElementById('kpi-shift-b').textContent = shiftB;
             
@@ -315,14 +416,238 @@
                 document.getElementById('kpi-shift-b-percent').textContent = Math.round((shiftB / totalCount) * 100) + '% tổng sản lượng';
             }
             
-            document.getElementById('kpi-top-dia').textContent = topDia;
-            document.getElementById('kpi-top-dia-count').textContent = topDiaCount + ' cọc';
+            document.getElementById('kpi-hourly-avg').textContent = avgPilesPerHour + ' cọc/h';
+            document.getElementById('kpi-hourly-avg-sub').textContent = avgMetersPerHour + ' m/giờ trung bình';
+            
+            document.getElementById('kpi-peak-hour').textContent = peakHourObj.label ? peakHourObj.label.split(' - ')[0] : '--:--';
+            document.getElementById('kpi-peak-hour-sub').textContent = `${peakHourObj.count} cọc (${peakHourObj.totalMeters}m)`;
 
-            // Render Chart
+            // Render Charts & Tables
+            renderHourlyChart(hourlyData);
+            renderHourlyTable(hourlyData);
             renderChart(diaCounts);
-
-            // Render Table (Top 10)
             renderTable(RAW_DATA.slice(0, 10));
+        }
+
+        function processHourlyData(data) {
+            const hoursMap = {};
+            data.forEach(d => {
+                const h = d.castingHour;
+                if (!hoursMap[h]) {
+                    hoursMap[h] = {
+                        hour: h,
+                        label: `${h.toString().padStart(2, '0')}:00 - ${(h + 1).toString().padStart(2, '0')}:00`,
+                        count: 0,
+                        totalMeters: 0,
+                        shiftA: 0,
+                        shiftB: 0,
+                        diameters: {}
+                    };
+                }
+                hoursMap[h].count++;
+                hoursMap[h].totalMeters += parseFloat(d.length) || 0;
+                if (d.shift === 'A') hoursMap[h].shiftA++;
+                if (d.shift === 'B') hoursMap[h].shiftB++;
+                hoursMap[h].diameters[d.diameter] = (hoursMap[h].diameters[d.diameter] || 0) + 1;
+            });
+
+            return Object.values(hoursMap).sort((a, b) => a.hour - b.hour);
+        }
+
+        function renderHourlyChart(hourlyData) {
+            const ctx = document.getElementById('hourlyChart').getContext('2d');
+            const labels = hourlyData.map(d => `${d.hour.toString().padStart(2, '0')}:00`);
+            const countData = hourlyData.map(d => d.count);
+            const meterData = hourlyData.map(d => d.totalMeters);
+
+            const barGradient = ctx.createLinearGradient(0, 0, 0, 300);
+            barGradient.addColorStop(0, 'rgba(14, 165, 233, 0.85)');
+            barGradient.addColorStop(1, 'rgba(14, 165, 233, 0.15)');
+
+            const lineGradient = ctx.createLinearGradient(0, 0, 0, 300);
+            lineGradient.addColorStop(0, 'rgba(245, 158, 11, 0.35)');
+            lineGradient.addColorStop(1, 'rgba(245, 158, 11, 0.0)');
+
+            new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: labels,
+                    datasets: [
+                        {
+                            label: 'Số Lượng Cọc (cọc)',
+                            data: countData,
+                            backgroundColor: barGradient,
+                            borderColor: '#0ea5e9',
+                            borderWidth: 1.5,
+                            borderRadius: 6,
+                            barPercentage: 0.5,
+                            yAxisID: 'y'
+                        },
+                        {
+                            label: 'Tổng Chiều Dài (m)',
+                            data: meterData,
+                            type: 'line',
+                            borderColor: '#f59e0b',
+                            backgroundColor: lineGradient,
+                            borderWidth: 3,
+                            pointBackgroundColor: '#f59e0b',
+                            pointBorderColor: '#0b1d30',
+                            pointBorderWidth: 2,
+                            pointRadius: 5,
+                            pointHoverRadius: 7,
+                            tension: 0.35,
+                            fill: true,
+                            yAxisID: 'y1'
+                        }
+                    ]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    interaction: {
+                        mode: 'index',
+                        intersect: false
+                    },
+                    plugins: {
+                        legend: {
+                            display: true,
+                            position: 'top',
+                            labels: {
+                                color: '#9fb3c8',
+                                font: { family: 'Plus Jakarta Sans', size: 12, weight: '600' },
+                                usePointStyle: true,
+                                padding: 20
+                            }
+                        },
+                        tooltip: {
+                            backgroundColor: 'rgba(16, 42, 67, 0.95)',
+                            titleFont: { family: 'Plus Jakarta Sans', size: 13, weight: 'bold' },
+                            bodyFont: { family: 'Inter', size: 13 },
+                            padding: 12,
+                            borderColor: 'rgba(130, 154, 177, 0.3)',
+                            borderWidth: 1,
+                            callbacks: {
+                                title: (items) => `Khung Giờ: ${hourlyData[items[0].dataIndex].label}`,
+                                label: (context) => {
+                                    if (context.dataset.yAxisID === 'y') {
+                                        return ` Số lượng cọc: ${context.parsed.y} cọc`;
+                                    } else {
+                                        return ` Tổng chiều dài: ${context.parsed.y} m`;
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    scales: {
+                        y: {
+                            type: 'linear',
+                            display: true,
+                            position: 'left',
+                            beginAtZero: true,
+                            title: {
+                                display: true,
+                                text: 'Số Cọc (Cọc)',
+                                color: '#0ea5e9',
+                                font: { family: 'Plus Jakarta Sans', size: 11, weight: '600' }
+                            },
+                            grid: {
+                                color: 'rgba(130, 154, 177, 0.1)',
+                                drawBorder: false
+                            },
+                            ticks: {
+                                color: '#9fb3c8',
+                                font: { family: 'Inter', size: 12 }
+                            }
+                        },
+                        y1: {
+                            type: 'linear',
+                            display: true,
+                            position: 'right',
+                            beginAtZero: true,
+                            title: {
+                                display: true,
+                                text: 'Tổng Chiều Dài (m)',
+                                color: '#f59e0b',
+                                font: { family: 'Plus Jakarta Sans', size: 11, weight: '600' }
+                            },
+                            grid: { drawOnChartArea: false },
+                            ticks: {
+                                color: '#fbbf24',
+                                font: { family: 'Inter', size: 12 }
+                            }
+                        },
+                        x: {
+                            grid: { display: false },
+                            ticks: {
+                                color: '#9fb3c8',
+                                font: { family: 'Plus Jakarta Sans', size: 12, weight: '600' }
+                            }
+                        }
+                    },
+                    animation: {
+                        duration: 1200,
+                        easing: 'easeOutQuart'
+                    }
+                }
+            });
+        }
+
+        function renderHourlyTable(hourlyData) {
+            const tbody = document.getElementById('hourly-table-body');
+            if (!tbody) return;
+            tbody.innerHTML = '';
+            
+            const maxCount = Math.max(...hourlyData.map(d => d.count), 1);
+            
+            hourlyData.forEach(item => {
+                let shiftBadge = '';
+                if (item.shiftA > 0 && item.shiftB > 0) {
+                    shiftBadge = `<span class="px-2 py-0.5 rounded text-xs bg-indigo-500/20 text-indigo-300 border border-indigo-500/30 font-semibold">Ca A & B</span>`;
+                } else if (item.shiftA > 0) {
+                    shiftBadge = `<span class="px-2 py-0.5 rounded text-xs bg-emerald-500/20 text-emerald-300 border border-emerald-500/30 font-semibold">Ca A</span>`;
+                } else {
+                    shiftBadge = `<span class="px-2 py-0.5 rounded text-xs bg-purple-500/20 text-purple-300 border border-purple-500/30 font-semibold">Ca B</span>`;
+                }
+                
+                let badgeHtml = '';
+                if (item.count >= 18) {
+                    badgeHtml = `<span class="px-2.5 py-1 rounded-full text-xs bg-emerald-500/20 text-emerald-400 border border-emerald-500/40 font-bold flex items-center justify-end gap-1.5 w-max ml-auto"><i class="fa-solid fa-bolt text-emerald-400 text-xs"></i>Đạt Đỉnh</span>`;
+                } else if (item.count >= 12) {
+                    badgeHtml = `<span class="px-2.5 py-1 rounded-full text-xs bg-blue-500/20 text-blue-400 border border-blue-500/40 font-bold flex items-center justify-end gap-1.5 w-max ml-auto"><i class="fa-solid fa-arrow-up text-blue-400 text-xs"></i>Năng Suất Cao</span>`;
+                } else if (item.count >= 6) {
+                    badgeHtml = `<span class="px-2.5 py-1 rounded-full text-xs bg-amber-500/20 text-amber-400 border border-amber-500/40 font-bold flex items-center justify-end gap-1.5 w-max ml-auto"><i class="fa-solid fa-gauge-simple-high text-amber-400 text-xs"></i>Trung Bình</span>`;
+                } else {
+                    badgeHtml = `<span class="px-2.5 py-1 rounded-full text-xs bg-industrial-700/50 text-industrial-300 border border-industrial-600 font-medium flex items-center justify-end gap-1.5 w-max ml-auto"><i class="fa-solid fa-mug-hot text-industrial-400 text-xs"></i>Thấp / Giờ Nghỉ</span>`;
+                }
+                
+                const pct = Math.round((item.count / maxCount) * 100);
+                
+                const diaSummary = Object.entries(item.diameters)
+                    .map(([dia, c]) => `<span class="text-xs bg-industrial-800 text-industrial-200 px-2 py-0.5 rounded border border-industrial-700 font-mono inline-block mr-1 my-0.5">${dia}: <strong class="text-accent">${c}</strong></span>`)
+                    .join('');
+
+                const tr = document.createElement('tr');
+                tr.innerHTML = `
+                    <td class="py-3.5 px-4 font-semibold text-white whitespace-nowrap">
+                        <i class="fa-regular fa-clock text-accent mr-1.5"></i>${item.label}
+                    </td>
+                    <td class="py-3.5 px-4">${shiftBadge}</td>
+                    <td class="py-3.5 px-4 font-bold text-white">
+                        <div class="flex items-center gap-3">
+                            <span class="text-base font-extrabold text-accent w-6 text-right">${item.count}</span>
+                            <div class="w-24 bg-industrial-950/60 rounded-full h-2 overflow-hidden border border-industrial-700/50 hidden sm:block">
+                                <div class="bg-gradient-to-r from-accent to-blue-400 h-full rounded-full" style="width: ${pct}%"></div>
+                            </div>
+                        </div>
+                    </td>
+                    <td class="py-3.5 px-4 font-bold text-amber-400 whitespace-nowrap">
+                        ${item.totalMeters.toLocaleString('vi-VN')} m
+                    </td>
+                    <td class="py-3.5 px-4">${diaSummary}</td>
+                    <td class="py-3.5 px-4 text-right">${badgeHtml}</td>
+                `;
+                tbody.appendChild(tr);
+            });
         }
 
         function renderChart(diaCounts) {
