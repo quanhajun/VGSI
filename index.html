@@ -3,18 +3,21 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dashboard Giám Sát Sản Xuất Cọc Bê Tông Ly Tâm | VGSI</title>
+    <title>Báo Cáo Tình Trạng Dự Án & Nhu Cầu Kinh Doanh | Concrete Pile Manufacturing</title>
     
-    <!-- Google Fonts: Plus Jakarta Sans & Inter -->
+    <!-- Google Fonts: Inter & Plus Jakarta Sans -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    
-    <!-- FontAwesome Icons -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Plus+Jakarta+Sans:wght@500;600;700;800&display=swap" rel="stylesheet">
     
     <!-- Tailwind CSS CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Chart.js CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+
     <script>
         tailwind.config = {
             darkMode: 'class',
@@ -25,478 +28,984 @@
                         display: ['Plus Jakarta Sans', 'sans-serif'],
                     },
                     colors: {
-                        industrial: {
-                            50: '#f0f4f8',
-                            100: '#d9e2ec',
-                            200: '#bcccdc',
-                            300: '#9fb3c8',
-                            400: '#829ab1',
-                            500: '#627d98',
-                            600: '#486581',
-                            700: '#334e68',
-                            800: '#243b53',
-                            900: '#102a43',
-                            950: '#0b1d30'
+                        brand: {
+                            50: '#f0fdfa',
+                            100: '#ccfbf1',
+                            500: '#14b8a6',
+                            600: '#0d9488',
+                            700: '#0f766e',
                         },
-                        accent: {
-                            DEFAULT: '#0ea5e9',
-                            hover: '#0284c7'
+                        dark: {
+                            bg: '#0B0F17',
+                            card: '#111827',
+                            cardHover: '#172033',
+                            border: '#1F2937',
+                            borderLight: '#374151',
+                            text: '#F3F4F6',
+                            muted: '#9CA3AF'
                         }
+                    },
+                    boxShadow: {
+                        'glow-cyan': '0 0 25px -5px rgba(6, 182, 212, 0.3)',
+                        'glow-emerald': '0 0 25px -5px rgba(16, 185, 129, 0.3)',
+                        'glow-rose': '0 0 25px -5px rgba(244, 63, 94, 0.3)',
+                        'glow-amber': '0 0 25px -5px rgba(245, 158, 11, 0.3)',
+                        'glow-indigo': '0 0 25px -5px rgba(99, 102, 241, 0.3)',
+                        'glass': '0 8px 32px 0 rgba(0, 0, 0, 0.37)'
                     }
                 }
             }
         }
     </script>
-    
-    <!-- Chart.js -->
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    
+
     <style>
         body {
-            background-color: #0b1d30;
-            color: #f0f4f8;
+            background-color: #070B12;
+            color: #F3F4F6;
             font-family: 'Inter', sans-serif;
+            background-image: 
+                radial-gradient(at 0% 0%, rgba(14, 165, 233, 0.08) 0px, transparent 50%),
+                radial-gradient(at 100% 0%, rgba(99, 102, 241, 0.08) 0px, transparent 50%),
+                radial-gradient(at 50% 100%, rgba(16, 185, 129, 0.05) 0px, transparent 50%);
+            background-attachment: fixed;
         }
-        h1, h2, h3, h4, h5, h6, .display-font {
-            font-family: 'Plus Jakarta Sans', sans-serif;
-        }
+
         .glass-panel {
-            background: rgba(36, 59, 83, 0.4);
+            background: rgba(17, 24, 39, 0.75);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid rgba(255, 255, 255, 0.07);
+        }
+
+        .glass-card {
+            background: rgba(23, 32, 51, 0.6);
             backdrop-filter: blur(12px);
-            -webkit-backdrop-filter: blur(12px);
-            border: 1px solid rgba(130, 154, 177, 0.15);
-            border-radius: 1rem;
-            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            transition: all 0.25s ease-in-out;
         }
-        .stat-card {
-            transition: transform 0.2s ease, box-shadow 0.2s ease;
-        }
-        .stat-card:hover {
+
+        .glass-card:hover {
             transform: translateY(-2px);
-            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.2), 0 4px 6px -2px rgba(0, 0, 0, 0.1);
-            border-color: rgba(14, 165, 233, 0.4);
+            border-color: rgba(255, 255, 255, 0.15);
+            box-shadow: 0 12px 30px -10px rgba(0, 0, 0, 0.5);
         }
-        
-        /* Table Styles */
-        .table-container {
-            overflow-x: auto;
-            scrollbar-width: thin;
-            scrollbar-color: #486581 transparent;
+
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 7px;
+            height: 7px;
         }
-        .table-container::-webkit-scrollbar {
-            height: 6px;
+        ::-webkit-scrollbar-track {
+            background: #0B0F17;
         }
-        .table-container::-webkit-scrollbar-track {
-            background: transparent;
+        ::-webkit-scrollbar-thumb {
+            background: #1F2937;
+            border-radius: 4px;
         }
-        .table-container::-webkit-scrollbar-thumb {
-            background-color: #486581;
-            border-radius: 20px;
+        ::-webkit-scrollbar-thumb:hover {
+            background: #374151;
         }
-        
-        tbody tr {
-            border-bottom: 1px solid rgba(130, 154, 177, 0.1);
-            transition: background-color 0.15s ease;
+
+        /* Animation pulse subtle */
+        @keyframes pulse-subtle {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.6; }
         }
-        tbody tr:hover {
-            background-color: rgba(51, 78, 104, 0.4);
+        .animate-pulse-subtle {
+            animation: pulse-subtle 2.5s cubic-bezier(0.4, 0, 0.6, 1) infinite;
         }
-        tbody tr:last-child {
-            border-bottom: none;
-        }
-        
-        .status-badge {
-            padding: 0.25rem 0.75rem;
-            border-radius: 9999px;
-            font-size: 0.75rem;
-            font-weight: 600;
-            letter-spacing: 0.025em;
-        }
-        .status-stocking {
-            background-color: rgba(16, 185, 129, 0.15);
+
+        /* Badge Glow */
+        .status-badge-ok {
+            background: rgba(16, 185, 129, 0.15);
             color: #34d399;
             border: 1px solid rgba(16, 185, 129, 0.3);
         }
-        .status-demoulding {
-            background-color: rgba(245, 158, 11, 0.15);
+        .status-badge-warning {
+            background: rgba(245, 158, 11, 0.15);
             color: #fbbf24;
             border: 1px solid rgba(245, 158, 11, 0.3);
         }
-        
-        .qc-badge {
-            padding: 0.25rem 0.5rem;
-            border-radius: 0.375rem;
-            font-size: 0.7rem;
-            font-weight: 600;
-        }
-        .qc-caution {
-            background-color: rgba(245, 158, 11, 0.15);
-            color: #fbbf24;
-        }
-        .qc-ng {
-            background-color: rgba(239, 68, 68, 0.15);
+        .status-badge-danger {
+            background: rgba(239, 68, 68, 0.15);
             color: #f87171;
+            border: 1px solid rgba(239, 68, 68, 0.3);
+        }
+        .status-badge-completed {
+            background: rgba(99, 102, 241, 0.15);
+            color: #818cf8;
+            border: 1px solid rgba(99, 102, 241, 0.3);
+        }
+
+        th.sortable:hover {
+            background-color: rgba(255, 255, 255, 0.04);
+            cursor: pointer;
         }
     </style>
 </head>
-<body class="antialiased min-h-screen flex flex-col">
-    <!-- Navbar -->
-    <nav class="glass-panel mx-4 mt-4 mb-6 px-6 py-4 flex justify-between items-center sticky top-4 z-50">
-        <div class="flex items-center gap-3">
-            <div class="w-10 h-10 rounded-lg bg-accent flex items-center justify-center shadow-lg shadow-accent/20">
-                <i class="fa-solid fa-industry text-white text-xl"></i>
-            </div>
-            <div>
-                <h1 class="text-xl font-bold text-white tracking-tight">VGSI Dashboard</h1>
-                <p class="text-xs text-industrial-300">Giám sát sản xuất Cọc Bê Tông Ly Tâm</p>
+<body class="min-h-screen flex flex-col antialiased selection:bg-cyan-500 selection:text-white pb-12">
+
+    <!-- TOP NAVIGATION BAR -->
+    <header class="sticky top-0 z-40 border-b border-gray-800/80 glass-panel">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-16">
+                <!-- Logo & Title -->
+                <div class="flex items-center space-x-3.5">
+                    <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-cyan-500 to-indigo-600 flex items-center justify-center shadow-glow-cyan">
+                        <i data-lucide="layers" class="w-5 h-5 text-white"></i>
+                    </div>
+                    <div>
+                        <div class="flex items-center gap-2">
+                            <span class="font-display font-bold text-lg tracking-tight text-white">PROJECT & SALES CONDITION</span>
+                            <span class="px-2 py-0.5 text-[10px] font-semibold tracking-wide uppercase rounded-full bg-cyan-500/10 text-cyan-400 border border-cyan-500/20">Sheet 4.Condition</span>
+                        </div>
+                        <p class="text-xs text-gray-400">Hệ Thống Quản Lý Sản Xuất & Điều Phối Cọc Bê Tông</p>
+                    </div>
+                </div>
+
+                <!-- Right Actions & Meta -->
+                <div class="flex items-center gap-3">
+                    <div class="hidden md:flex items-center gap-2 px-3 py-1.5 rounded-lg bg-gray-800/60 border border-gray-700/50 text-xs text-gray-300">
+                        <i data-lucide="calendar" class="w-3.5 h-3.5 text-cyan-400"></i>
+                        <span>Ngày đối soát: <strong class="text-white">17-Aug</strong></span>
+                    </div>
+
+                    <button onclick="refreshData()" class="p-2 rounded-lg bg-gray-800 hover:bg-gray-700 text-gray-300 hover:text-white border border-gray-700 transition" title="Tải lại dữ liệu">
+                        <i data-lucide="refresh-cw" class="w-4 h-4"></i>
+                    </button>
+
+                    <button onclick="exportToCSV()" class="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-gradient-to-r from-cyan-600 to-indigo-600 hover:from-cyan-500 hover:to-indigo-500 text-white text-xs font-medium shadow-md shadow-cyan-900/30 transition">
+                        <i data-lucide="download" class="w-3.5 h-3.5"></i>
+                        <span>Xuất CSV</span>
+                    </button>
+                </div>
             </div>
         </div>
-        <div class="flex items-center gap-4">
-            <div class="text-right hidden sm:block">
-                <p class="text-sm font-semibold text-white" id="current-date">--/--/----</p>
-                <p class="text-xs text-industrial-300" id="current-time">--:--:--</p>
-            </div>
-        </div>
-    </nav>
+    </header>
 
-    <!-- Main Content -->
-    <main class="flex-grow px-4 pb-8 max-w-7xl mx-auto w-full space-y-6">
-        
-        <!-- ROW 1: KPI Cards -->
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-6 gap-4">
-            <!-- Total Production -->
-            <div class="glass-panel stat-card p-5 relative overflow-hidden group">
-                <div class="absolute -right-4 -top-4 w-24 h-24 bg-blue-500/10 rounded-full blur-2xl group-hover:bg-blue-500/20 transition-all"></div>
-                <div class="flex justify-between items-start mb-4">
-                    <div>
-                        <p class="text-industrial-300 text-sm font-medium mb-1">Tổng Số Lượng Cọc</p>
-                        <h2 class="text-3xl font-bold text-white display-font" id="kpi-total">0</h2>
-                    </div>
-                    <div class="w-10 h-10 rounded-lg bg-blue-500/20 flex items-center justify-center text-blue-400">
-                        <i class="fa-solid fa-cubes-stacked"></i>
-                    </div>
-                </div>
-                <p class="text-xs text-industrial-400">Sản xuất trong ngày</p>
-            </div>
+    <!-- MAIN CONTENT CONTAINER -->
+    <main class="flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 pt-6 space-y-6">
 
-            <!-- Total Meters -->
-            <div class="glass-panel stat-card p-5 relative overflow-hidden group">
-                <div class="absolute -right-4 -top-4 w-24 h-24 bg-cyan-500/10 rounded-full blur-2xl group-hover:bg-cyan-500/20 transition-all"></div>
-                <div class="flex justify-between items-start mb-4">
-                    <div>
-                        <p class="text-industrial-300 text-sm font-medium mb-1">Tổng Chiều Dài</p>
-                        <h2 class="text-3xl font-bold text-white display-font" id="kpi-total-meters">0 m</h2>
-                    </div>
-                    <div class="w-10 h-10 rounded-lg bg-cyan-500/20 flex items-center justify-center text-cyan-400">
-                        <i class="fa-solid fa-ruler-combined"></i>
-                    </div>
-                </div>
-                <p class="text-xs text-industrial-400">Tổng số mét cọc đúc</p>
-            </div>
-
-            <!-- Shift A -->
-            <div class="glass-panel stat-card p-5 relative overflow-hidden group">
-                <div class="absolute -right-4 -top-4 w-24 h-24 bg-emerald-500/10 rounded-full blur-2xl group-hover:bg-emerald-500/20 transition-all"></div>
-                <div class="flex justify-between items-start mb-4">
-                    <div>
-                        <p class="text-industrial-300 text-sm font-medium mb-1">Sản Xuất Ca A</p>
-                        <h2 class="text-3xl font-bold text-white display-font" id="kpi-shift-a">0</h2>
-                    </div>
-                    <div class="w-10 h-10 rounded-lg bg-emerald-500/20 flex items-center justify-center text-emerald-400">
-                        <i class="fa-solid fa-sun"></i>
-                    </div>
-                </div>
-                <p class="text-xs text-industrial-400" id="kpi-shift-a-percent">0% tổng sản lượng</p>
-            </div>
-
-            <!-- Shift B -->
-            <div class="glass-panel stat-card p-5 relative overflow-hidden group">
-                <div class="absolute -right-4 -top-4 w-24 h-24 bg-purple-500/10 rounded-full blur-2xl group-hover:bg-purple-500/20 transition-all"></div>
-                <div class="flex justify-between items-start mb-4">
-                    <div>
-                        <p class="text-industrial-300 text-sm font-medium mb-1">Sản Xuất Ca B</p>
-                        <h2 class="text-3xl font-bold text-white display-font" id="kpi-shift-b">0</h2>
-                    </div>
-                    <div class="w-10 h-10 rounded-lg bg-purple-500/20 flex items-center justify-center text-purple-400">
-                        <i class="fa-solid fa-moon"></i>
-                    </div>
-                </div>
-                <p class="text-xs text-industrial-400" id="kpi-shift-b-percent">0% tổng sản lượng</p>
-            </div>
-
-            <!-- Hourly Average -->
-            <div class="glass-panel stat-card p-5 relative overflow-hidden group">
-                <div class="absolute -right-4 -top-4 w-24 h-24 bg-indigo-500/10 rounded-full blur-2xl group-hover:bg-indigo-500/20 transition-all"></div>
-                <div class="flex justify-between items-start mb-4">
-                    <div>
-                        <p class="text-industrial-300 text-sm font-medium mb-1">Năng Suất TB / Giờ</p>
-                        <h2 class="text-3xl font-bold text-white display-font" id="kpi-hourly-avg">0</h2>
-                    </div>
-                    <div class="w-10 h-10 rounded-lg bg-indigo-500/20 flex items-center justify-center text-indigo-400">
-                        <i class="fa-solid fa-gauge-high"></i>
-                    </div>
-                </div>
-                <p class="text-xs text-industrial-400" id="kpi-hourly-avg-sub">0 m/giờ trung bình</p>
-            </div>
-
-            <!-- Peak Hour -->
-            <div class="glass-panel stat-card p-5 relative overflow-hidden group">
-                <div class="absolute -right-4 -top-4 w-24 h-24 bg-amber-500/10 rounded-full blur-2xl group-hover:bg-amber-500/20 transition-all"></div>
-                <div class="flex justify-between items-start mb-4">
-                    <div>
-                        <p class="text-industrial-300 text-sm font-medium mb-1">Giờ Đỉnh Điểm</p>
-                        <h2 class="text-3xl font-bold text-white display-font" id="kpi-peak-hour">--:--</h2>
-                    </div>
-                    <div class="w-10 h-10 rounded-lg bg-amber-500/20 flex items-center justify-center text-amber-400">
-                        <i class="fa-solid fa-fire-flame-curved"></i>
-                    </div>
-                </div>
-                <p class="text-xs text-industrial-400" id="kpi-peak-hour-sub">0 cọc (0m)</p>
-            </div>
-        </div>
-
-        <!-- ROW 2: Hourly Productivity Chart -->
-        <div class="glass-panel p-6">
-            <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 mb-6">
+        <!-- 1. HERO / BANNER SUMMARY -->
+        <div class="relative overflow-hidden rounded-2xl glass-panel p-6 border border-cyan-500/20 shadow-glass">
+            <div class="absolute -right-16 -bottom-16 w-64 h-64 bg-cyan-500/10 rounded-full blur-3xl pointer-events-none"></div>
+            <div class="absolute -left-16 -top-16 w-64 h-64 bg-indigo-500/10 rounded-full blur-3xl pointer-events-none"></div>
+            
+            <div class="relative z-10 flex flex-col md:flex-row md:items-center justify-between gap-4">
                 <div>
-                    <h3 class="text-lg font-bold text-white display-font flex items-center gap-2">
-                        <i class="fa-solid fa-chart-line text-accent"></i> Thống Kê Năng Suất Sản Xuất Theo Giờ
-                    </h3>
-                    <p class="text-xs text-industrial-300 mt-1">Biểu diễn số lượng cọc đúc (cột) và tổng chiều dài mét cọc (đường) theo từng khung giờ trong ngày</p>
+                    <div class="flex items-center gap-2 mb-1">
+                        <span class="inline-block w-2.5 h-2.5 rounded-full bg-emerald-400 animate-pulse"></span>
+                        <h1 class="text-xl md:text-2xl font-bold font-display text-white tracking-tight">
+                            Báo Cáo So Sánh Năng Lực Sản Xuất & Nhu Cầu Kinh Doanh
+                        </h1>
+                    </div>
+                    <p class="text-sm text-gray-300 max-w-3xl">
+                        Tổng hợp tiến độ hoàn thành đơn hàng PO cọc bê tông theo 11 dự án trọng điểm, đánh giá mức độ đáp ứng nhu cầu giao hàng hàng ngày và cảnh báo các điểm nghẽn thiếu hụt (Shortage).
+                    </p>
                 </div>
-                <div class="flex items-center gap-3 text-xs">
-                    <span class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-industrial-800/80 border border-industrial-700 text-industrial-200">
-                        <span class="w-2.5 h-2.5 rounded-full bg-accent inline-block"></span> Số Cọc (cọc)
-                    </span>
-                    <span class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-industrial-800/80 border border-industrial-700 text-industrial-200">
-                        <span class="w-2.5 h-2.5 rounded-full bg-amber-500 inline-block"></span> Tổng Dài (m)
-                    </span>
+
+                <div class="flex items-center gap-4 shrink-0">
+                    <div class="text-right">
+                        <div class="text-xs text-gray-400 uppercase tracking-wider">Tổng Dự Án</div>
+                        <div class="text-2xl font-bold font-display text-white">11 <span class="text-xs font-normal text-gray-400">Dự án</span></div>
+                    </div>
+                    <div class="h-10 w-px bg-gray-800"></div>
+                    <div class="text-right">
+                        <div class="text-xs text-gray-400 uppercase tracking-wider">Tổng Năng Lực SX</div>
+                        <div class="text-2xl font-bold font-display text-cyan-400">192 <span class="text-xs font-normal text-gray-400">Seg/ngày</span></div>
+                    </div>
                 </div>
-            </div>
-            <div class="relative h-80 w-full">
-                <canvas id="hourlyChart"></canvas>
             </div>
         </div>
 
-        <!-- ROW 3: Hourly Detailed Breakdown Table -->
-        <div class="glass-panel p-6">
-            <div class="flex items-center justify-between mb-6">
-                <div>
-                    <h3 class="text-lg font-bold text-white display-font flex items-center gap-2">
-                        <i class="fa-solid fa-clock text-accent"></i> Chi Tiết Sản Lượng & Hiệu Suất Từng Khung Giờ
-                    </h3>
-                    <p class="text-xs text-industrial-300 mt-1">Bảng tổng hợp năng suất, phân bổ ca và cơ cấu đường kính cọc theo từng giờ</p>
+        <!-- 2. KPI METRIC CARDS -->
+        <section class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+            
+            <!-- Card 1: Tổng PO Đã Nhận -->
+            <div class="glass-card rounded-xl p-5 relative overflow-hidden group">
+                <div class="absolute top-0 left-0 w-1 h-full bg-cyan-500"></div>
+                <div class="flex items-start justify-between">
+                    <div>
+                        <p class="text-xs font-semibold text-gray-400 uppercase tracking-wider">Tổng PO Đã Nhận</p>
+                        <h3 class="text-2xl lg:text-3xl font-extrabold font-display text-white mt-1.5" id="kpi-po-total">21,372</h3>
+                        <p class="text-xs text-gray-400 mt-1 flex items-center gap-1">
+                            <span class="text-cyan-400 font-medium">Đơn vị: Segment (Seg)</span>
+                        </p>
+                    </div>
+                    <div class="w-11 h-11 rounded-xl bg-cyan-500/10 border border-cyan-500/20 flex items-center justify-center text-cyan-400 group-hover:scale-110 transition-transform">
+                        <i data-lucide="clipboard-list" class="w-5 h-5"></i>
+                    </div>
+                </div>
+                <div class="mt-4 pt-3 border-t border-gray-800/80 flex items-center justify-between text-xs text-gray-400">
+                    <span>Còn lại chưa SX:</span>
+                    <span class="text-amber-400 font-semibold" id="kpi-remain-total">9,136 Seg (42.7%)</span>
                 </div>
             </div>
-            <div class="table-container">
-                <table class="w-full text-left border-collapse">
+
+            <!-- Card 2: Tổng Đã Hoàn Thành -->
+            <div class="glass-card rounded-xl p-5 relative overflow-hidden group">
+                <div class="absolute top-0 left-0 w-1 h-full bg-emerald-500"></div>
+                <div class="flex items-start justify-between">
+                    <div>
+                        <p class="text-xs font-semibold text-gray-400 uppercase tracking-wider">Tổng Đã Sản Xuất</p>
+                        <h3 class="text-2xl lg:text-3xl font-extrabold font-display text-emerald-400 mt-1.5" id="kpi-pd-total">12,236</h3>
+                        <p class="text-xs text-emerald-300/80 mt-1 flex items-center gap-1">
+                            <i data-lucide="check-circle-2" class="w-3.5 h-3.5 text-emerald-400"></i>
+                            <span>Tiến độ đạt <strong>57.3%</strong> toàn hệ thống</span>
+                        </p>
+                    </div>
+                    <div class="w-11 h-11 rounded-xl bg-emerald-500/10 border border-emerald-500/20 flex items-center justify-center text-emerald-400 group-hover:scale-110 transition-transform">
+                        <i data-lucide="factory" class="w-5 h-5"></i>
+                    </div>
+                </div>
+                <div class="mt-4 pt-3 border-t border-gray-800/80">
+                    <div class="w-full bg-gray-800 rounded-full h-1.5 overflow-hidden">
+                        <div class="bg-gradient-to-r from-emerald-500 to-teal-400 h-1.5 rounded-full" style="width: 57.3%"></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Card 3: Tổng Thiếu Hụt (Shortage) -->
+            <div class="glass-card rounded-xl p-5 relative overflow-hidden group">
+                <div class="absolute top-0 left-0 w-1 h-full bg-rose-500"></div>
+                <div class="flex items-start justify-between">
+                    <div>
+                        <p class="text-xs font-semibold text-gray-400 uppercase tracking-wider">Tổng Thiếu Hụt (Shortage)</p>
+                        <h3 class="text-2xl lg:text-3xl font-extrabold font-display text-rose-400 mt-1.5" id="kpi-shortage-total">183</h3>
+                        <p class="text-xs text-rose-300/80 mt-1 flex items-center gap-1">
+                            <i data-lucide="alert-triangle" class="w-3.5 h-3.5 text-rose-400"></i>
+                            <span>Chênh lệch giữa Cung & Cầu/ngày</span>
+                        </p>
+                    </div>
+                    <div class="w-11 h-11 rounded-xl bg-rose-500/10 border border-rose-500/20 flex items-center justify-center text-rose-400 group-hover:scale-110 transition-transform">
+                        <i data-lucide="trending-down" class="w-5 h-5"></i>
+                    </div>
+                </div>
+                <div class="mt-4 pt-3 border-t border-gray-800/80 flex items-center justify-between text-xs text-gray-400">
+                    <span>Nhu cầu Sale: <strong class="text-gray-200">375 Seg</strong></span>
+                    <span>Năng lực: <strong class="text-cyan-400">192 Seg</strong></span>
+                </div>
+            </div>
+
+            <!-- Card 4: Tỷ Lệ Đáp Ứng Sale Request -->
+            <div class="glass-card rounded-xl p-5 relative overflow-hidden group">
+                <div class="absolute top-0 left-0 w-1 h-full bg-indigo-500"></div>
+                <div class="flex items-start justify-between">
+                    <div>
+                        <p class="text-xs font-semibold text-gray-400 uppercase tracking-wider">Tỷ Lệ Đáp Ứng Nhu Cầu</p>
+                        <h3 class="text-2xl lg:text-3xl font-extrabold font-display text-indigo-300 mt-1.5" id="kpi-meet-total">51.2%</h3>
+                        <p class="text-xs text-indigo-200/80 mt-1 flex items-center gap-1">
+                            <i data-lucide="target" class="w-3.5 h-3.5 text-indigo-400"></i>
+                            <span>Mục tiêu đáp ứng: 100%</span>
+                        </p>
+                    </div>
+                    <div class="w-11 h-11 rounded-xl bg-indigo-500/10 border border-indigo-500/20 flex items-center justify-center text-indigo-400 group-hover:scale-110 transition-transform">
+                        <i data-lucide="pie-chart" class="w-5 h-5"></i>
+                    </div>
+                </div>
+                <div class="mt-4 pt-3 border-t border-gray-800/80">
+                    <div class="w-full bg-gray-800 rounded-full h-1.5 overflow-hidden">
+                        <div class="bg-gradient-to-r from-indigo-500 to-cyan-400 h-1.5 rounded-full" style="width: 51.2%"></div>
+                    </div>
+                </div>
+            </div>
+
+        </section>
+
+        <!-- 3. CHARTS SECTION -->
+        <section class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+            
+            <!-- Biểu đồ chính: Cột kết hợp (Combo Bar & Line Chart) (2 Cột rộng) -->
+            <div class="lg:col-span-2 glass-panel rounded-2xl p-6 border border-gray-800/90 flex flex-col justify-between">
+                <div>
+                    <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 mb-4">
+                        <div>
+                            <h2 class="text-base font-bold font-display text-white flex items-center gap-2">
+                                <i data-lucide="bar-chart-3" class="w-4 h-4 text-cyan-400"></i>
+                                <span>Phân Tích Tiến Độ Sản Xuất & Nhu Cầu Từng Dự Án</span>
+                            </h2>
+                            <p class="text-xs text-gray-400 mt-0.5">So sánh Khối lượng PO, Hoàn thành (Trục trái - Seg) và Nhu cầu Sale Request (Trục phải - Seg/ngày)</p>
+                        </div>
+                        
+                        <!-- Toggle view button group -->
+                        <div class="inline-flex rounded-lg bg-gray-800/90 p-0.5 border border-gray-700/60 self-start sm:self-auto">
+                            <button id="btn-chart-combo" onclick="switchChartMode('combo')" class="px-2.5 py-1 text-xs font-medium rounded-md bg-cyan-600 text-white shadow transition">
+                                Tổng Hợp
+                            </button>
+                            <button id="btn-chart-demand" onclick="switchChartMode('demand')" class="px-2.5 py-1 text-xs font-medium rounded-md text-gray-400 hover:text-white transition">
+                                Cung & Cầu (Daily)
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Chart Canvas Container -->
+                    <div class="relative w-full h-[320px] md:h-[350px]">
+                        <canvas id="mainComboChart"></canvas>
+                    </div>
+                </div>
+
+                <!-- Chart Footer Legends / Notes -->
+                <div class="mt-4 pt-3 border-t border-gray-800/80 flex flex-wrap items-center justify-between gap-2 text-xs text-gray-400">
+                    <div class="flex items-center gap-4 flex-wrap">
+                        <span class="flex items-center gap-1.5"><span class="w-3 h-3 rounded-sm bg-cyan-500"></span> PO Received</span>
+                        <span class="flex items-center gap-1.5"><span class="w-3 h-3 rounded-sm bg-emerald-500"></span> PD Completion</span>
+                        <span class="flex items-center gap-1.5"><span class="w-3 h-1 bg-amber-400 rounded"></span> Sale Request</span>
+                    </div>
+                    <span class="text-gray-400 italic text-[11px]">*Đơn vị: Segment</span>
+                </div>
+            </div>
+
+            <!-- Biểu đồ phụ: Tỷ Lệ Đáp Ứng & Phân Bổ Đường Kính Cọc (1 Cột) -->
+            <div class="glass-panel rounded-2xl p-6 border border-gray-800/90 flex flex-col justify-between">
+                <div>
+                    <div class="flex items-center justify-between mb-4">
+                        <h2 class="text-base font-bold font-display text-white flex items-center gap-2">
+                            <i data-lucide="gauge" class="w-4 h-4 text-emerald-400"></i>
+                            <span>Tình Trạng Đáp Ứng & Phân Loại</span>
+                        </h2>
+                        <span class="text-[11px] px-2 py-0.5 rounded-full bg-gray-800 text-gray-300 border border-gray-700">11 Dự Án</span>
+                    </div>
+
+                    <!-- Doughnut Canvas -->
+                    <div class="relative w-full h-[210px] flex items-center justify-center">
+                        <canvas id="statusDoughnutChart"></canvas>
+                    </div>
+
+                    <!-- Breakdown Mini Stats -->
+                    <div class="space-y-2 mt-4">
+                        <div class="flex items-center justify-between p-2 rounded-lg bg-gray-800/40 border border-gray-800 text-xs">
+                            <div class="flex items-center gap-2">
+                                <span class="w-2.5 h-2.5 rounded-full bg-emerald-500"></span>
+                                <span class="text-gray-300">Đạt 100% nhu cầu / Đã xong</span>
+                            </div>
+                            <span class="font-bold text-white">4 dự án (36.4%)</span>
+                        </div>
+                        <div class="flex items-center justify-between p-2 rounded-lg bg-gray-800/40 border border-gray-800 text-xs">
+                            <div class="flex items-center gap-2">
+                                <span class="w-2.5 h-2.5 rounded-full bg-amber-500"></span>
+                                <span class="text-gray-300">Đáp ứng một phần (50% - 70%)</span>
+                            </div>
+                            <span class="font-bold text-white">4 dự án (36.4%)</span>
+                        </div>
+                        <div class="flex items-center justify-between p-2 rounded-lg bg-gray-800/40 border border-gray-800 text-xs">
+                            <div class="flex items-center gap-2">
+                                <span class="w-2.5 h-2.5 rounded-full bg-rose-500"></span>
+                                <span class="text-gray-300">Thiếu hụt nghiêm trọng (&lt;50%)</span>
+                            </div>
+                            <span class="font-bold text-white">3 dự án (27.2%)</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="mt-3 pt-3 border-t border-gray-800/80 text-[11px] text-gray-400 text-center">
+                    Cần ưu tiên bổ sung khuôn & ca sản xuất cho <strong>SUN NHA TRANG</strong> và <strong>TON DONGA</strong>.
+                </div>
+            </div>
+
+        </section>
+
+        <!-- 4. DATA TABLE SECTION -->
+        <section class="glass-panel rounded-2xl p-6 border border-gray-800/90 space-y-4 shadow-glass">
+            
+            <!-- Controls Bar: Title, Search, Filters, Stats -->
+            <div class="flex flex-col md:flex-row md:items-center justify-between gap-4">
+                <div>
+                    <h2 class="text-lg font-bold font-display text-white flex items-center gap-2">
+                        <i data-lucide="table-2" class="w-5 h-5 text-cyan-400"></i>
+                        <span>Bảng Dữ Liệu Chi Tiết 11 Dự Án</span>
+                    </h2>
+                    <p class="text-xs text-gray-400">Click vào tiêu đề cột để sắp xếp tăng/giảm hoặc click vào dòng để xem chi tiết</p>
+                </div>
+
+                <div class="flex flex-wrap items-center gap-3">
+                    <!-- Live Search Input -->
+                    <div class="relative min-w-[240px]">
+                        <i data-lucide="search" class="w-4 h-4 text-gray-400 absolute left-3 top-1/2 -translate-y-1/2 pointer-events-none"></i>
+                        <input 
+                            type="text" 
+                            id="table-search" 
+                            onkeyup="handleSearch()"
+                            placeholder="Tìm kiếm dự án, đường kính..." 
+                            class="w-full pl-9 pr-8 py-1.5 rounded-lg bg-gray-800/80 border border-gray-700 text-xs text-gray-200 placeholder-gray-500 focus:outline-none focus:border-cyan-500 focus:ring-1 focus:ring-cyan-500 transition"
+                        >
+                        <button id="clear-search" onclick="clearSearch()" class="hidden absolute right-2.5 top-1/2 -translate-y-1/2 text-gray-400 hover:text-white">
+                            <i data-lucide="x" class="w-3.5 h-3.5"></i>
+                        </button>
+                    </div>
+
+                    <!-- Status Filter Dropdown -->
+                    <select id="status-filter" onchange="handleFilter()" class="py-1.5 px-3 rounded-lg bg-gray-800/80 border border-gray-700 text-xs text-gray-200 focus:outline-none focus:border-cyan-500">
+                        <option value="all">Tất Cả Trạng Thái</option>
+                        <option value="success">Đạt Yêu Cầu (100%)</option>
+                        <option value="warning">Cảnh Báo (50% - 99%)</option>
+                        <option value="danger">Thiếu Hụt Cao (&lt;50%)</option>
+                        <option value="completed">Đã Hoàn Tất Đơn Hàng</option>
+                    </select>
+                </div>
+            </div>
+
+            <!-- Table Responsive Wrapper -->
+            <div class="overflow-x-auto rounded-xl border border-gray-800 bg-gray-900/40">
+                <table class="w-full text-left text-xs border-collapse" id="projectTable">
                     <thead>
-                        <tr class="text-xs uppercase text-industrial-300 border-b border-industrial-600/50">
-                            <th class="pb-3 px-4 font-semibold whitespace-nowrap">Khung Giờ</th>
-                            <th class="pb-3 px-4 font-semibold whitespace-nowrap">Ca</th>
-                            <th class="pb-3 px-4 font-semibold">Số Cọc Đúc</th>
-                            <th class="pb-3 px-4 font-semibold">Tổng Dài (Mét)</th>
-                            <th class="pb-3 px-4 font-semibold">Cơ Cấu Đường Kính</th>
-                            <th class="pb-3 px-4 font-semibold text-right">Đánh Giá Hiệu Suất</th>
+                        <tr class="bg-gray-800/70 border-b border-gray-700/80 text-gray-300 uppercase tracking-wider font-semibold select-none">
+                            <th class="py-3 px-3.5 text-center w-12 sortable" onclick="sortTable('id')">
+                                <div class="flex items-center justify-center gap-1">STT <span id="sort-icon-id"></span></div>
+                            </th>
+                            <th class="py-3 px-4 sortable min-w-[170px]" onclick="sortTable('name')">
+                                <div class="flex items-center gap-1">Tên Dự Án <span id="sort-icon-name"></span></div>
+                            </th>
+                            <th class="py-3 px-3.5 sortable min-w-[110px]" onclick="sortTable('dia')">
+                                <div class="flex items-center gap-1">Đường Kính (Dia) <span id="sort-icon-dia"></span></div>
+                            </th>
+                            <th class="py-3 px-3.5 text-right sortable" onclick="sortTable('po')">
+                                <div class="flex items-center justify-end gap-1">PO Received <span id="sort-icon-po"></span></div>
+                            </th>
+                            <th class="py-3 px-3.5 text-right sortable" onclick="sortTable('remain')">
+                                <div class="flex items-center justify-end gap-1">Remain PD <span id="sort-icon-remain"></span></div>
+                            </th>
+                            <th class="py-3 px-3.5 text-right sortable" onclick="sortTable('pd')">
+                                <div class="flex items-center justify-end gap-1">PD Completion <span id="sort-icon-pd"></span></div>
+                            </th>
+                            <th class="py-3 px-4 sortable min-w-[130px]" onclick="sortTable('compRate')">
+                                <div class="flex items-center gap-1">Completion % <span id="sort-icon-compRate"></span></div>
+                            </th>
+                            <th class="py-3 px-3.5 text-right sortable" onclick="sortTable('saleReq')">
+                                <div class="flex items-center justify-end gap-1">Sale Req <span id="sort-icon-saleReq"></span></div>
+                            </th>
+                            <th class="py-3 px-3.5 text-right sortable" onclick="sortTable('capacity')">
+                                <div class="flex items-center justify-end gap-1">Capacity <span id="sort-icon-capacity"></span></div>
+                            </th>
+                            <th class="py-3 px-3.5 text-right sortable" onclick="sortTable('shortage')">
+                                <div class="flex items-center justify-end gap-1">Shortage <span id="sort-icon-shortage"></span></div>
+                            </th>
+                            <th class="py-3 px-4 text-center sortable min-w-[140px]" onclick="sortTable('meetRate')">
+                                <div class="flex items-center justify-center gap-1">Meet Sale % <span id="sort-icon-meetRate"></span></div>
+                            </th>
+                            <th class="py-3 px-3 text-center">Thao tác</th>
                         </tr>
                     </thead>
-                    <tbody id="hourly-table-body" class="text-sm">
-                        <!-- Rows rendered via JS -->
+                    <tbody id="tableBody" class="divide-y divide-gray-800/60 text-gray-300 font-normal">
+                        <!-- Dynamic Project Rows Generated by JS -->
                     </tbody>
+                    <tfoot id="tableFoot" class="bg-gray-800/90 font-bold text-white border-t-2 border-cyan-500/40">
+                        <!-- Total Row Generated by JS -->
+                    </tfoot>
                 </table>
             </div>
-        </div>
 
-        <!-- ROW 4: Diameter Chart -->
-        <div class="glass-panel p-6">
-            <div class="flex items-center justify-between mb-6">
-                <h3 class="text-lg font-bold text-white display-font flex items-center gap-2">
-                    <i class="fa-solid fa-chart-simple text-accent"></i> Phân Bổ Theo Đường Kính
-                </h3>
+            <!-- Table Summary & Pagination Info -->
+            <div class="flex flex-col sm:flex-row items-center justify-between gap-2 text-xs text-gray-400 pt-2">
+                <div id="table-record-count">Hiển thị 11 / 11 dự án</div>
+                <div class="flex items-center gap-2 text-[11px]">
+                    <span class="inline-flex items-center gap-1 px-2 py-0.5 rounded status-badge-ok">● Đạt 100%</span>
+                    <span class="inline-flex items-center gap-1 px-2 py-0.5 rounded status-badge-warning">▲ Cảnh Báo</span>
+                    <span class="inline-flex items-center gap-1 px-2 py-0.5 rounded status-badge-danger">✕ Thiếu Hụt</span>
+                    <span class="inline-flex items-center gap-1 px-2 py-0.5 rounded status-badge-completed">✓ Hoàn Tất PO</span>
+                </div>
             </div>
-            <div class="relative h-72 w-full">
-                <canvas id="diameterChart"></canvas>
-            </div>
-        </div>
 
-        <!-- ROW 5: Data Table -->
-        <div class="glass-panel p-6">
-            <div class="flex items-center justify-between mb-6">
-                <h3 class="text-lg font-bold text-white display-font flex items-center gap-2">
-                    <i class="fa-solid fa-list-check text-accent"></i> Nhật Ký Sản Xuất (10 Mới Nhất)
-                </h3>
-            </div>
-            <div class="table-container">
-                <table class="w-full text-left border-collapse">
-                    <thead>
-                        <tr class="text-xs uppercase text-industrial-300 border-b border-industrial-600/50">
-                            <th class="pb-3 px-4 font-semibold whitespace-nowrap">#</th>
-                            <th class="pb-3 px-4 font-semibold whitespace-nowrap">Mã VGSI (Serial)</th>
-                            <th class="pb-3 px-4 font-semibold min-w-[180px]">Mã Cọc (Pile Code)</th>
-                            <th class="pb-3 px-4 font-semibold">Đường Kính</th>
-                            <th class="pb-3 px-4 font-semibold">Chiều Dài</th>
-                            <th class="pb-3 px-4 font-semibold">Loại</th>
-                            <th class="pb-3 px-4 font-semibold min-w-[150px]">Dự Án</th>
-                            <th class="pb-3 px-4 font-semibold">QC</th>
-                            <th class="pb-3 px-4 font-semibold text-right">Trạng Thái</th>
-                        </tr>
-                    </thead>
-                    <tbody id="table-body" class="text-sm">
-                        <!-- Rows rendered via JS -->
-                    </tbody>
-                </table>
-            </div>
-        </div>
+        </section>
 
     </main>
 
-    <!-- JS LOGIC & DATA -->
+    <!-- FOOTER -->
+    <footer class="mt-12 border-t border-gray-800/60 py-6 text-center text-xs text-gray-500">
+        <div class="max-w-7xl mx-auto px-4 flex flex-col sm:flex-row items-center justify-between gap-3">
+            <div class="flex items-center gap-2">
+                <div class="w-2 h-2 rounded-full bg-emerald-500"></div>
+                <span>Concrete Pile Production & Sales Management Dashboard</span>
+            </div>
+            <div>Nguồn dữ liệu: <span class="text-gray-300 font-medium">PROJECT CONDITION1.xlsx (Sheet: 4.CONDITION PROJECT)</span></div>
+        </div>
+    </footer>
+
+    <!-- MODAL CHI TIẾT DỰ ÁN (PROJECT QUICK VIEW MODAL) -->
+    <div id="projectModal" class="fixed inset-0 z-50 hidden flex items-center justify-center p-4 bg-black/75 backdrop-blur-sm transition-opacity">
+        <div class="glass-panel w-full max-w-lg rounded-2xl border border-cyan-500/30 shadow-2xl p-6 relative overflow-hidden">
+            <div class="absolute top-0 right-0 p-4">
+                <button onclick="closeModal()" class="p-1 rounded-lg bg-gray-800 text-gray-400 hover:text-white transition">
+                    <i data-lucide="x" class="w-5 h-5"></i>
+                </button>
+            </div>
+
+            <div class="flex items-center gap-3 mb-5">
+                <div class="w-10 h-10 rounded-xl bg-cyan-500/20 text-cyan-400 flex items-center justify-center font-bold font-display" id="modal-idx">
+                    1
+                </div>
+                <div>
+                    <h3 class="text-lg font-bold font-display text-white" id="modal-title">SUN NHA TRANG</h3>
+                    <p class="text-xs text-gray-400" id="modal-dia">Đường kính: D350A</p>
+                </div>
+            </div>
+
+            <div class="space-y-3.5 text-xs" id="modal-content">
+                <!-- Injected via JS -->
+            </div>
+
+            <div class="mt-6 pt-4 border-t border-gray-800 flex justify-end">
+                <button onclick="closeModal()" class="px-4 py-2 rounded-lg bg-gray-800 hover:bg-gray-700 text-white text-xs font-medium transition">
+                    Đóng
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- JAVASCRIPT LOGIC -->
     <script>
-        // --- REAL EXCEL DATASET ---
-        const RAW_DATA = [{"id":1,"serial":"260811004","shift":"A","pileCode":"A350_12_MIDDLE_60","diameter":"D350","length":"12m","type":"Middle","status":"Đã Nhập Kho","rawStatus":"proStocking","qc":"Cần Chú Ý","customer":"SUNNHATRANG","conTimeStr":"21:49","castingHour":21},{"id":2,"serial":"260811005","shift":"A","pileCode":"A350_12_MIDDLE_60","diameter":"D350","length":"12m","type":"Middle","status":"Đã Nhập Kho","rawStatus":"proStocking","qc":"Cần Chú Ý","customer":"SUNNHATRANG","conTimeStr":"21:44","castingHour":21},{"id":3,"serial":"260811006","shift":"A","pileCode":"A350_12_MIDDLE_60","diameter":"D350","length":"12m","type":"Middle","status":"Đã Nhập Kho","rawStatus":"proStocking","qc":"Cần Chú Ý","customer":"SUNNHATRANG","conTimeStr":"21:39","castingHour":21},{"id":4,"serial":"260811007","shift":"A","pileCode":"A350_10_MIDDLE_60","diameter":"D350","length":"10m","type":"Middle","status":"Đã Nhập Kho","rawStatus":"proStocking","qc":"Chưa Đạt (N.G)","customer":"SUNNHATRANG","conTimeStr":"21:37","castingHour":21},{"id":5,"serial":"260811008","shift":"A","pileCode":"A350_6_MIDDLE_60","diameter":"D350","length":"6m","type":"Middle","status":"Đã Nhập Kho","rawStatus":"proStocking","qc":"Chưa Đạt (N.G)","customer":"SUNNHATRANG","conTimeStr":"21:37","castingHour":21},{"id":6,"serial":"260811015","shift":"A","pileCode":"A350_10_MIDDLE_60","diameter":"D350","length":"10m","type":"Middle","status":"Đã Nhập Kho","rawStatus":"proStocking","qc":"Chưa Đạt (N.G)","customer":"SUNNHATRANG","conTimeStr":"21:34","castingHour":21},{"id":7,"serial":"260811016","shift":"A","pileCode":"A350_6_MIDDLE_60","diameter":"D350","length":"6m","type":"Middle","status":"Đã Nhập Kho","rawStatus":"proStocking","qc":"Chưa Đạt (N.G)","customer":"SUNNHATRANG","conTimeStr":"21:34","castingHour":21},{"id":8,"serial":"260811013","shift":"A","pileCode":"A350_10_MIDDLE_60","diameter":"D350","length":"10m","type":"Middle","status":"Đã Nhập Kho","rawStatus":"proStocking","qc":"Chưa Đạt (N.G)","customer":"SUNNHATRANG","conTimeStr":"21:29","castingHour":21},{"id":9,"serial":"260811014","shift":"A","pileCode":"A350_6_MIDDLE_60","diameter":"D350","length":"6m","type":"Middle","status":"Đã Nhập Kho","rawStatus":"proStocking","qc":"Chưa Đạt (N.G)","customer":"SUNNHATRANG","conTimeStr":"21:30","castingHour":21},{"id":10,"serial":"260811011","shift":"A","pileCode":"A350_10_MIDDLE_60","diameter":"D350","length":"10m","type":"Middle","status":"Đã Nhập Kho","rawStatus":"proStocking","qc":"Chưa Đạt (N.G)","customer":"SUNNHATRANG","conTimeStr":"21:28","castingHour":21},{"id":11,"serial":"260811012","shift":"A","pileCode":"A350_6_MIDDLE_60","diameter":"D350","length":"6m","type":"Middle","status":"Đã Nhập Kho","rawStatus":"proStocking","qc":"Chưa Đạt (N.G)","customer":"SUNNHATRANG","conTimeStr":"21:28","castingHour":21},{"id":12,"serial":"260811009","shift":"A","pileCode":"A350_10_MIDDLE_60","diameter":"D350","length":"10m","type":"Middle","status":"Đã Nhập Kho","rawStatus":"proStocking","qc":"Chưa Đạt (N.G)","customer":"SUNNHATRANG","conTimeStr":"21:26","castingHour":21},{"id":13,"serial":"260811010","shift":"A","pileCode":"A350_6_MIDDLE_60","diameter":"D350","length":"6m","type":"Middle","status":"Đã Nhập Kho","rawStatus":"proStocking","qc":"Chưa Đạt (N.G)","customer":"SUNNHATRANG","conTimeStr":"21:26","castingHour":21},{"id":14,"serial":"260811017","shift":"A","pileCode":"A400_8_MIDDLE_70","diameter":"D400","length":"8m","type":"Middle","status":"Đã Nhập Kho","rawStatus":"proStocking","qc":"Chưa Đạt (N.G)","customer":"TONDONGA","conTimeStr":"21:13","castingHour":21},{"id":15,"serial":"260811018","shift":"A","pileCode":"A400_8_MIDDLE_70","diameter":"D400","length":"8m","type":"Middle","status":"Đã Nhập Kho","rawStatus":"proStocking","qc":"Chưa Đạt (N.G)","customer":"TONDONGA","conTimeStr":"21:13","castingHour":21},{"id":16,"serial":"260811022","shift":"A","pileCode":"A400_10_MIDDLE_65","diameter":"D400","length":"10m","type":"Middle","status":"Đã Nhập Kho","rawStatus":"proStocking","qc":"Cần Chú Ý","customer":"KSM ENGVINA","conTimeStr":"21:10","castingHour":21},{"id":17,"serial":"260811021","shift":"A","pileCode":"A400_10_MIDDLE_65","diameter":"D400","length":"10m","type":"Middle","status":"Đã Nhập Kho","rawStatus":"proStocking","qc":"Cần Chú Ý","customer":"KSM ENGVINA","conTimeStr":"21:08","castingHour":21},{"id":18,"serial":"260811020","shift":"A","pileCode":"A400_10_MIDDLE_65","diameter":"D400","length":"10m","type":"Middle","status":"Đã Nhập Kho","rawStatus":"proStocking","qc":"Cần Chú Ý","customer":"KSM ENGVINA","conTimeStr":"21:01","castingHour":21},{"id":19,"serial":"260811019","shift":"A","pileCode":"A400_10_MIDDLE_65","diameter":"D400","length":"10m","type":"Middle","status":"Đã Nhập Kho","rawStatus":"proStocking","qc":"Cần Chú Ý","customer":"KSM ENGVINA","conTimeStr":"20:58","castingHour":20},{"id":20,"serial":"260811023","shift":"A","pileCode":"A400_10_MIDDLE_65","diameter":"D400","length":"10m","type":"Middle","status":"Đã Nhập Kho","rawStatus":"proStocking","qc":"Cần Chú Ý","customer":"KSM ENGVINA","conTimeStr":"20:56","castingHour":20},{"id":21,"serial":"260811031","shift":"A","pileCode":"A400_11_MIDDLE_65","diameter":"D400","length":"11m","type":"Middle","status":"Đã Nhập Kho","rawStatus":"proStocking","qc":"Cần Chú Ý","customer":"VAMCO PORT","conTimeStr":"20:50","castingHour":20},{"id":22,"serial":"260811024","shift":"A","pileCode":"A400_12_MIDDLE_70","diameter":"D400","length":"12m","type":"Middle","status":"Đã Nhập Kho","rawStatus":"proStocking","qc":"Cần Chú Ý","customer":"TONDONGA","conTimeStr":"20:46","castingHour":20},{"id":23,"serial":"260811027","shift":"A","pileCode":"A400_12_MIDDLE_70","diameter":"D400","length":"12m","type":"Middle","status":"Đã Nhập Kho","rawStatus":"proStocking","qc":"Cần Chú Ý","customer":"TONDONGA","conTimeStr":"20:44","castingHour":20},{"id":24,"serial":"260811026","shift":"A","pileCode":"A400_12_MIDDLE_70","diameter":"D400","length":"12m","type":"Middle","status":"Đã Nhập Kho","rawStatus":"proStocking","qc":"Cần Chú Ý","customer":"TONDONGA","conTimeStr":"20:38","castingHour":20},{"id":25,"serial":"260811025","shift":"A","pileCode":"A400_12_MIDDLE_70","diameter":"D400","length":"12m","type":"Middle","status":"Đã Nhập Kho","rawStatus":"proStocking","qc":"Cần Chú Ý","customer":"TONDONGA","conTimeStr":"20:36","castingHour":20},{"id":26,"serial":"260811028","shift":"A","pileCode":"A400_12_MIDDLE_70","diameter":"D400","length":"12m","type":"Middle","status":"Đã Nhập Kho","rawStatus":"proStocking","qc":"Cần Chú Ý","customer":"TONDONGA","conTimeStr":"20:33","castingHour":20},{"id":27,"serial":"260811029","shift":"A","pileCode":"A400_12_MIDDLE_70","diameter":"D400","length":"12m","type":"Middle","status":"Đã Nhập Kho","rawStatus":"proStocking","qc":"Cần Chú Ý","customer":"TONDONGA","conTimeStr":"20:29","castingHour":20},{"id":28,"serial":"260811030","shift":"A","pileCode":"A400_12_MIDDLE_70","diameter":"D400","length":"12m","type":"Middle","status":"Đã Nhập Kho","rawStatus":"proStocking","qc":"Cần Chú Ý","customer":"TONDONGA","conTimeStr":"20:27","castingHour":20},{"id":29,"serial":"260811032","shift":"A","pileCode":"A400_14_MIDDLE_65","diameter":"D400","length":"14m","type":"Middle","status":"Đã Nhập Kho","rawStatus":"proStocking","qc":"Cần Chú Ý","customer":"VAMCO PORT","conTimeStr":"20:22","castingHour":20},{"id":30,"serial":"260811036","shift":"A","pileCode":"A400_14_MIDDLE_65","diameter":"D400","length":"14m","type":"Middle","status":"Đã Nhập Kho","rawStatus":"proStocking","qc":"Cần Chú Ý","customer":"VAMCO PORT","conTimeStr":"20:17","castingHour":20},{"id":31,"serial":"260811035","shift":"A","pileCode":"A400_14_MIDDLE_65","diameter":"D400","length":"14m","type":"Middle","status":"Đã Nhập Kho","rawStatus":"proStocking","qc":"Cần Chú Ý","customer":"VAMCO PORT","conTimeStr":"20:12","castingHour":20},{"id":32,"serial":"260811034","shift":"A","pileCode":"A400_14_MIDDLE_65","diameter":"D400","length":"14m","type":"Middle","status":"Đã Nhập Kho","rawStatus":"proStocking","qc":"Cần Chú Ý","customer":"VAMCO PORT","conTimeStr":"20:10","castingHour":20},{"id":33,"serial":"260811033","shift":"A","pileCode":"A400_14_MIDDLE_65","diameter":"D400","length":"14m","type":"Middle","status":"Đã Nhập Kho","rawStatus":"proStocking","qc":"Cần Chú Ý","customer":"VAMCO PORT","conTimeStr":"20:03","castingHour":20},{"id":34,"serial":"260811001","shift":"A","pileCode":"A300_10_MIDDLE_60","diameter":"D300","length":"10m","type":"Middle","status":"Đã Nhập Kho","rawStatus":"proStocking","qc":"Cần Chú Ý","customer":"VAMCO PORT","conTimeStr":"20:03","castingHour":20},{"id":35,"serial":"260811002","shift":"A","pileCode":"A300_10_MIDDLE_65","diameter":"D300","length":"10m","type":"Middle","status":"Đã Nhập Kho","rawStatus":"proStocking","qc":"Cần Chú Ý","customer":"PHANTHIET","conTimeStr":"19:53","castingHour":19},{"id":36,"serial":"260811003","shift":"A","pileCode":"A300_10_MIDDLE_65","diameter":"D300","length":"10m","type":"Middle","status":"Đã Nhập Kho","rawStatus":"proStocking","qc":"Cần Chú Ý","customer":"PHANTHIET","conTimeStr":"19:50","castingHour":19},{"id":37,"serial":"N/A","shift":"B","pileCode":"A300_10_MIDDLE_65","diameter":"D300","length":"10m","type":"Middle","status":"Đang Tháo Khuôn","rawStatus":"proDemoulding","qc":"Cần Chú Ý","customer":"PHANTHIET","conTimeStr":"19:50","castingHour":19},{"id":38,"serial":"N/A","shift":"B","pileCode":"A300_10_MIDDLE_65","diameter":"D300","length":"10m","type":"Middle","status":"Đang Tháo Khuôn","rawStatus":"proDemoulding","qc":"Cần Chú Ý","customer":"PHANTHIET","conTimeStr":"19:42","castingHour":19},{"id":39,"serial":"N/A","shift":"B","pileCode":"A300_10_MIDDLE_65","diameter":"D300","length":"10m","type":"Middle","status":"Đang Tháo Khuôn","rawStatus":"proDemoulding","qc":"Cần Chú Ý","customer":"PHANTHIET","conTimeStr":"19:40","castingHour":19},{"id":40,"serial":"N/A","shift":"B","pileCode":"A300_10_MIDDLE_65","diameter":"D300","length":"10m","type":"Middle","status":"Đang Tháo Khuôn","rawStatus":"proDemoulding","qc":"Cần Chú Ý","customer":"PHANTHIET","conTimeStr":"19:37","castingHour":19},{"id":41,"serial":"N/A","shift":"B","pileCode":"A300_10_MIDDLE_65","diameter":"D300","length":"10m","type":"Middle","status":"Đang Tháo Khuôn","rawStatus":"proDemoulding","qc":"Cần Chú Ý","customer":"PHANTHIET","conTimeStr":"19:34","castingHour":19},{"id":42,"serial":"N/A","shift":"B","pileCode":"A300_10_MIDDLE_65","diameter":"D300","length":"10m","type":"Middle","status":"Đang Tháo Khuôn","rawStatus":"proDemoulding","qc":"Cần Chú Ý","customer":"PHANTHIET","conTimeStr":"19:28","castingHour":19},{"id":43,"serial":"N/A","shift":"B","pileCode":"A300_10_MIDDLE_65","diameter":"D300","length":"10m","type":"Middle","status":"Đang Tháo Khuôn","rawStatus":"proDemoulding","qc":"Cần Chú Ý","customer":"PHANTHIET","conTimeStr":"19:21","castingHour":19},{"id":44,"serial":"N/A","shift":"B","pileCode":"A300_10_MIDDLE_65","diameter":"D300","length":"10m","type":"Middle","status":"Đang Tháo Khuôn","rawStatus":"proDemoulding","qc":"Cần Chú Ý","customer":"PHANTHIET","conTimeStr":"19:18","castingHour":19},{"id":45,"serial":"N/A","shift":"B","pileCode":"A300_10_MIDDLE_65","diameter":"D300","length":"10m","type":"Middle","status":"Đang Tháo Khuôn","rawStatus":"proDemoulding","qc":"Cần Chú Ý","customer":"AQUACITY","conTimeStr":"19:17","castingHour":19},{"id":46,"serial":"N/A","shift":"B","pileCode":"A300_10_MIDDLE_65","diameter":"D300","length":"10m","type":"Middle","status":"Đang Tháo Khuôn","rawStatus":"proDemoulding","qc":"Cần Chú Ý","customer":"AQUACITY","conTimeStr":"19:14","castingHour":19},{"id":47,"serial":"N/A","shift":"B","pileCode":"A300_10_MIDDLE_65","diameter":"D300","length":"10m","type":"Middle","status":"Đang Tháo Khuôn","rawStatus":"proDemoulding","qc":"Cần Chú Ý","customer":"AQUACITY","conTimeStr":"19:11","castingHour":19},{"id":48,"serial":"N/A","shift":"B","pileCode":"A300_10_MIDDLE_65","diameter":"D300","length":"10m","type":"Middle","status":"Đang Tháo Khuôn","rawStatus":"proDemoulding","qc":"Cần Chú Ý","customer":"AQUACITY","conTimeStr":"19:03","castingHour":19},{"id":49,"serial":"N/A","shift":"B","pileCode":"A300_10_MIDDLE_65","diameter":"D300","length":"10m","type":"Middle","status":"Đang Tháo Khuôn","rawStatus":"proDemoulding","qc":"Cần Chú Ý","customer":"AQUACITY","conTimeStr":"19:00","castingHour":19},{"id":50,"serial":"N/A","shift":"B","pileCode":"A300_12_MIDDLE_65","diameter":"D300","length":"12m","type":"Middle","status":"Đang Tháo Khuôn","rawStatus":"proDemoulding","qc":"Cần Chú Ý","customer":"AQUACITY","conTimeStr":"18:59","castingHour":18},{"id":51,"serial":"N/A","shift":"B","pileCode":"A300_12_MIDDLE_65","diameter":"D300","length":"12m","type":"Middle","status":"Đang Tháo Khuôn","rawStatus":"proDemoulding","qc":"Cần Chú Ý","customer":"AQUACITY","conTimeStr":"18:54","castingHour":18},{"id":52,"serial":"N/A","shift":"B","pileCode":"A300_12_MIDDLE_65","diameter":"D300","length":"12m","type":"Middle","status":"Đang Tháo Khuôn","rawStatus":"proDemoulding","qc":"Cần Chú Ý","customer":"AQUACITY","conTimeStr":"18:46","castingHour":18},{"id":53,"serial":"N/A","shift":"B","pileCode":"A300_12_MIDDLE_65","diameter":"D300","length":"12m","type":"Middle","status":"Đang Tháo Khuôn","rawStatus":"proDemoulding","qc":"Cần Chú Ý","customer":"AQUACITY","conTimeStr":"18:44","castingHour":18},{"id":54,"serial":"N/A","shift":"B","pileCode":"A300_12_MIDDLE_65","diameter":"D300","length":"12m","type":"Middle","status":"Đang Tháo Khuôn","rawStatus":"proDemoulding","qc":"Cần Chú Ý","customer":"AQUACITY","conTimeStr":"18:33","castingHour":18},{"id":55,"serial":"N/A","shift":"B","pileCode":"A300_12_MIDDLE_65","diameter":"D300","length":"12m","type":"Middle","status":"Đang Tháo Khuôn","rawStatus":"proDemoulding","qc":"Cần Chú Ý","customer":"AQUACITY","conTimeStr":"18:30","castingHour":18},{"id":56,"serial":"N/A","shift":"B","pileCode":"A300_12_MIDDLE_65","diameter":"D300","length":"12m","type":"Middle","status":"Đang Tháo Khuôn","rawStatus":"proDemoulding","qc":"Cần Chú Ý","customer":"AQUACITY","conTimeStr":"18:27","castingHour":18},{"id":57,"serial":"260811037","shift":"A","pileCode":"C90_A500_14_MIDDLE_85","diameter":"D500","length":"14m","type":"Middle","status":"Đã Nhập Kho","rawStatus":"proStocking","qc":"Cần Chú Ý","customer":"HOAPHATC90","conTimeStr":"18:24","castingHour":18},{"id":58,"serial":"260811038","shift":"A","pileCode":"C90_A500_14_MIDDLE_85","diameter":"D500","length":"14m","type":"Middle","status":"Đã Nhập Kho","rawStatus":"proStocking","qc":"Cần Chú Ý","customer":"HOAPHATC90","conTimeStr":"18:16","castingHour":18},{"id":59,"serial":"260811039","shift":"A","pileCode":"C90_A500_14_MIDDLE_85","diameter":"D500","length":"14m","type":"Middle","status":"Đã Nhập Kho","rawStatus":"proStocking","qc":"Cần Chú Ý","customer":"HOAPHATC90","conTimeStr":"18:05","castingHour":18},{"id":60,"serial":"260811040","shift":"A","pileCode":"C90_A500_14_MIDDLE_85","diameter":"D500","length":"14m","type":"Middle","status":"Đã Nhập Kho","rawStatus":"proStocking","qc":"Cần Chú Ý","customer":"HOAPHATC90","conTimeStr":"17:56","castingHour":17},{"id":61,"serial":"260811041","shift":"A","pileCode":"C90_A500_14_MIDDLE_85","diameter":"D500","length":"14m","type":"Middle","status":"Đã Nhập Kho","rawStatus":"proStocking","qc":"Cần Chú Ý","customer":"HOAPHATC90","conTimeStr":"17:56","castingHour":17},{"id":62,"serial":"260811042","shift":"A","pileCode":"C90_A500_15_MIDDLE_85","diameter":"D500","length":"15m","type":"Middle","status":"Đã Nhập Kho","rawStatus":"proStocking","qc":"Cần Chú Ý","customer":"HOAPHATC90","conTimeStr":"17:55","castingHour":17},{"id":63,"serial":"260811043","shift":"A","pileCode":"C90_A500_15_MIDDLE_85","diameter":"D500","length":"15m","type":"Middle","status":"Đã Nhập Kho","rawStatus":"proStocking","qc":"Cần Chú Ý","customer":"HOAPHATC90","conTimeStr":"17:53","castingHour":17},{"id":64,"serial":"260811046","shift":"A","pileCode":"C90_A500_15_MIDDLE_85","diameter":"D500","length":"15m","type":"Middle","status":"Đã Nhập Kho","rawStatus":"proStocking","qc":"Cần Chú Ý","customer":"HOAPHATC90","conTimeStr":"17:52","castingHour":17},{"id":65,"serial":"260811045","shift":"A","pileCode":"C90_A500_15_MIDDLE_85","diameter":"D500","length":"15m","type":"Middle","status":"Đã Nhập Kho","rawStatus":"proStocking","qc":"Cần Chú Ý","customer":"HOAPHATC90","conTimeStr":"17:00","castingHour":17},{"id":66,"serial":"260811053","shift":"A","pileCode":"C90_A400_9_MIDDLE_65","diameter":"D400","length":"9m","type":"Middle","status":"Đã Nhập Kho","rawStatus":"proStocking","qc":"Chưa Đạt (N.G)","customer":"SEAH2C90","conTimeStr":"16:41","castingHour":16},{"id":67,"serial":"260811054","shift":"A","pileCode":"C90_A400_7_MIDDLE_65","diameter":"D400","length":"7m","type":"Middle","status":"Đã Nhập Kho","rawStatus":"proStocking","qc":"Chưa Đạt (N.G)","customer":"SEAH2C90","conTimeStr":"16:41","castingHour":16},{"id":68,"serial":"260811044","shift":"A","pileCode":"C90_A500_15_MIDDLE_85","diameter":"D500","length":"15m","type":"Middle","status":"Đã Nhập Kho","rawStatus":"proStocking","qc":"Cần Chú Ý","customer":"HOAPHATC90","conTimeStr":"16:56","castingHour":16},{"id":69,"serial":"260811051","shift":"A","pileCode":"C90_A400_9_MIDDLE_65","diameter":"D400","length":"9m","type":"Middle","status":"Đã Nhập Kho","rawStatus":"proStocking","qc":"Chưa Đạt (N.G)","customer":"SEAH2C90","conTimeStr":"16:37","castingHour":16},{"id":70,"serial":"260811052","shift":"A","pileCode":"C90_A400_7_MIDDLE_65","diameter":"D400","length":"7m","type":"Middle","status":"Đã Nhập Kho","rawStatus":"proStocking","qc":"Chưa Đạt (N.G)","customer":"SEAH2C90","conTimeStr":"16:37","castingHour":16},{"id":71,"serial":"260811047","shift":"A","pileCode":"A400_8_MIDDLE_70","diameter":"D400","length":"8m","type":"Middle","status":"Đã Nhập Kho","rawStatus":"proStocking","qc":"Chưa Đạt (N.G)","customer":"TONDONGA","conTimeStr":"16:32","castingHour":16},{"id":72,"serial":"260811048","shift":"A","pileCode":"A400_8_MIDDLE_70","diameter":"D400","length":"8m","type":"Middle","status":"Đã Nhập Kho","rawStatus":"proStocking","qc":"Chưa Đạt (N.G)","customer":"TONDONGA","conTimeStr":"16:32","castingHour":16},{"id":73,"serial":"260811049","shift":"A","pileCode":"A400_8_MIDDLE_70","diameter":"D400","length":"8m","type":"Middle","status":"Đã Nhập Kho","rawStatus":"proStocking","qc":"Chưa Đạt (N.G)","customer":"TONDONGA","conTimeStr":"16:23","castingHour":16},{"id":74,"serial":"260811050","shift":"A","pileCode":"A400_8_MIDDLE_70","diameter":"D400","length":"8m","type":"Middle","status":"Đã Nhập Kho","rawStatus":"proStocking","qc":"Chưa Đạt (N.G)","customer":"TONDONGA","conTimeStr":"16:23","castingHour":16},{"id":75,"serial":"260811057","shift":"A","pileCode":"A400_14_MIDDLE_65","diameter":"D400","length":"14m","type":"Middle","status":"Đã Nhập Kho","rawStatus":"proStocking","qc":"Cần Chú Ý","customer":"VAMCO PORT","conTimeStr":"16:23","castingHour":16},{"id":76,"serial":"260811056","shift":"A","pileCode":"A400_14_MIDDLE_65","diameter":"D400","length":"14m","type":"Middle","status":"Đã Nhập Kho","rawStatus":"proStocking","qc":"Cần Chú Ý","customer":"VAMCO PORT","conTimeStr":"16:18","castingHour":16},{"id":77,"serial":"260811055","shift":"A","pileCode":"A400_14_MIDDLE_65","diameter":"D400","length":"14m","type":"Middle","status":"Đã Nhập Kho","rawStatus":"proStocking","qc":"Cần Chú Ý","customer":"VAMCO PORT","conTimeStr":"16:15","castingHour":16},{"id":78,"serial":"260811059","shift":"A","pileCode":"A400_14_MIDDLE_65","diameter":"D400","length":"14m","type":"Middle","status":"Đã Nhập Kho","rawStatus":"proStocking","qc":"Cần Chú Ý","customer":"VAMCO PORT","conTimeStr":"16:14","castingHour":16},{"id":79,"serial":"260811058","shift":"A","pileCode":"A400_14_MIDDLE_65","diameter":"D400","length":"14m","type":"Middle","status":"Đã Nhập Kho","rawStatus":"proStocking","qc":"Cần Chú Ý","customer":"VAMCO PORT","conTimeStr":"16:01","castingHour":16},{"id":80,"serial":"260811060","shift":"A","pileCode":"A400_12_MIDDLE_70","diameter":"D400","length":"12m","type":"Middle","status":"Đã Nhập Kho","rawStatus":"proStocking","qc":"Cần Chú Ý","customer":"TONDONGA","conTimeStr":"16:00","castingHour":16},{"id":81,"serial":"260811061","shift":"A","pileCode":"A400_12_MIDDLE_70","diameter":"D400","length":"12m","type":"Middle","status":"Đã Nhập Kho","rawStatus":"proStocking","qc":"Cần Chú Ý","customer":"TONDONGA","conTimeStr":"15:56","castingHour":15},{"id":82,"serial":"260811062","shift":"A","pileCode":"A400_11_MIDDLE_65","diameter":"D400","length":"11m","type":"Middle","status":"Đã Nhập Kho","rawStatus":"proStocking","qc":"Cần Chú Ý","customer":"VAMCO PORT","conTimeStr":"15:50","castingHour":15},{"id":83,"serial":"260811063","shift":"A","pileCode":"A400_11_MIDDLE_65","diameter":"D400","length":"11m","type":"Middle","status":"Đã Nhập Kho","rawStatus":"proStocking","qc":"Cần Chú Ý","customer":"VAMCO PORT","conTimeStr":"15:48","castingHour":15},{"id":84,"serial":"260811064","shift":"A","pileCode":"A400_11_MIDDLE_65","diameter":"D400","length":"11m","type":"Middle","status":"Đã Nhập Kho","rawStatus":"proStocking","qc":"Cần Chú Ý","customer":"VAMCO PORT","conTimeStr":"15:43","castingHour":15},{"id":85,"serial":"260811068","shift":"A","pileCode":"A400_11_MIDDLE_65","diameter":"D400","length":"11m","type":"Middle","status":"Đã Nhập Kho","rawStatus":"proStocking","qc":"Cần Chú Ý","customer":"VAMCO PORT","conTimeStr":"15:39","castingHour":15},{"id":86,"serial":"260811065","shift":"A","pileCode":"A400_11_MIDDLE_65","diameter":"D400","length":"11m","type":"Middle","status":"Đã Nhập Kho","rawStatus":"proStocking","qc":"Cần Chú Ý","customer":"VAMCO PORT","conTimeStr":"15:33","castingHour":15},{"id":87,"serial":"260811066","shift":"A","pileCode":"A400_11_MIDDLE_65","diameter":"D400","length":"11m","type":"Middle","status":"Đã Nhập Kho","rawStatus":"proStocking","qc":"Cần Chú Ý","customer":"VAMCO PORT","conTimeStr":"15:31","castingHour":15},{"id":88,"serial":"260811067","shift":"A","pileCode":"A400_11_MIDDLE_65","diameter":"D400","length":"11m","type":"Middle","status":"Đã Nhập Kho","rawStatus":"proStocking","qc":"Cần Chú Ý","customer":"VAMCO PORT","conTimeStr":"15:27","castingHour":15},{"id":89,"serial":"N/A","shift":"B","pileCode":"A400_11_MIDDLE_65","diameter":"D400","length":"11m","type":"Middle","status":"Đang Tháo Khuôn","rawStatus":"proDemoulding","qc":"Cần Chú Ý","customer":"VAMCO PORT","conTimeStr":"15:25","castingHour":15},{"id":90,"serial":"N/A","shift":"B","pileCode":"A400_11_MIDDLE_65","diameter":"D400","length":"11m","type":"Middle","status":"Đang Tháo Khuôn","rawStatus":"proDemoulding","qc":"Cần Chú Ý","customer":"VAMCO PORT","conTimeStr":"15:20","castingHour":15},{"id":91,"serial":"N/A","shift":"B","pileCode":"A400_11_MIDDLE_65","diameter":"D400","length":"11m","type":"Middle","status":"Đang Tháo Khuôn","rawStatus":"proDemoulding","qc":"Cần Chú Ý","customer":"VAMCO PORT","conTimeStr":"15:17","castingHour":15},{"id":92,"serial":"N/A","shift":"B","pileCode":"A400_11_MIDDLE_65","diameter":"D400","length":"11m","type":"Middle","status":"Đang Tháo Khuôn","rawStatus":"proDemoulding","qc":"Cần Chú Ý","customer":"VAMCO PORT","conTimeStr":"15:11","castingHour":15},{"id":93,"serial":"N/A","shift":"B","pileCode":"A400_11_MIDDLE_65","diameter":"D400","length":"11m","type":"Middle","status":"Đang Tháo Khuôn","rawStatus":"proDemoulding","qc":"Cần Chú Ý","customer":"VAMCO PORT","conTimeStr":"15:06","castingHour":15},{"id":94,"serial":"N/A","shift":"B","pileCode":"A400_11_MIDDLE_65","diameter":"D400","length":"11m","type":"Middle","status":"Đang Tháo Khuôn","rawStatus":"proDemoulding","qc":"Cần Chú Ý","customer":"VAMCO PORT","conTimeStr":"15:04","castingHour":15},{"id":95,"serial":"N/A","shift":"B","pileCode":"A400_11_MIDDLE_65","diameter":"D400","length":"11m","type":"Middle","status":"Đang Tháo Khuôn","rawStatus":"proDemoulding","qc":"Cần Chú Ý","customer":"VAMCO PORT","conTimeStr":"14:58","castingHour":14},{"id":96,"serial":"N/A","shift":"B","pileCode":"C90_A300_7_MIDDLE_60","diameter":"D300","length":"7m","type":"Middle","status":"Đang Tháo Khuôn","rawStatus":"proDemoulding","qc":"Chưa Đạt (N.G)","customer":"PHANTHIETC90","conTimeStr":"14:54","castingHour":14},{"id":97,"serial":"N/A","shift":"B","pileCode":"C90_A300_7_MIDDLE_60","diameter":"D300","length":"7m","type":"Middle","status":"Đang Tháo Khuôn","rawStatus":"proDemoulding","qc":"Chưa Đạt (N.G)","customer":"PHANTHIETC90","conTimeStr":"14:54","castingHour":14},{"id":98,"serial":"N/A","shift":"B","pileCode":"C90_A300_7_MIDDLE_60","diameter":"D300","length":"7m","type":"Middle","status":"Đang Tháo Khuôn","rawStatus":"proDemoulding","qc":"Chưa Đạt (N.G)","customer":"PHANTHIETC90","conTimeStr":"14:53","castingHour":14},{"id":99,"serial":"N/A","shift":"B","pileCode":"C90_A300_7_MIDDLE_60","diameter":"D300","length":"7m","type":"Middle","status":"Đang Tháo Khuôn","rawStatus":"proDemoulding","qc":"Chưa Đạt (N.G)","customer":"PHANTHIETC90","conTimeStr":"14:53","castingHour":14},{"id":100,"serial":"N/A","shift":"B","pileCode":"C90_A300_7_MIDDLE_60","diameter":"D300","length":"7m","type":"Middle","status":"Đang Tháo Khuôn","rawStatus":"proDemoulding","qc":"Chưa Đạt (N.G)","customer":"PHANTHIETC90","conTimeStr":"14:40","castingHour":14},{"id":101,"serial":"N/A","shift":"B","pileCode":"C90_A300_7_MIDDLE_60","diameter":"D300","length":"7m","type":"Middle","status":"Đang Tháo Khuôn","rawStatus":"proDemoulding","qc":"Chưa Đạt (N.G)","customer":"PHANTHIETC90","conTimeStr":"14:40","castingHour":14},{"id":102,"serial":"N/A","shift":"B","pileCode":"C90_A300_7_MIDDLE_60","diameter":"D300","length":"7m","type":"Middle","status":"Đang Tháo Khuôn","rawStatus":"proDemoulding","qc":"Chưa Đạt (N.G)","customer":"PHANTHIETC90","conTimeStr":"14:40","castingHour":14},{"id":103,"serial":"N/A","shift":"B","pileCode":"C90_A300_7_MIDDLE_60","diameter":"D300","length":"7m","type":"Middle","status":"Đang Tháo Khuôn","rawStatus":"proDemoulding","qc":"Chưa Đạt (N.G)","customer":"PHANTHIETC90","conTimeStr":"14:40","castingHour":14},{"id":104,"serial":"N/A","shift":"B","pileCode":"C90_A300_7_MIDDLE_60","diameter":"D300","length":"7m","type":"Middle","status":"Đang Tháo Khuôn","rawStatus":"proDemoulding","qc":"Chưa Đạt (N.G)","customer":"PHANTHIETC90","conTimeStr":"14:35","castingHour":14},{"id":105,"serial":"N/A","shift":"B","pileCode":"C90_A300_7_MIDDLE_60","diameter":"D300","length":"7m","type":"Middle","status":"Đang Tháo Khuôn","rawStatus":"proDemoulding","qc":"Chưa Đạt (N.G)","customer":"PHANTHIETC90","conTimeStr":"14:35","castingHour":14},{"id":106,"serial":"N/A","shift":"B","pileCode":"C90_A300_7_MIDDLE_60","diameter":"D300","length":"7m","type":"Middle","status":"Đang Tháo Khuôn","rawStatus":"proDemoulding","qc":"Chưa Đạt (N.G)","customer":"PHANTHIETC90","conTimeStr":"14:23","castingHour":14},{"id":107,"serial":"N/A","shift":"B","pileCode":"C90_A300_7_MIDDLE_60","diameter":"D300","length":"7m","type":"Middle","status":"Đang Tháo Khuôn","rawStatus":"proDemoulding","qc":"Chưa Đạt (N.G)","customer":"PHANTHIETC90","conTimeStr":"14:23","castingHour":14},{"id":108,"serial":"N/A","shift":"B","pileCode":"C90_A300_7_MIDDLE_60","diameter":"D300","length":"7m","type":"Middle","status":"Đang Tháo Khuôn","rawStatus":"proDemoulding","qc":"Chưa Đạt (N.G)","customer":"PHANTHIETC90","conTimeStr":"14:17","castingHour":14},{"id":109,"serial":"N/A","shift":"B","pileCode":"C90_A300_7_MIDDLE_60","diameter":"D300","length":"7m","type":"Middle","status":"Đang Tháo Khuôn","rawStatus":"proDemoulding","qc":"Chưa Đạt (N.G)","customer":"PHANTHIETC90","conTimeStr":"14:17","castingHour":14},{"id":110,"serial":"N/A","shift":"B","pileCode":"C90_A300_7_MIDDLE_60","diameter":"D300","length":"7m","type":"Middle","status":"Đang Tháo Khuôn","rawStatus":"proDemoulding","qc":"Chưa Đạt (N.G)","customer":"PHANTHIETC90","conTimeStr":"14:14","castingHour":14},{"id":111,"serial":"N/A","shift":"B","pileCode":"C90_A300_7_MIDDLE_60","diameter":"D300","length":"7m","type":"Middle","status":"Đang Tháo Khuôn","rawStatus":"proDemoulding","qc":"Chưa Đạt (N.G)","customer":"PHANTHIETC90","conTimeStr":"14:14","castingHour":14},{"id":112,"serial":"N/A","shift":"B","pileCode":"C90_A300_7_MIDDLE_60","diameter":"D300","length":"7m","type":"Middle","status":"Đang Tháo Khuôn","rawStatus":"proDemoulding","qc":"Chưa Đạt (N.G)","customer":"PHANTHIETC90","conTimeStr":"14:05","castingHour":14},{"id":113,"serial":"N/A","shift":"B","pileCode":"C90_A300_7_MIDDLE_60","diameter":"D300","length":"7m","type":"Middle","status":"Đang Tháo Khuôn","rawStatus":"proDemoulding","qc":"Chưa Đạt (N.G)","customer":"PHANTHIETC90","conTimeStr":"14:05","castingHour":14},{"id":114,"serial":"N/A","shift":"B","pileCode":"C90_A300_7_MIDDLE_60","diameter":"D300","length":"7m","type":"Middle","status":"Đang Tháo Khuôn","rawStatus":"proDemoulding","qc":"Chưa Đạt (N.G)","customer":"PHANTHIETC90","conTimeStr":"14:00","castingHour":14},{"id":115,"serial":"N/A","shift":"B","pileCode":"C90_A300_7_MIDDLE_60","diameter":"D300","length":"7m","type":"Middle","status":"Đang Tháo Khuôn","rawStatus":"proDemoulding","qc":"Chưa Đạt (N.G)","customer":"PHANTHIETC90","conTimeStr":"14:00","castingHour":14},{"id":116,"serial":"N/A","shift":"B","pileCode":"C90_A300_7_MIDDLE_60","diameter":"D300","length":"7m","type":"Middle","status":"Đang Tháo Khuôn","rawStatus":"proDemoulding","qc":"Chưa Đạt (N.G)","customer":"PHANTHIETC90","conTimeStr":"13:54","castingHour":13},{"id":117,"serial":"N/A","shift":"B","pileCode":"C90_A300_7_MIDDLE_60","diameter":"D300","length":"7m","type":"Middle","status":"Đang Tháo Khuôn","rawStatus":"proDemoulding","qc":"Chưa Đạt (N.G)","customer":"PHANTHIETC90","conTimeStr":"13:54","castingHour":13},{"id":118,"serial":"N/A","shift":"B","pileCode":"A350_12_MIDDLE_60","diameter":"D350","length":"12m","type":"Middle","status":"Đang Tháo Khuôn","rawStatus":"proDemoulding","qc":"Cần Chú Ý","customer":"SUNNHATRANG","conTimeStr":"13:46","castingHour":13},{"id":119,"serial":"N/A","shift":"B","pileCode":"A350_12_MIDDLE_65","diameter":"D350","length":"12m","type":"Middle","status":"Đang Tháo Khuôn","rawStatus":"proDemoulding","qc":"Cần Chú Ý","customer":"AQUACITY","conTimeStr":"13:41","castingHour":13},{"id":120,"serial":"N/A","shift":"B","pileCode":"A350_12_MIDDLE_65","diameter":"D350","length":"12m","type":"Middle","status":"Đang Tháo Khuôn","rawStatus":"proDemoulding","qc":"Cần Chú Ý","customer":"AQUACITY","conTimeStr":"13:39","castingHour":13},{"id":121,"serial":"N/A","shift":"B","pileCode":"A350_12_MIDDLE_65","diameter":"D350","length":"12m","type":"Middle","status":"Đang Tháo Khuôn","rawStatus":"proDemoulding","qc":"Cần Chú Ý","customer":"AQUACITY","conTimeStr":"13:35","castingHour":13},{"id":122,"serial":"N/A","shift":"B","pileCode":"A350_12_MIDDLE_65","diameter":"D350","length":"12m","type":"Middle","status":"Đang Tháo Khuôn","rawStatus":"proDemoulding","qc":"Cần Chú Ý","customer":"AQUACITY","conTimeStr":"13:34","castingHour":13},{"id":123,"serial":"N/A","shift":"B","pileCode":"A350_12_MIDDLE_65","diameter":"D350","length":"12m","type":"Middle","status":"Đang Tháo Khuôn","rawStatus":"proDemoulding","qc":"Cần Chú Ý","customer":"AQUACITY","conTimeStr":"13:33","castingHour":13},{"id":124,"serial":"N/A","shift":"B","pileCode":"A350_12_MIDDLE_65","diameter":"D350","length":"12m","type":"Middle","status":"Đang Tháo Khuôn","rawStatus":"proDemoulding","qc":"Cần Chú Ý","customer":"AQUACITY","conTimeStr":"13:24","castingHour":13},{"id":125,"serial":"N/A","shift":"B","pileCode":"A350_7_MIDDLE_60","diameter":"D350","length":"7m","type":"Middle","status":"Đang Tháo Khuôn","rawStatus":"proDemoulding","qc":"Chưa Đạt (N.G)","customer":"SUNNHATRANG","conTimeStr":"13:23","castingHour":13},{"id":126,"serial":"N/A","shift":"B","pileCode":"A350_7_MIDDLE_60","diameter":"D350","length":"7m","type":"Middle","status":"Đang Tháo Khuôn","rawStatus":"proDemoulding","qc":"Chưa Đạt (N.G)","customer":"SUNNHATRANG","conTimeStr":"13:23","castingHour":13},{"id":127,"serial":"N/A","shift":"B","pileCode":"A350_7_MIDDLE_60","diameter":"D350","length":"7m","type":"Middle","status":"Đang Tháo Khuôn","rawStatus":"proDemoulding","qc":"Chưa Đạt (N.G)","customer":"SUNNHATRANG","conTimeStr":"13:22","castingHour":13},{"id":128,"serial":"N/A","shift":"B","pileCode":"A350_7_MIDDLE_60","diameter":"D350","length":"7m","type":"Middle","status":"Đang Tháo Khuôn","rawStatus":"proDemoulding","qc":"Chưa Đạt (N.G)","customer":"SUNNHATRANG","conTimeStr":"13:22","castingHour":13},{"id":129,"serial":"N/A","shift":"B","pileCode":"A350_7_MIDDLE_60","diameter":"D350","length":"7m","type":"Middle","status":"Đang Tháo Khuôn","rawStatus":"proDemoulding","qc":"Chưa Đạt (N.G)","customer":"SUNNHATRANG","conTimeStr":"13:13","castingHour":13},{"id":130,"serial":"N/A","shift":"B","pileCode":"A350_7_MIDDLE_60","diameter":"D350","length":"7m","type":"Middle","status":"Đang Tháo Khuôn","rawStatus":"proDemoulding","qc":"Chưa Đạt (N.G)","customer":"SUNNHATRANG","conTimeStr":"13:13","castingHour":13},{"id":131,"serial":"N/A","shift":"B","pileCode":"A350_7_MIDDLE_60","diameter":"D350","length":"7m","type":"Middle","status":"Đang Tháo Khuôn","rawStatus":"proDemoulding","qc":"Chưa Đạt (N.G)","customer":"SUNNHATRANG","conTimeStr":"13:04","castingHour":13},{"id":132,"serial":"N/A","shift":"B","pileCode":"A350_7_MIDDLE_60","diameter":"D350","length":"7m","type":"Middle","status":"Đang Tháo Khuôn","rawStatus":"proDemoulding","qc":"Chưa Đạt (N.G)","customer":"SUNNHATRANG","conTimeStr":"13:04","castingHour":13},{"id":133,"serial":"N/A","shift":"B","pileCode":"A350_7_MIDDLE_60","diameter":"D350","length":"7m","type":"Middle","status":"Đang Tháo Khuôn","rawStatus":"proDemoulding","qc":"Chưa Đạt (N.G)","customer":"SUNNHATRANG","conTimeStr":"12:00","castingHour":12},{"id":134,"serial":"N/A","shift":"B","pileCode":"A350_7_MIDDLE_60","diameter":"D350","length":"7m","type":"Middle","status":"Đang Tháo Khuôn","rawStatus":"proDemoulding","qc":"Chưa Đạt (N.G)","customer":"SUNNHATRANG","conTimeStr":"12:00","castingHour":12},{"id":135,"serial":"260810166","shift":"A","pileCode":"A400_8_MIDDLE_70","diameter":"D400","length":"8m","type":"Middle","status":"Đã Nhập Kho","rawStatus":"proStocking","qc":"Chưa Đạt (N.G)","customer":"TONDONGA","conTimeStr":"12:00","castingHour":12},{"id":136,"serial":"260810167","shift":"A","pileCode":"A400_8_MIDDLE_70","diameter":"D400","length":"8m","type":"Middle","status":"Đã Nhập Kho","rawStatus":"proStocking","qc":"Chưa Đạt (N.G)","customer":"TONDONGA","conTimeStr":"12:00","castingHour":12},{"id":137,"serial":"260810174","shift":"A","pileCode":"A350_10_MIDDLE_60","diameter":"D350","length":"10m","type":"Middle","status":"Đã Nhập Kho","rawStatus":"proStocking","qc":"Chưa Đạt (N.G)","customer":"SUNNHATRANG","conTimeStr":"11:59","castingHour":11},{"id":138,"serial":"260810175","shift":"A","pileCode":"A350_6_MIDDLE_60","diameter":"D350","length":"6m","type":"Middle","status":"Đã Nhập Kho","rawStatus":"proStocking","qc":"Chưa Đạt (N.G)","customer":"SUNNHATRANG","conTimeStr":"11:59","castingHour":11},{"id":139,"serial":"260810168","shift":"A","pileCode":"A350_10_MIDDLE_60","diameter":"D350","length":"10m","type":"Middle","status":"Đã Nhập Kho","rawStatus":"proStocking","qc":"Chưa Đạt (N.G)","customer":"SUNNHATRANG","conTimeStr":"11:56","castingHour":11},{"id":140,"serial":"260810169","shift":"A","pileCode":"A350_6_MIDDLE_60","diameter":"D350","length":"6m","type":"Middle","status":"Đã Nhập Kho","rawStatus":"proStocking","qc":"Chưa Đạt (N.G)","customer":"SUNNHATRANG","conTimeStr":"11:56","castingHour":11},{"id":141,"serial":"260810170","shift":"A","pileCode":"A350_10_MIDDLE_60","diameter":"D350","length":"10m","type":"Middle","status":"Đã Nhập Kho","rawStatus":"proStocking","qc":"Chưa Đạt (N.G)","customer":"SUNNHATRANG","conTimeStr":"11:55","castingHour":11},{"id":142,"serial":"260810171","shift":"A","pileCode":"A350_6_MIDDLE_60","diameter":"D350","length":"6m","type":"Middle","status":"Đã Nhập Kho","rawStatus":"proStocking","qc":"Chưa Đạt (N.G)","customer":"SUNNHATRANG","conTimeStr":"11:55","castingHour":11},{"id":143,"serial":"260810172","shift":"A","pileCode":"A350_10_MIDDLE_60","diameter":"D350","length":"10m","type":"Middle","status":"Đã Nhập Kho","rawStatus":"proStocking","qc":"Chưa Đạt (N.G)","customer":"SUNNHATRANG","conTimeStr":"11:51","castingHour":11},{"id":144,"serial":"260810173","shift":"A","pileCode":"A350_6_MIDDLE_60","diameter":"D350","length":"6m","type":"Middle","status":"Đã Nhập Kho","rawStatus":"proStocking","qc":"Chưa Đạt (N.G)","customer":"SUNNHATRANG","conTimeStr":"11:51","castingHour":11},{"id":145,"serial":"260810176","shift":"A","pileCode":"A350_10_MIDDLE_60","diameter":"D350","length":"10m","type":"Middle","status":"Đã Nhập Kho","rawStatus":"proStocking","qc":"Chưa Đạt (N.G)","customer":"SUNNHATRANG","conTimeStr":"11:29","castingHour":11},{"id":146,"serial":"260810177","shift":"A","pileCode":"A350_6_MIDDLE_60","diameter":"D350","length":"6m","type":"Middle","status":"Đã Nhập Kho","rawStatus":"proStocking","qc":"Chưa Đạt (N.G)","customer":"SUNNHATRANG","conTimeStr":"11:29","castingHour":11},{"id":147,"serial":"260810181","shift":"A","pileCode":"A350_12_MIDDLE_65","diameter":"D350","length":"12m","type":"Middle","status":"Đã Nhập Kho","rawStatus":"proStocking","qc":"Cần Chú Ý","customer":"AQUACITY","conTimeStr":"11:28","castingHour":11},{"id":148,"serial":"260810180","shift":"A","pileCode":"A350_12_MIDDLE_65","diameter":"D350","length":"12m","type":"Middle","status":"Đã Nhập Kho","rawStatus":"proStocking","qc":"Cần Chú Ý","customer":"AQUACITY","conTimeStr":"11:21","castingHour":11},{"id":149,"serial":"260810179","shift":"A","pileCode":"A350_12_MIDDLE_65","diameter":"D350","length":"12m","type":"Middle","status":"Đã Nhập Kho","rawStatus":"proStocking","qc":"Cần Chú Ý","customer":"AQUACITY","conTimeStr":"11:17","castingHour":11},{"id":150,"serial":"260810178","shift":"A","pileCode":"A350_12_MIDDLE_65","diameter":"D350","length":"12m","type":"Middle","status":"Đã Nhập Kho","rawStatus":"proStocking","qc":"Cần Chú Ý","customer":"AQUACITY","conTimeStr":"11:14","castingHour":11},{"id":151,"serial":"260810148","shift":"A","pileCode":"A400_14_MIDDLE_65","diameter":"D400","length":"14m","type":"Middle","status":"Đã Nhập Kho","rawStatus":"proStocking","qc":"Cần Chú Ý","customer":"VAMCO PORT","conTimeStr":"11:12","castingHour":11},{"id":152,"serial":"260810149","shift":"A","pileCode":"A400_14_MIDDLE_65","diameter":"D400","length":"14m","type":"Middle","status":"Đã Nhập Kho","rawStatus":"proStocking","qc":"Cần Chú Ý","customer":"VAMCO PORT","conTimeStr":"10:51","castingHour":10},{"id":153,"serial":"260810150","shift":"A","pileCode":"A400_14_MIDDLE_65","diameter":"D400","length":"14m","type":"Middle","status":"Đã Nhập Kho","rawStatus":"proStocking","qc":"Cần Chú Ý","customer":"VAMCO PORT","conTimeStr":"11:09","castingHour":11},{"id":154,"serial":"260810151","shift":"A","pileCode":"A400_14_MIDDLE_65","diameter":"D400","length":"14m","type":"Middle","status":"Đã Nhập Kho","rawStatus":"proStocking","qc":"Cần Chú Ý","customer":"VAMCO PORT","conTimeStr":"11:02","castingHour":11},{"id":155,"serial":"260810152","shift":"A","pileCode":"A400_14_MIDDLE_65","diameter":"D400","length":"14m","type":"Middle","status":"Đã Nhập Kho","rawStatus":"proStocking","qc":"Cần Chú Ý","customer":"VAMCO PORT","conTimeStr":"10:52","castingHour":10},{"id":156,"serial":"260810153","shift":"A","pileCode":"A400_12_MIDDLE_70","diameter":"D400","length":"12m","type":"Middle","status":"Đã Nhập Kho","rawStatus":"proStocking","qc":"Cần Chú Ý","customer":"TONDONGA","conTimeStr":"10:47","castingHour":10},{"id":157,"serial":"260810154","shift":"A","pileCode":"A400_12_MIDDLE_70","diameter":"D400","length":"12m","type":"Middle","status":"Đã Nhập Kho","rawStatus":"proStocking","qc":"Cần Chú Ý","customer":"TONDONGA","conTimeStr":"10:44","castingHour":10},{"id":158,"serial":"260810155","shift":"A","pileCode":"A400_12_MIDDLE_70","diameter":"D400","length":"12m","type":"Middle","status":"Đã Nhập Kho","rawStatus":"proStocking","qc":"Cần Chú Ý","customer":"TONDONGA","conTimeStr":"10:44","castingHour":10},{"id":159,"serial":"260810156","shift":"A","pileCode":"A400_12_MIDDLE_70","diameter":"D400","length":"12m","type":"Middle","status":"Đã Nhập Kho","rawStatus":"proStocking","qc":"Cần Chú Ý","customer":"TONDONGA","conTimeStr":"10:43","castingHour":10},{"id":160,"serial":"260810157","shift":"A","pileCode":"A400_12_MIDDLE_70","diameter":"D400","length":"12m","type":"Middle","status":"Đã Nhập Kho","rawStatus":"proStocking","qc":"Cần Chú Ý","customer":"TONDONGA","conTimeStr":"10:42","castingHour":10},{"id":161,"serial":"260810158","shift":"A","pileCode":"A400_12_MIDDLE_70","diameter":"D400","length":"12m","type":"Middle","status":"Đã Nhập Kho","rawStatus":"proStocking","qc":"Cần Chú Ý","customer":"TONDONGA","conTimeStr":"10:41","castingHour":10},{"id":162,"serial":"260810159","shift":"A","pileCode":"A400_12_MIDDLE_70","diameter":"D400","length":"12m","type":"Middle","status":"Đã Nhập Kho","rawStatus":"proStocking","qc":"Cần Chú Ý","customer":"TONDONGA","conTimeStr":"10:29","castingHour":10},{"id":163,"serial":"260810160","shift":"A","pileCode":"A400_11_MIDDLE_65","diameter":"D400","length":"11m","type":"Middle","status":"Đã Nhập Kho","rawStatus":"proStocking","qc":"Cần Chú Ý","customer":"VAMCO PORT","conTimeStr":"10:28","castingHour":10},{"id":164,"serial":"N/A","shift":"B","pileCode":"A300_12_MIDDLE_65","diameter":"D300","length":"12m","type":"Middle","status":"Đang Tháo Khuôn","rawStatus":"proDemoulding","qc":"Cần Chú Ý","customer":"AQUACITY","conTimeStr":"10:10","castingHour":10},{"id":165,"serial":"260810182","shift":"A","pileCode":"A300_10_MIDDLE_65","diameter":"D300","length":"10m","type":"Middle","status":"Đã Nhập Kho","rawStatus":"proStocking","qc":"Cần Chú Ý","customer":"AQUACITY","conTimeStr":"10:10","castingHour":10},{"id":166,"serial":"260810183","shift":"A","pileCode":"A300_10_MIDDLE_65","diameter":"D300","length":"10m","type":"Middle","status":"Đã Nhập Kho","rawStatus":"proStocking","qc":"Cần Chú Ý","customer":"AQUACITY","conTimeStr":"10:07","castingHour":10},{"id":167,"serial":"260810184","shift":"A","pileCode":"A300_10_MIDDLE_65","diameter":"D300","length":"10m","type":"Middle","status":"Đã Nhập Kho","rawStatus":"proStocking","qc":"Cần Chú Ý","customer":"AQUACITY","conTimeStr":"10:06","castingHour":10},{"id":168,"serial":"260810185","shift":"A","pileCode":"A300_10_MIDDLE_60","diameter":"D300","length":"10m","type":"Middle","status":"Đã Nhập Kho","rawStatus":"proStocking","qc":"Cần Chú Ý","customer":"VAMCO PORT","conTimeStr":"10:06","castingHour":10},{"id":169,"serial":"260810186","shift":"A","pileCode":"A300_10_MIDDLE_60","diameter":"D300","length":"10m","type":"Middle","status":"Đã Nhập Kho","rawStatus":"proStocking","qc":"Cần Chú Ý","customer":"VAMCO PORT","conTimeStr":"10:05","castingHour":10},{"id":170,"serial":"260810187","shift":"A","pileCode":"A300_10_MIDDLE_60","diameter":"D300","length":"10m","type":"Middle","status":"Đã Nhập Kho","rawStatus":"proStocking","qc":"Cần Chú Ý","customer":"VAMCO PORT","conTimeStr":"09:57","castingHour":9},{"id":171,"serial":"260810191","shift":"A","pileCode":"A300_10_MIDDLE_60","diameter":"D300","length":"10m","type":"Middle","status":"Đã Nhập Kho","rawStatus":"proStocking","qc":"Cần Chú Ý","customer":"VAMCO PORT","conTimeStr":"09:47","castingHour":9},{"id":172,"serial":"260810190","shift":"A","pileCode":"A300_10_MIDDLE_60","diameter":"D300","length":"10m","type":"Middle","status":"Đã Nhập Kho","rawStatus":"proStocking","qc":"Cần Chú Ý","customer":"VAMCO PORT","conTimeStr":"09:43","castingHour":9},{"id":173,"serial":"260810189","shift":"A","pileCode":"A300_10_MIDDLE_60","diameter":"D300","length":"10m","type":"Middle","status":"Đã Nhập Kho","rawStatus":"proStocking","qc":"Cần Chú Ý","customer":"VAMCO PORT","conTimeStr":"09:38","castingHour":9},{"id":174,"serial":"260810188","shift":"A","pileCode":"A300_10_MIDDLE_60","diameter":"D300","length":"10m","type":"Middle","status":"Đã Nhập Kho","rawStatus":"proStocking","qc":"Cần Chú Ý","customer":"VAMCO PORT","conTimeStr":"09:36","castingHour":9},{"id":175,"serial":"260810135","shift":"A","pileCode":"A300_10_MIDDLE_60","diameter":"D300","length":"10m","type":"Middle","status":"Đã Nhập Kho","rawStatus":"proStocking","qc":"Cần Chú Ý","customer":"VAMCO PORT","conTimeStr":"09:32","castingHour":9},{"id":176,"serial":"260810136","shift":"A","pileCode":"A300_10_MIDDLE_60","diameter":"D300","length":"10m","type":"Middle","status":"Đã Nhập Kho","rawStatus":"proStocking","qc":"Cần Chú Ý","customer":"VAMCO PORT","conTimeStr":"09:31","castingHour":9},{"id":177,"serial":"260810137","shift":"A","pileCode":"A300_10_MIDDLE_60","diameter":"D300","length":"10m","type":"Middle","status":"Đã Nhập Kho","rawStatus":"proStocking","qc":"Cần Chú Ý","customer":"VAMCO PORT","conTimeStr":"09:28","castingHour":9},{"id":178,"serial":"260810138","shift":"A","pileCode":"A300_10_MIDDLE_60","diameter":"D300","length":"10m","type":"Middle","status":"Đã Nhập Kho","rawStatus":"proStocking","qc":"Cần Chú Ý","customer":"VAMCO PORT","conTimeStr":"09:19","castingHour":9},{"id":179,"serial":"260810141","shift":"A","pileCode":"A300_10_MIDDLE_60","diameter":"D300","length":"10m","type":"Middle","status":"Đã Nhập Kho","rawStatus":"proStocking","qc":"Cần Chú Ý","customer":"VAMCO PORT","conTimeStr":"09:13","castingHour":9},{"id":180,"serial":"260810140","shift":"A","pileCode":"A300_10_MIDDLE_60","diameter":"D300","length":"10m","type":"Middle","status":"Đã Nhập Kho","rawStatus":"proStocking","qc":"Cần Chú Ý","customer":"VAMCO PORT","conTimeStr":"09:09","castingHour":9},{"id":181,"serial":"260810139","shift":"A","pileCode":"A300_10_MIDDLE_60","diameter":"D300","length":"10m","type":"Middle","status":"Đã Nhập Kho","rawStatus":"proStocking","qc":"Cần Chú Ý","customer":"VAMCO PORT","conTimeStr":"09:08","castingHour":9},{"id":182,"serial":"260810142","shift":"A","pileCode":"A300_10_MIDDLE_60","diameter":"D300","length":"10m","type":"Middle","status":"Đã Nhập Kho","rawStatus":"proStocking","qc":"Cần Chú Ý","customer":"VAMCO PORT","conTimeStr":"09:00","castingHour":9},{"id":183,"serial":"260810143","shift":"A","pileCode":"A300_10_MIDDLE_60","diameter":"D300","length":"10m","type":"Middle","status":"Đã Nhập Kho","rawStatus":"proStocking","qc":"Cần Chú Ý","customer":"VAMCO PORT","conTimeStr":"08:55","castingHour":8},{"id":184,"serial":"260810144","shift":"A","pileCode":"A300_10_MIDDLE_60","diameter":"D300","length":"10m","type":"Middle","status":"Đã Nhập Kho","rawStatus":"proStocking","qc":"Cần Chú Ý","customer":"VAMCO PORT","conTimeStr":"08:54","castingHour":8},{"id":185,"serial":"260810145","shift":"A","pileCode":"A300_10_MIDDLE_60","diameter":"D300","length":"10m","type":"Middle","status":"Đã Nhập Kho","rawStatus":"proStocking","qc":"Cần Chú Ý","customer":"VAMCO PORT","conTimeStr":"08:53","castingHour":8},{"id":186,"serial":"260810146","shift":"A","pileCode":"A300_10_MIDDLE_60","diameter":"D300","length":"10m","type":"Middle","status":"Đã Nhập Kho","rawStatus":"proStocking","qc":"Cần Chú Ý","customer":"VAMCO PORT","conTimeStr":"08:41","castingHour":8},{"id":187,"serial":"260810147","shift":"A","pileCode":"A300_10_MIDDLE_60","diameter":"D300","length":"10m","type":"Middle","status":"Đã Nhập Kho","rawStatus":"proStocking","qc":"Cần Chú Ý","customer":"VAMCO PORT","conTimeStr":"08:40","castingHour":8},{"id":188,"serial":"260810161","shift":"A","pileCode":"A400_10_MIDDLE_65","diameter":"D400","length":"10m","type":"Middle","status":"Đã Nhập Kho","rawStatus":"proStocking","qc":"Cần Chú Ý","customer":"KSM ENGVINA","conTimeStr":"08:33","castingHour":8},{"id":189,"serial":"260810164","shift":"A","pileCode":"A400_10_MIDDLE_65","diameter":"D400","length":"10m","type":"Middle","status":"Đã Nhập Kho","rawStatus":"proStocking","qc":"Cần Chú Ý","customer":"KSM ENGVINA","conTimeStr":"08:29","castingHour":8},{"id":190,"serial":"260810163","shift":"A","pileCode":"A400_10_MIDDLE_65","diameter":"D400","length":"10m","type":"Middle","status":"Đã Nhập Kho","rawStatus":"proStocking","qc":"Cần Chú Ý","customer":"KSM ENGVINA","conTimeStr":"08:26","castingHour":8},{"id":191,"serial":"260810165","shift":"A","pileCode":"A400_10_MIDDLE_65","diameter":"D400","length":"10m","type":"Middle","status":"Đã Nhập Kho","rawStatus":"proStocking","qc":"Cần Chú Ý","customer":"KSM ENGVINA","conTimeStr":"08:20","castingHour":8},{"id":192,"serial":"260810162","shift":"A","pileCode":"A400_10_MIDDLE_65","diameter":"D400","length":"10m","type":"Middle","status":"Đã Nhập Kho","rawStatus":"proStocking","qc":"Cần Chú Ý","customer":"KSM ENGVINA","conTimeStr":"08:19","castingHour":8}];
-
-        // --- DASHBOARD LOGIC ---
-        function initDashboard() {
-            // Update Clock
-            const updateTime = () => {
-                const now = new Date();
-                document.getElementById('current-date').textContent = now.toLocaleDateString('vi-VN');
-                document.getElementById('current-time').textContent = now.toLocaleTimeString('vi-VN');
-            };
-            setInterval(updateTime, 1000);
-            updateTime();
-
-            const totalCount = RAW_DATA.length;
-            const shiftA = RAW_DATA.filter(d => d.shift === 'A').length;
-            const shiftB = RAW_DATA.filter(d => d.shift === 'B').length;
-            
-            // Calculate total meters
-            const totalMetersSum = RAW_DATA.reduce((sum, d) => sum + (parseFloat(d.length) || 0), 0);
-
-            // Calculate diameter counts
-            const diaCounts = {};
-            RAW_DATA.forEach(d => {
-                const dia = d.diameter;
-                diaCounts[dia] = (diaCounts[dia] || 0) + 1;
-            });
-            
-            // Find top diameter
-            let topDia = "N/A";
-            let topDiaCount = 0;
-            for(const [dia, count] of Object.entries(diaCounts)) {
-                if(count > topDiaCount) {
-                    topDiaCount = count;
-                    topDia = dia;
-                }
+        // Dữ liệu gốc 11 Dự án trích xuất chính xác 100% từ sheet 4.CONDITION PROJECT trong file PROJECT CONDITION1.xlsx
+        const rawProjectsData = [
+            {
+                id: 1,
+                name: "SUN NHA TRANG",
+                dia: "D350A",
+                po: 5109,
+                remain: 354,
+                pd: 4755,
+                compRate: 0.93071051086318257, // 93.07%
+                saleReq: 60,
+                capacity: 20,
+                shortage: 40,
+                meetRate: 0.33333333333333331, // 33.33%
+                status: "danger"
+            },
+            {
+                id: 2,
+                name: "VAM CO PORT",
+                dia: "D400A, D300A",
+                po: 7655,
+                remain: 4071,
+                pd: 3584,
+                compRate: 0.46819072501632919, // 46.82%
+                saleReq: 60,
+                capacity: 42,
+                shortage: 18,
+                meetRate: 0.70, // 70.0%
+                status: "warning"
+            },
+            {
+                id: 3,
+                name: "SEAH2",
+                dia: "D400A, D500A",
+                po: 1259,
+                remain: -3,
+                pd: 1262,
+                compRate: 1.0023828435266084, // 100.24%
+                saleReq: 45,
+                capacity: 0,
+                shortage: 45,
+                meetRate: 0.0, // 0%
+                status: "danger"
+            },
+            {
+                id: 4,
+                name: "SUN VUNGTAU",
+                dia: "D400A",
+                po: 819,
+                remain: -40,
+                pd: 859,
+                compRate: 1.0488400488400489, // 104.88%
+                saleReq: 0,
+                capacity: 0,
+                shortage: 0,
+                meetRate: null, // N/A (Hoàn tất đơn hàng)
+                status: "completed"
+            },
+            {
+                id: 5,
+                name: "AQUA CITY",
+                dia: "D300A, D350A",
+                po: 1950,
+                remain: 1402,
+                pd: 548,
+                compRate: 0.28102564102564104, // 28.10%
+                saleReq: 45,
+                capacity: 28,
+                shortage: 17,
+                meetRate: 0.62222222222222223, // 62.22%
+                status: "warning"
+            },
+            {
+                id: 6,
+                name: "PHANTHIET AIRPORT",
+                dia: "D300A",
+                po: 818,
+                remain: 227,
+                pd: 591,
+                compRate: 0.72249388753056232, // 72.25%
+                saleReq: 40,
+                capacity: 22,
+                shortage: 18,
+                meetRate: 0.55, // 55.0%
+                status: "warning"
+            },
+            {
+                id: 7,
+                name: "NINHTHUAN FACTORY",
+                dia: "D350A",
+                po: 500,
+                remain: 246,
+                pd: 254,
+                compRate: 0.508, // 50.8%
+                saleReq: 20,
+                capacity: 20,
+                shortage: 0,
+                meetRate: 1.0, // 100%
+                status: "success"
+            },
+            {
+                id: 8,
+                name: "HOAPHAT FACTORY",
+                dia: "D500A",
+                po: 400,
+                remain: 290,
+                pd: 110,
+                compRate: 0.275, // 27.5%
+                saleReq: 20,
+                capacity: 20,
+                shortage: 0,
+                meetRate: 1.0, // 100%
+                status: "success"
+            },
+            {
+                id: 9,
+                name: "TON DONGA",
+                dia: "D300A, D400A",
+                po: 2419,
+                remain: 2221,
+                pd: 198,
+                compRate: 0.081852004960727573, // 8.19%
+                saleReq: 60,
+                capacity: 30,
+                shortage: 30,
+                meetRate: 0.50, // 50.0%
+                status: "warning"
+            },
+            {
+                id: 10,
+                name: "TRUNG NGUYEN COFFEE",
+                dia: "D300A",
+                po: 343,
+                remain: 343,
+                pd: 0,
+                compRate: 0.0, // 0.0%
+                saleReq: 15,
+                capacity: 0,
+                shortage: 15,
+                meetRate: 0.0, // 0.0%
+                status: "danger"
+            },
+            {
+                id: 11,
+                name: "KSM ENG",
+                dia: "D400A",
+                po: 100,
+                remain: 25,
+                pd: 75,
+                compRate: 0.75, // 75.0%
+                saleReq: 10,
+                capacity: 10,
+                shortage: 0,
+                meetRate: 1.0, // 100%
+                status: "success"
             }
+        ];
 
-            // Process hourly data
-            const hourlyData = processHourlyData(RAW_DATA);
-            const activeHours = hourlyData.filter(h => h.count > 0);
-            const activeHoursCount = activeHours.length || 1;
-            const avgPilesPerHour = (totalCount / activeHoursCount).toFixed(1);
-            const avgMetersPerHour = Math.round(totalMetersSum / activeHoursCount);
+        // Dữ liệu Tổng hợp Hệ Thống (Total)
+        const totalSummary = {
+            po: 21372,
+            remain: 9136,
+            pd: 12236,
+            compRate: 0.57252479880217111, // 57.25%
+            saleReq: 375,
+            capacity: 192,
+            shortage: 183,
+            meetRate: 0.512 // 51.20%
+        };
 
-            // Find peak hour
-            let peakHourObj = { hour: 0, label: '--:--', count: 0, totalMeters: 0 };
-            hourlyData.forEach(h => {
-                if (h.count > peakHourObj.count) {
-                    peakHourObj = h;
-                }
-            });
+        // State quản lý Bảng & Tìm kiếm
+        let currentProjects = [...rawProjectsData];
+        let currentSort = { column: 'id', ascending: true };
+        let comboChartInstance = null;
+        let doughnutChartInstance = null;
+        let currentChartMode = 'combo';
 
-            // Update KPI DOM
-            document.getElementById('kpi-total').textContent = totalCount;
-            document.getElementById('kpi-total-meters').textContent = totalMetersSum.toLocaleString('vi-VN') + ' m';
-            document.getElementById('kpi-shift-a').textContent = shiftA;
-            document.getElementById('kpi-shift-b').textContent = shiftB;
-            
-            if(totalCount > 0) {
-                document.getElementById('kpi-shift-a-percent').textContent = Math.round((shiftA / totalCount) * 100) + '% tổng sản lượng';
-                document.getElementById('kpi-shift-b-percent').textContent = Math.round((shiftB / totalCount) * 100) + '% tổng sản lượng';
-            }
-            
-            document.getElementById('kpi-hourly-avg').textContent = avgPilesPerHour + ' cọc/h';
-            document.getElementById('kpi-hourly-avg-sub').textContent = avgMetersPerHour + ' m/giờ trung bình';
-            
-            document.getElementById('kpi-peak-hour').textContent = peakHourObj.label ? peakHourObj.label.split(' - ')[0] : '--:--';
-            document.getElementById('kpi-peak-hour-sub').textContent = `${peakHourObj.count} cọc (${peakHourObj.totalMeters}m)`;
+        // Khởi tạo giao diện khi DOM sẵn sàng
+        document.addEventListener('DOMContentLoaded', () => {
+            lucide.createIcons();
+            renderTable(currentProjects);
+            initMainChart();
+            initDoughnutChart();
+        });
 
-            // Render Charts & Tables
-            renderHourlyChart(hourlyData);
-            renderHourlyTable(hourlyData);
-            renderChart(diaCounts);
-            renderTable(RAW_DATA.slice(0, 10));
+        // Định dạng số nguyên có dấu phẩy
+        function formatNumber(num) {
+            if (num === null || num === undefined) return '0';
+            return num.toLocaleString('en-US');
         }
 
-        function processHourlyData(data) {
-            const hoursMap = {};
-            data.forEach(d => {
-                const h = d.castingHour;
-                if (!hoursMap[h]) {
-                    hoursMap[h] = {
-                        hour: h,
-                        label: `${h.toString().padStart(2, '0')}:00 - ${(h + 1).toString().padStart(2, '0')}:00`,
-                        count: 0,
-                        totalMeters: 0,
-                        shiftA: 0,
-                        shiftB: 0,
-                        diameters: {}
-                    };
-                }
-                hoursMap[h].count++;
-                hoursMap[h].totalMeters += parseFloat(d.length) || 0;
-                if (d.shift === 'A') hoursMap[h].shiftA++;
-                if (d.shift === 'B') hoursMap[h].shiftB++;
-                hoursMap[h].diameters[d.diameter] = (hoursMap[h].diameters[d.diameter] || 0) + 1;
-            });
-
-            return Object.values(hoursMap).sort((a, b) => a.hour - b.hour);
+        // Định dạng phần trăm
+        function formatPercent(val) {
+            if (val === null || val === undefined || isNaN(val)) return 'N/A';
+            return (val * 100).toFixed(1) + '%';
         }
 
-        function renderHourlyChart(hourlyData) {
-            const ctx = document.getElementById('hourlyChart').getContext('2d');
-            const labels = hourlyData.map(d => `${d.hour.toString().padStart(2, '0')}:00`);
-            const countData = hourlyData.map(d => d.count);
-            const meterData = hourlyData.map(d => d.totalMeters);
+        // Render Badge Trạng Thái Meet Sale %
+        function getMeetRateBadge(val, status) {
+            if (val === null || status === 'completed') {
+                return `<span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-[11px] font-semibold status-badge-completed">
+                    <i data-lucide="check" class="w-3 h-3 mr-1"></i> Hoàn tất PO
+                </span>`;
+            }
+            const pct = val * 100;
+            if (pct >= 100) {
+                return `<span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-[11px] font-semibold status-badge-ok">
+                    <i data-lucide="check-circle" class="w-3 h-3 mr-1"></i> ${pct.toFixed(1)}% (Đạt)
+                </span>`;
+            } else if (pct >= 50) {
+                return `<span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-[11px] font-semibold status-badge-warning">
+                    <i data-lucide="alert-circle" class="w-3 h-3 mr-1"></i> ${pct.toFixed(1)}%
+                </span>`;
+            } else {
+                return `<span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-[11px] font-semibold status-badge-danger">
+                    <i data-lucide="alert-triangle" class="w-3 h-3 mr-1"></i> ${pct.toFixed(1)}% (Thiếu)
+                </span>`;
+            }
+        }
 
-            const barGradient = ctx.createLinearGradient(0, 0, 0, 300);
-            barGradient.addColorStop(0, 'rgba(14, 165, 233, 0.85)');
-            barGradient.addColorStop(1, 'rgba(14, 165, 233, 0.15)');
+        // Render Bảng Dữ Liệu
+        function renderTable(data) {
+            const tbody = document.getElementById('tableBody');
+            const tfoot = document.getElementById('tableFoot');
+            const countElem = document.getElementById('table-record-count');
 
-            const lineGradient = ctx.createLinearGradient(0, 0, 0, 300);
-            lineGradient.addColorStop(0, 'rgba(245, 158, 11, 0.35)');
-            lineGradient.addColorStop(1, 'rgba(245, 158, 11, 0.0)');
+            if (data.length === 0) {
+                tbody.innerHTML = `
+                    <tr>
+                        <td colspan="12" class="py-8 text-center text-gray-500">
+                            <i data-lucide="inbox" class="w-8 h-8 mx-auto mb-2 opacity-50"></i>
+                            Không tìm thấy dự án nào phù hợp với bộ lọc.
+                        </td>
+                    </tr>
+                `;
+                tfoot.innerHTML = '';
+                countElem.textContent = `Hiển thị 0 / ${rawProjectsData.length} dự án`;
+                lucide.createIcons();
+                return;
+            }
 
-            new Chart(ctx, {
+            tbody.innerHTML = data.map((item) => {
+                const compPercent = item.compRate * 100;
+                const remainClass = item.remain < 0 ? 'text-indigo-400 font-bold' : (item.remain === 0 ? 'text-gray-400' : 'text-amber-400');
+                const shortageClass = item.shortage > 0 ? 'text-rose-400 font-bold' : 'text-gray-400';
+                
+                return `
+                    <tr class="hover:bg-gray-800/50 transition-colors group cursor-pointer" onclick="openModal(${item.id})">
+                        <td class="py-3 px-3.5 text-center font-mono text-gray-400 group-hover:text-cyan-400">${item.id}</td>
+                        <td class="py-3 px-4 font-semibold text-white group-hover:text-cyan-300 flex items-center gap-2">
+                            <span>${item.name}</span>
+                        </td>
+                        <td class="py-3 px-3.5 text-gray-300">
+                            <span class="px-2 py-0.5 rounded bg-gray-800 text-[11px] font-mono border border-gray-700">${item.dia}</span>
+                        </td>
+                        <td class="py-3 px-3.5 text-right font-medium text-white">${formatNumber(item.po)}</td>
+                        <td class="py-3 px-3.5 text-right font-medium ${remainClass}">${formatNumber(item.remain)}</td>
+                        <td class="py-3 px-3.5 text-right font-medium text-emerald-400">${formatNumber(item.pd)}</td>
+                        <td class="py-3 px-4">
+                            <div class="flex items-center gap-2">
+                                <div class="w-14 bg-gray-800 rounded-full h-1.5 overflow-hidden">
+                                    <div class="bg-gradient-to-r from-teal-500 to-emerald-400 h-1.5 rounded-full" style="width: ${Math.min(compPercent, 100)}%"></div>
+                                </div>
+                                <span class="font-mono text-[11px] text-gray-300">${formatPercent(item.compRate)}</span>
+                            </div>
+                        </td>
+                        <td class="py-3 px-3.5 text-right font-mono text-gray-300">${formatNumber(item.saleReq)}</td>
+                        <td class="py-3 px-3.5 text-right font-mono text-cyan-400">${formatNumber(item.capacity)}</td>
+                        <td class="py-3 px-3.5 text-right font-mono ${shortageClass}">${formatNumber(item.shortage)}</td>
+                        <td class="py-3 px-4 text-center">
+                            ${getMeetRateBadge(item.meetRate, item.status)}
+                        </td>
+                        <td class="py-3 px-3 text-center" onclick="event.stopPropagation()">
+                            <button onclick="openModal(${item.id})" class="p-1 rounded hover:bg-gray-700 text-gray-400 hover:text-cyan-400 transition" title="Xem chi tiết">
+                                <i data-lucide="eye" class="w-4 h-4"></i>
+                            </button>
+                        </td>
+                    </tr>
+                `;
+            }).join('');
+
+            // Render Dòng TOTAL
+            tfoot.innerHTML = `
+                <tr class="text-white text-xs">
+                    <td class="py-3.5 px-3.5 text-center font-bold text-cyan-400">∑</td>
+                    <td class="py-3.5 px-4 font-bold uppercase tracking-wider text-cyan-300">TOTAL (TỔNG CỘNG)</td>
+                    <td class="py-3.5 px-3.5 text-gray-400 italic">Tất cả quy cách</td>
+                    <td class="py-3.5 px-3.5 text-right font-extrabold text-white">${formatNumber(totalSummary.po)}</td>
+                    <td class="py-3.5 px-3.5 text-right font-extrabold text-amber-400">${formatNumber(totalSummary.remain)}</td>
+                    <td class="py-3.5 px-3.5 text-right font-extrabold text-emerald-400">${formatNumber(totalSummary.pd)}</td>
+                    <td class="py-3.5 px-4">
+                        <div class="flex items-center gap-2">
+                            <div class="w-14 bg-gray-800 rounded-full h-2 overflow-hidden">
+                                <div class="bg-gradient-to-r from-teal-400 to-emerald-400 h-2 rounded-full" style="width: 57.3%"></div>
+                            </div>
+                            <span class="font-bold font-mono text-emerald-300">${formatPercent(totalSummary.compRate)}</span>
+                        </div>
+                    </td>
+                    <td class="py-3.5 px-3.5 text-right font-bold text-white">${formatNumber(totalSummary.saleReq)}</td>
+                    <td class="py-3.5 px-3.5 text-right font-bold text-cyan-400">${formatNumber(totalSummary.capacity)}</td>
+                    <td class="py-3.5 px-3.5 text-right font-extrabold text-rose-400">${formatNumber(totalSummary.shortage)}</td>
+                    <td class="py-3.5 px-4 text-center">
+                        <span class="inline-flex items-center px-3 py-1 rounded-full text-xs font-extrabold bg-indigo-500/20 text-indigo-300 border border-indigo-500/40">
+                            ${formatPercent(totalSummary.meetRate)} (TB)
+                        </span>
+                    </td>
+                    <td class="py-3.5 px-3 text-center text-gray-400">-</td>
+                </tr>
+            `;
+
+            countElem.textContent = `Hiển thị ${data.length} / ${rawProjectsData.length} dự án`;
+            lucide.createIcons();
+        }
+
+        // Live Search Handler
+        function handleSearch() {
+            const query = document.getElementById('table-search').value.toLowerCase().trim();
+            const clearBtn = document.getElementById('clear-search');
+            
+            if (query.length > 0) {
+                clearBtn.classList.remove('hidden');
+            } else {
+                clearBtn.classList.add('hidden');
+            }
+
+            applyFiltersAndSearch();
+        }
+
+        function clearSearch() {
+            document.getElementById('table-search').value = '';
+            document.getElementById('clear-search').classList.add('hidden');
+            applyFiltersAndSearch();
+        }
+
+        // Filter Handler
+        function handleFilter() {
+            applyFiltersAndSearch();
+        }
+
+        function applyFiltersAndSearch() {
+            const query = document.getElementById('table-search').value.toLowerCase().trim();
+            const status = document.getElementById('status-filter').value;
+
+            let filtered = rawProjectsData.filter(item => {
+                const matchesQuery = item.name.toLowerCase().includes(query) || 
+                                     item.dia.toLowerCase().includes(query) ||
+                                     item.id.toString().includes(query);
+                
+                let matchesStatus = true;
+                if (status === 'success') matchesStatus = (item.meetRate !== null && item.meetRate >= 1.0);
+                else if (status === 'warning') matchesStatus = (item.meetRate !== null && item.meetRate >= 0.5 && item.meetRate < 1.0);
+                else if (status === 'danger') matchesStatus = (item.meetRate !== null && item.meetRate < 0.5);
+                else if (status === 'completed') matchesStatus = (item.status === 'completed' || item.remain <= 0);
+
+                return matchesQuery && matchesStatus;
+            });
+
+            // Áp dụng sorting hiện tại
+            sortDataArray(filtered, currentSort.column, currentSort.ascending);
+            currentProjects = filtered;
+            renderTable(currentProjects);
+        }
+
+        // Sorting Logic
+        function sortTable(column) {
+            if (currentSort.column === column) {
+                currentSort.ascending = !currentSort.ascending;
+            } else {
+                currentSort.column = column;
+                currentSort.ascending = true;
+            }
+
+            // Cập nhật icon sort
+            ['id', 'name', 'dia', 'po', 'remain', 'pd', 'compRate', 'saleReq', 'capacity', 'shortage', 'meetRate'].forEach(col => {
+                const el = document.getElementById(`sort-icon-${col}`);
+                if (el) el.innerHTML = '';
+            });
+
+            const activeIconEl = document.getElementById(`sort-icon-${column}`);
+            if (activeIconEl) {
+                activeIconEl.innerHTML = currentSort.ascending ? '▲' : '▼';
+            }
+
+            sortDataArray(currentProjects, currentSort.column, currentSort.ascending);
+            renderTable(currentProjects);
+        }
+
+        function sortDataArray(arr, column, asc) {
+            arr.sort((a, b) => {
+                let valA = a[column];
+                let valB = b[column];
+
+                if (valA === null || valA === undefined) valA = -999999;
+                if (valB === null || valB === undefined) valB = -999999;
+
+                if (typeof valA === 'string') {
+                    return asc ? valA.localeCompare(valB) : valB.localeCompare(valA);
+                } else {
+                    return asc ? (valA - valB) : (valB - valA);
+                }
+            });
+        }
+
+        // 3. Khởi tạo Biểu đồ chính (Chart.js Combo Bar & Line Chart)
+        function initMainChart() {
+            const ctx = document.getElementById('mainComboChart').getContext('2d');
+            
+            const labels = rawProjectsData.map(p => p.name);
+            const poData = rawProjectsData.map(p => p.po);
+            const pdData = rawProjectsData.map(p => p.pd);
+            const saleReqData = rawProjectsData.map(p => p.saleReq);
+            const capacityData = rawProjectsData.map(p => p.capacity);
+
+            comboChartInstance = new Chart(ctx, {
                 type: 'bar',
                 data: {
                     labels: labels,
                     datasets: [
                         {
-                            label: 'Số Lượng Cọc (cọc)',
-                            data: countData,
-                            backgroundColor: barGradient,
-                            borderColor: '#0ea5e9',
+                            label: 'PO Received (Seg)',
+                            data: poData,
+                            backgroundColor: 'rgba(6, 182, 212, 0.75)',
+                            borderColor: 'rgba(6, 182, 212, 1)',
                             borderWidth: 1.5,
                             borderRadius: 6,
-                            barPercentage: 0.5,
+                            order: 2,
                             yAxisID: 'y'
                         },
                         {
-                            label: 'Tổng Chiều Dài (m)',
-                            data: meterData,
+                            label: 'PD Completion (Seg)',
+                            data: pdData,
+                            backgroundColor: 'rgba(16, 185, 129, 0.85)',
+                            borderColor: 'rgba(16, 185, 129, 1)',
+                            borderWidth: 1.5,
+                            borderRadius: 6,
+                            order: 3,
+                            yAxisID: 'y'
+                        },
+                        {
+                            label: 'Sale Request (Seg/ngày)',
+                            data: saleReqData,
                             type: 'line',
-                            borderColor: '#f59e0b',
-                            backgroundColor: lineGradient,
+                            borderColor: '#F59E0B',
+                            backgroundColor: 'rgba(245, 158, 11, 0.15)',
                             borderWidth: 3,
-                            pointBackgroundColor: '#f59e0b',
-                            pointBorderColor: '#0b1d30',
-                            pointBorderWidth: 2,
-                            pointRadius: 5,
-                            pointHoverRadius: 7,
+                            pointBackgroundColor: '#F59E0B',
+                            pointBorderColor: '#fff',
+                            pointBorderWidth: 1.5,
+                            pointRadius: 4.5,
+                            pointHoverRadius: 6,
                             tension: 0.35,
-                            fill: true,
+                            fill: false,
+                            order: 1,
                             yAxisID: 'y1'
                         }
                     ]
@@ -506,263 +1015,359 @@
                     maintainAspectRatio: false,
                     interaction: {
                         mode: 'index',
-                        intersect: false
+                        intersect: false,
                     },
                     plugins: {
                         legend: {
-                            display: true,
-                            position: 'top',
-                            labels: {
-                                color: '#9fb3c8',
-                                font: { family: 'Plus Jakarta Sans', size: 12, weight: '600' },
-                                usePointStyle: true,
-                                padding: 20
-                            }
+                            display: false // Có custom legend ở dưới
                         },
                         tooltip: {
-                            backgroundColor: 'rgba(16, 42, 67, 0.95)',
-                            titleFont: { family: 'Plus Jakarta Sans', size: 13, weight: 'bold' },
-                            bodyFont: { family: 'Inter', size: 13 },
-                            padding: 12,
-                            borderColor: 'rgba(130, 154, 177, 0.3)',
+                            backgroundColor: 'rgba(17, 24, 39, 0.95)',
+                            titleColor: '#F3F4F6',
+                            bodyColor: '#E5E7EB',
+                            borderColor: 'rgba(255, 255, 255, 0.1)',
                             borderWidth: 1,
+                            padding: 12,
+                            boxPadding: 6,
+                            usePointStyle: true,
                             callbacks: {
-                                title: (items) => `Khung Giờ: ${hourlyData[items[0].dataIndex].label}`,
-                                label: (context) => {
-                                    if (context.dataset.yAxisID === 'y') {
-                                        return ` Số lượng cọc: ${context.parsed.y} cọc`;
-                                    } else {
-                                        return ` Tổng chiều dài: ${context.parsed.y} m`;
+                                label: function(context) {
+                                    let label = context.dataset.label || '';
+                                    if (label) {
+                                        label += ': ';
                                     }
+                                    if (context.parsed.y !== null) {
+                                        label += formatNumber(context.parsed.y) + ' Seg';
+                                    }
+                                    return label;
                                 }
                             }
                         }
                     },
                     scales: {
+                        x: {
+                            grid: {
+                                color: 'rgba(255, 255, 255, 0.05)',
+                                drawBorder: false
+                            },
+                            ticks: {
+                                color: '#9CA3AF',
+                                font: {
+                                    size: 10.5,
+                                    family: 'Inter'
+                                },
+                                maxRotation: 35,
+                                minRotation: 20
+                            }
+                        },
                         y: {
                             type: 'linear',
                             display: true,
                             position: 'left',
-                            beginAtZero: true,
                             title: {
                                 display: true,
-                                text: 'Số Cọc (Cọc)',
-                                color: '#0ea5e9',
-                                font: { family: 'Plus Jakarta Sans', size: 11, weight: '600' }
+                                text: 'Khối Lượng Tổng PO & Hoàn Thành (Seg)',
+                                color: '#9CA3AF',
+                                font: { size: 10 }
                             },
                             grid: {
-                                color: 'rgba(130, 154, 177, 0.1)',
+                                color: 'rgba(255, 255, 255, 0.06)',
                                 drawBorder: false
                             },
                             ticks: {
-                                color: '#9fb3c8',
-                                font: { family: 'Inter', size: 12 }
+                                color: '#9CA3AF',
+                                font: { size: 10.5 }
                             }
                         },
                         y1: {
                             type: 'linear',
                             display: true,
                             position: 'right',
-                            beginAtZero: true,
                             title: {
                                 display: true,
-                                text: 'Tổng Chiều Dài (m)',
-                                color: '#f59e0b',
-                                font: { family: 'Plus Jakarta Sans', size: 11, weight: '600' }
+                                text: 'Sale Request (Seg/ngày)',
+                                color: '#F59E0B',
+                                font: { size: 10 }
                             },
-                            grid: { drawOnChartArea: false },
+                            grid: {
+                                drawOnChartArea: false,
+                            },
                             ticks: {
-                                color: '#fbbf24',
-                                font: { family: 'Inter', size: 12 }
-                            }
-                        },
-                        x: {
-                            grid: { display: false },
-                            ticks: {
-                                color: '#9fb3c8',
-                                font: { family: 'Plus Jakarta Sans', size: 12, weight: '600' }
-                            }
+                                color: '#F59E0B',
+                                font: { size: 10.5 }
+                            },
+                            min: 0,
+                            max: 70
                         }
-                    },
-                    animation: {
-                        duration: 1200,
-                        easing: 'easeOutQuart'
                     }
                 }
             });
         }
 
-        function renderHourlyTable(hourlyData) {
-            const tbody = document.getElementById('hourly-table-body');
-            if (!tbody) return;
-            tbody.innerHTML = '';
-            
-            const maxCount = Math.max(...hourlyData.map(d => d.count), 1);
-            
-            hourlyData.forEach(item => {
-                let shiftBadge = '';
-                if (item.shiftA > 0 && item.shiftB > 0) {
-                    shiftBadge = `<span class="px-2 py-0.5 rounded text-xs bg-indigo-500/20 text-indigo-300 border border-indigo-500/30 font-semibold">Ca A & B</span>`;
-                } else if (item.shiftA > 0) {
-                    shiftBadge = `<span class="px-2 py-0.5 rounded text-xs bg-emerald-500/20 text-emerald-300 border border-emerald-500/30 font-semibold">Ca A</span>`;
-                } else {
-                    shiftBadge = `<span class="px-2 py-0.5 rounded text-xs bg-purple-500/20 text-purple-300 border border-purple-500/30 font-semibold">Ca B</span>`;
-                }
-                
-                let badgeHtml = '';
-                if (item.count >= 18) {
-                    badgeHtml = `<span class="px-2.5 py-1 rounded-full text-xs bg-emerald-500/20 text-emerald-400 border border-emerald-500/40 font-bold flex items-center justify-end gap-1.5 w-max ml-auto"><i class="fa-solid fa-bolt text-emerald-400 text-xs"></i>Đạt Đỉnh</span>`;
-                } else if (item.count >= 12) {
-                    badgeHtml = `<span class="px-2.5 py-1 rounded-full text-xs bg-blue-500/20 text-blue-400 border border-blue-500/40 font-bold flex items-center justify-end gap-1.5 w-max ml-auto"><i class="fa-solid fa-arrow-up text-blue-400 text-xs"></i>Năng Suất Cao</span>`;
-                } else if (item.count >= 6) {
-                    badgeHtml = `<span class="px-2.5 py-1 rounded-full text-xs bg-amber-500/20 text-amber-400 border border-amber-500/40 font-bold flex items-center justify-end gap-1.5 w-max ml-auto"><i class="fa-solid fa-gauge-simple-high text-amber-400 text-xs"></i>Trung Bình</span>`;
-                } else {
-                    badgeHtml = `<span class="px-2.5 py-1 rounded-full text-xs bg-industrial-700/50 text-industrial-300 border border-industrial-600 font-medium flex items-center justify-end gap-1.5 w-max ml-auto"><i class="fa-solid fa-mug-hot text-industrial-400 text-xs"></i>Thấp / Giờ Nghỉ</span>`;
-                }
-                
-                const pct = Math.round((item.count / maxCount) * 100);
-                
-                const diaSummary = Object.entries(item.diameters)
-                    .map(([dia, c]) => `<span class="text-xs bg-industrial-800 text-industrial-200 px-2 py-0.5 rounded border border-industrial-700 font-mono inline-block mr-1 my-0.5">${dia}: <strong class="text-accent">${c}</strong></span>`)
-                    .join('');
+        // Chuyển đổi chế độ biểu đồ chính
+        function switchChartMode(mode) {
+            currentChartMode = mode;
+            const btnCombo = document.getElementById('btn-chart-combo');
+            const btnDemand = document.getElementById('btn-chart-demand');
 
-                const tr = document.createElement('tr');
-                tr.innerHTML = `
-                    <td class="py-3.5 px-4 font-semibold text-white whitespace-nowrap">
-                        <i class="fa-regular fa-clock text-accent mr-1.5"></i>${item.label}
-                    </td>
-                    <td class="py-3.5 px-4">${shiftBadge}</td>
-                    <td class="py-3.5 px-4 font-bold text-white">
-                        <div class="flex items-center gap-3">
-                            <span class="text-base font-extrabold text-accent w-6 text-right">${item.count}</span>
-                            <div class="w-24 bg-industrial-950/60 rounded-full h-2 overflow-hidden border border-industrial-700/50 hidden sm:block">
-                                <div class="bg-gradient-to-r from-accent to-blue-400 h-full rounded-full" style="width: ${pct}%"></div>
-                            </div>
-                        </div>
-                    </td>
-                    <td class="py-3.5 px-4 font-bold text-amber-400 whitespace-nowrap">
-                        ${item.totalMeters.toLocaleString('vi-VN')} m
-                    </td>
-                    <td class="py-3.5 px-4">${diaSummary}</td>
-                    <td class="py-3.5 px-4 text-right">${badgeHtml}</td>
-                `;
-                tbody.appendChild(tr);
-            });
+            if (mode === 'combo') {
+                btnCombo.className = 'px-2.5 py-1 text-xs font-medium rounded-md bg-cyan-600 text-white shadow transition';
+                btnDemand.className = 'px-2.5 py-1 text-xs font-medium rounded-md text-gray-400 hover:text-white transition';
+
+                comboChartInstance.data.datasets = [
+                    {
+                        label: 'PO Received (Seg)',
+                        data: rawProjectsData.map(p => p.po),
+                        backgroundColor: 'rgba(6, 182, 212, 0.75)',
+                        borderColor: 'rgba(6, 182, 212, 1)',
+                        borderWidth: 1.5,
+                        borderRadius: 6,
+                        order: 2,
+                        yAxisID: 'y'
+                    },
+                    {
+                        label: 'PD Completion (Seg)',
+                        data: rawProjectsData.map(p => p.pd),
+                        backgroundColor: 'rgba(16, 185, 129, 0.85)',
+                        borderColor: 'rgba(16, 185, 129, 1)',
+                        borderWidth: 1.5,
+                        borderRadius: 6,
+                        order: 3,
+                        yAxisID: 'y'
+                    },
+                    {
+                        label: 'Sale Request (Seg/ngày)',
+                        data: rawProjectsData.map(p => p.saleReq),
+                        type: 'line',
+                        borderColor: '#F59E0B',
+                        backgroundColor: 'rgba(245, 158, 11, 0.15)',
+                        borderWidth: 3,
+                        pointBackgroundColor: '#F59E0B',
+                        pointBorderColor: '#fff',
+                        pointBorderWidth: 1.5,
+                        pointRadius: 4.5,
+                        tension: 0.35,
+                        fill: false,
+                        order: 1,
+                        yAxisID: 'y1'
+                    }
+                ];
+                comboChartInstance.options.scales.y.title.text = 'Khối Lượng Tổng PO & Hoàn Thành (Seg)';
+                comboChartInstance.options.scales.y1.display = true;
+            } else {
+                btnDemand.className = 'px-2.5 py-1 text-xs font-medium rounded-md bg-cyan-600 text-white shadow transition';
+                btnCombo.className = 'px-2.5 py-1 text-xs font-medium rounded-md text-gray-400 hover:text-white transition';
+
+                comboChartInstance.data.datasets = [
+                    {
+                        label: 'Sale Request (Seg/ngày)',
+                        data: rawProjectsData.map(p => p.saleReq),
+                        backgroundColor: 'rgba(245, 158, 11, 0.8)',
+                        borderColor: '#F59E0B',
+                        borderWidth: 1.5,
+                        borderRadius: 6,
+                        yAxisID: 'y'
+                    },
+                    {
+                        label: 'Production Capacity (Seg/ngày)',
+                        data: rawProjectsData.map(p => p.capacity),
+                        backgroundColor: 'rgba(6, 182, 212, 0.8)',
+                        borderColor: '#06B6D4',
+                        borderWidth: 1.5,
+                        borderRadius: 6,
+                        yAxisID: 'y'
+                    },
+                    {
+                        label: 'Thiếu Hụt Shortage (Seg/ngày)',
+                        data: rawProjectsData.map(p => p.shortage),
+                        backgroundColor: 'rgba(239, 68, 68, 0.8)',
+                        borderColor: '#EF4444',
+                        borderWidth: 1.5,
+                        borderRadius: 6,
+                        yAxisID: 'y'
+                    }
+                ];
+                comboChartInstance.options.scales.y.title.text = 'Nhu Cầu vs Năng Lực Ngày (Seg/ngày)';
+                comboChartInstance.options.scales.y1.display = false;
+            }
+
+            comboChartInstance.update();
         }
 
-        function renderChart(diaCounts) {
-            const ctx = document.getElementById('diameterChart').getContext('2d');
+        // 4. Khởi tạo Biểu đồ Tròn Doughnut Chart
+        function initDoughnutChart() {
+            const ctx = document.getElementById('statusDoughnutChart').getContext('2d');
             
-            // Sort labels for consistent display
-            const labels = Object.keys(diaCounts).sort();
-            const data = labels.map(l => diaCounts[l]);
-            
-            // Gradient fill
-            const gradient = ctx.createLinearGradient(0, 0, 0, 400);
-            gradient.addColorStop(0, 'rgba(14, 165, 233, 0.8)'); // accent color
-            gradient.addColorStop(1, 'rgba(14, 165, 233, 0.1)');
-
-            new Chart(ctx, {
-                type: 'bar',
+            doughnutChartInstance = new Chart(ctx, {
+                type: 'doughnut',
                 data: {
-                    labels: labels,
+                    labels: ['Đạt 100% / Đã xong', 'Đáp ứng 50% - 70%', 'Thiếu hụt < 50%'],
                     datasets: [{
-                        label: 'Số Lượng Cọc',
-                        data: data,
-                        backgroundColor: gradient,
-                        borderColor: '#0ea5e9',
-                        borderWidth: 1,
-                        borderRadius: 6,
-                        barPercentage: 0.6
+                        data: [4, 4, 3],
+                        backgroundColor: [
+                            'rgba(16, 185, 129, 0.85)',
+                            'rgba(245, 158, 11, 0.85)',
+                            'rgba(239, 68, 68, 0.85)'
+                        ],
+                        borderColor: '#111827',
+                        borderWidth: 3,
+                        hoverOffset: 6
                     }]
                 },
                 options: {
                     responsive: true,
                     maintainAspectRatio: false,
+                    cutout: '72%',
                     plugins: {
-                        legend: { display: false },
-                        tooltip: {
-                            backgroundColor: 'rgba(16, 42, 67, 0.9)',
-                            titleFont: { family: 'Plus Jakarta Sans', size: 13 },
-                            bodyFont: { family: 'Inter', size: 14, weight: 'bold' },
-                            padding: 12,
-                            borderColor: 'rgba(130, 154, 177, 0.2)',
-                            borderWidth: 1,
-                            displayColors: false
-                        }
-                    },
-                    scales: {
-                        y: {
-                            beginAtZero: true,
-                            grid: {
-                                color: 'rgba(130, 154, 177, 0.1)',
-                                drawBorder: false
-                            },
-                            ticks: {
-                                color: '#9fb3c8',
-                                font: { family: 'Inter', size: 12 },
-                                stepSize: 10
-                            }
+                        legend: {
+                            display: false
                         },
-                        x: {
-                            grid: { display: false },
-                            ticks: {
-                                color: '#9fb3c8',
-                                font: { family: 'Plus Jakarta Sans', size: 13, weight: '600' }
+                        tooltip: {
+                            backgroundColor: 'rgba(17, 24, 39, 0.95)',
+                            padding: 10,
+                            callbacks: {
+                                label: function(context) {
+                                    return `${context.label}: ${context.raw} Dự Án`;
+                                }
                             }
                         }
-                    },
-                    animation: {
-                        duration: 1500,
-                        easing: 'easeOutQuart'
                     }
                 }
             });
         }
 
-        function renderTable(data) {
-            const tbody = document.getElementById('table-body');
-            tbody.innerHTML = '';
+        // Modal View Chi Tiết Dự Án
+        function openModal(id) {
+            const p = rawProjectsData.find(item => item.id === id);
+            if (!p) return;
+
+            document.getElementById('modal-idx').textContent = p.id;
+            document.getElementById('modal-title').textContent = p.name;
+            document.getElementById('modal-dia').textContent = `Quy cách cọc (Dia): ${p.dia}`;
+
+            const modalContent = document.getElementById('modal-content');
+            modalContent.innerHTML = `
+                <div class="grid grid-cols-2 gap-3">
+                    <div class="p-3 rounded-xl bg-gray-800/60 border border-gray-700/60">
+                        <span class="text-gray-400 text-[11px] uppercase">PO Đã Nhận</span>
+                        <p class="text-base font-bold text-white mt-0.5">${formatNumber(p.po)} <span class="text-xs font-normal text-gray-400">Seg</span></p>
+                    </div>
+                    <div class="p-3 rounded-xl bg-gray-800/60 border border-gray-700/60">
+                        <span class="text-gray-400 text-[11px] uppercase">Đã Sản Xuất (PD)</span>
+                        <p class="text-base font-bold text-emerald-400 mt-0.5">${formatNumber(p.pd)} <span class="text-xs font-normal text-gray-400">Seg</span></p>
+                    </div>
+                    <div class="p-3 rounded-xl bg-gray-800/60 border border-gray-700/60">
+                        <span class="text-gray-400 text-[11px] uppercase">Còn Lại (Remain)</span>
+                        <p class="text-base font-bold ${p.remain < 0 ? 'text-indigo-400' : 'text-amber-400'} mt-0.5">${formatNumber(p.remain)} <span class="text-xs font-normal text-gray-400">Seg</span></p>
+                    </div>
+                    <div class="p-3 rounded-xl bg-gray-800/60 border border-gray-700/60">
+                        <span class="text-gray-400 text-[11px] uppercase">Tỷ Lệ Hoàn Thành PO</span>
+                        <p class="text-base font-bold text-cyan-400 mt-0.5">${formatPercent(p.compRate)}</p>
+                    </div>
+                </div>
+
+                <div class="p-3.5 rounded-xl bg-gray-800/40 border border-gray-700/50 space-y-2">
+                    <div class="flex justify-between items-center text-xs">
+                        <span class="text-gray-400">Nhu cầu giao hàng (Sale Request):</span>
+                        <strong class="text-white">${p.saleReq} Seg/ngày</strong>
+                    </div>
+                    <div class="flex justify-between items-center text-xs">
+                        <span class="text-gray-400">Năng lực sản xuất (Capacity):</span>
+                        <strong class="text-cyan-400">${p.capacity} Seg/ngày</strong>
+                    </div>
+                    <div class="flex justify-between items-center text-xs">
+                        <span class="text-gray-400">Mức độ thiếu hụt (Shortage):</span>
+                        <strong class="${p.shortage > 0 ? 'text-rose-400' : 'text-gray-300'}">${p.shortage} Seg/ngày</strong>
+                    </div>
+                    <div class="flex justify-between items-center text-xs pt-1 border-t border-gray-700/60">
+                        <span class="text-gray-400 font-semibold">Tỷ lệ đáp ứng (Meet Sale %):</span>
+                        <div>${getMeetRateBadge(p.meetRate, p.status)}</div>
+                    </div>
+                </div>
+
+                ${p.shortage > 0 ? `
+                <div class="p-2.5 rounded-lg bg-rose-500/10 border border-rose-500/30 text-rose-300 text-[11px] flex items-center gap-2">
+                    <i data-lucide="alert-triangle" class="w-4 h-4 text-rose-400 shrink-0"></i>
+                    <span>Cảnh báo: Dự án đang thiếu ${p.shortage} Seg/ngày so với tiến độ yêu cầu của Phòng Kinh Doanh.</span>
+                </div>
+                ` : ''}
+            `;
+
+            document.getElementById('projectModal').classList.remove('hidden');
+            lucide.createIcons();
+        }
+
+        function closeModal() {
+            document.getElementById('projectModal').classList.add('hidden');
+        }
+
+        // Tải lại dữ liệu
+        function refreshData() {
+            document.getElementById('table-search').value = '';
+            document.getElementById('status-filter').value = 'all';
+            currentSort = { column: 'id', ascending: true };
+            currentProjects = [...rawProjectsData];
+            renderTable(currentProjects);
+            switchChartMode('combo');
             
-            data.forEach((row, index) => {
-                // Status styling
-                let statusClass = 'status-stocking';
-                if(row.rawStatus === 'proDemoulding') {
-                    statusClass = 'status-demoulding';
-                }
-                
-                // QC styling
-                let qcHtml = `<span class="text-industrial-300">-</span>`;
-                if(row.qc) {
-                    if(row.qc.includes('N.G')) {
-                        qcHtml = `<span class="qc-badge qc-ng"><i class="fa-solid fa-xmark mr-1"></i>N.G</span>`;
-                    } else if(row.qc.includes('Cần Chú Ý') || row.qc.includes('Caution')) {
-                        qcHtml = `<span class="qc-badge qc-caution"><i class="fa-solid fa-triangle-exclamation mr-1"></i>Chú ý</span>`;
-                    }
-                }
-
-                const tr = document.createElement('tr');
-                tr.innerHTML = `
-                    <td class="py-4 px-4 text-industrial-400 font-medium">${index + 1}</td>
-                    <td class="py-4 px-4 font-mono text-xs text-white">${row.serial}</td>
-                    <td class="py-4 px-4 font-semibold text-accent">${row.pileCode}</td>
-                    <td class="py-4 px-4">
-                        <span class="bg-industrial-800 text-industrial-200 px-2 py-1 rounded text-xs font-bold border border-industrial-700">${row.diameter}</span>
-                    </td>
-                    <td class="py-4 px-4 font-bold text-white">${row.length}</td>
-                    <td class="py-4 px-4 text-industrial-300">${row.type}</td>
-                    <td class="py-4 px-4 text-industrial-200 font-medium text-xs">${row.customer || ''}</td>
-                    <td class="py-4 px-4">${qcHtml}</td>
-                    <td class="py-4 px-4 text-right">
-                        <span class="status-badge ${statusClass}">${row.status}</span>
-                    </td>
-                `;
-                tbody.appendChild(tr);
-            });
+            // Animation feedback
+            const toast = document.createElement('div');
+            toast.className = 'fixed bottom-5 right-5 bg-cyan-600 text-white px-4 py-2 rounded-lg text-xs font-semibold shadow-lg z-50 transition-all';
+            toast.textContent = 'Đã làm mới dữ liệu thành công!';
+            document.body.appendChild(toast);
+            setTimeout(() => toast.remove(), 2000);
         }
 
-        // Initialize when DOM is ready
-        document.addEventListener('DOMContentLoaded', initDashboard);
+        // Xuất File CSV
+        function exportToCSV() {
+            const headers = ["STT", "Ten Du An", "Duong Kinh", "PO Received (Seg)", "Remain PD (Seg)", "PD Completion (Seg)", "Completion %", "Sale Request", "Production Capacity", "Shortage (Seg)", "Meet Sale %"];
+            const rows = rawProjectsData.map(p => [
+                p.id,
+                `"${p.name}"`,
+                `"${p.dia}"`,
+                p.po,
+                p.remain,
+                p.pd,
+                `"${(p.compRate * 100).toFixed(2)}%"`,
+                p.saleReq,
+                p.capacity,
+                p.shortage,
+                p.meetRate !== null ? `"${(p.meetRate * 100).toFixed(2)}%"` : '"N/A"'
+            ]);
+
+            // Thêm dòng Total
+            rows.push([
+                "TOTAL",
+                '"TOTAL"',
+                '""',
+                totalSummary.po,
+                totalSummary.remain,
+                totalSummary.pd,
+                `"${(totalSummary.compRate * 100).toFixed(2)}%"`,
+                totalSummary.saleReq,
+                totalSummary.capacity,
+                totalSummary.shortage,
+                `"${(totalSummary.meetRate * 100).toFixed(2)}%"`
+            ]);
+
+            const csvContent = "\uFEFF" + [headers.join(","), ...rows.map(e => e.join(","))].join("\n");
+            const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
+            const url = URL.createObjectURL(blob);
+            const link = document.createElement("a");
+            link.setAttribute("href", url);
+            link.setAttribute("download", `Project_Condition_Dashboard_${new Date().toISOString().slice(0,10)}.csv`);
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+        }
+
+        // Đóng modal khi click ra ngoài
+        window.onclick = function(event) {
+            const modal = document.getElementById('projectModal');
+            if (event.target === modal) {
+                closeModal();
+            }
+        };
     </script>
 </body>
 </html>
