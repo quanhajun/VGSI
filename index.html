@@ -158,7 +158,7 @@
                     <div>
                         <div class="flex items-center gap-2">
                             <span class="font-bold text-base tracking-tight text-white">PROJECT CONDITION & SALES CONTROL</span>
-                            <span class="px-2 py-0.5 text-[10px] font-semibold rounded bg-blue-950 text-blue-300 border border-blue-800/80" id="header-version-badge">v2.2 Cập nhật 04-Sep</span>
+                            <span class="px-2 py-0.5 text-[10px] font-semibold rounded bg-blue-950 text-blue-300 border border-blue-800/80" id="header-version-badge">v2.3 Cập nhật 07-Sep</span>
                         </div>
                         <p class="text-xs text-slate-400">Hệ thống Đối Soát Năng Lực Sản Xuất & Điều Phối Đơn Hàng Cọc Bê Tông</p>
                     </div>
@@ -168,13 +168,16 @@
                 <div class="flex items-center gap-2.5">
                     <!-- Period Filter Switcher -->
                     <div class="inline-flex rounded-lg bg-slate-950 p-1 border border-slate-800 text-xs">
-                        <button id="nav-btn-04sep" onclick="setDashboardPeriod('04sep')" class="px-3 py-1.5 font-semibold rounded-md bg-blue-600 text-white shadow-sm transition flex items-center gap-1.5">
+                        <button id="nav-btn-07sep" onclick="setDashboardPeriod('07sep')" class="px-3 py-1.5 font-semibold rounded-md bg-blue-600 text-white shadow-sm transition flex items-center gap-1.5">
                             <span class="w-2 h-2 rounded-full bg-emerald-400"></span>
-                            <span>Kỳ Mới (04-Sep)</span>
+                            <span>Kỳ Mới (07-Sep)</span>
                         </button>
                         <button id="nav-btn-compare" onclick="setDashboardPeriod('compare')" class="px-3 py-1.5 font-semibold rounded-md text-slate-400 hover:text-white transition flex items-center gap-1.5">
                             <i data-lucide="git-compare" class="w-3.5 h-3.5 text-indigo-400"></i>
-                            <span>So Sánh (27-Aug vs 04-Sep)</span>
+                            <span>So Sánh (04-Sep vs 07-Sep)</span>
+                        </button>
+                        <button id="nav-btn-04sep" onclick="setDashboardPeriod('04sep')" class="px-3 py-1.5 font-semibold rounded-md text-slate-400 hover:text-white transition hidden sm:flex items-center gap-1.5">
+                            <span>Kỳ 04-Sep</span>
                         </button>
                         <button id="nav-btn-27aug" onclick="setDashboardPeriod('27aug')" class="px-3 py-1.5 font-semibold rounded-md text-slate-400 hover:text-white transition hidden md:flex items-center gap-1.5">
                             <span>Kỳ 27-Aug</span>
@@ -208,7 +211,7 @@
                 <div>
                     <div class="flex items-center gap-2 mb-1">
                         <span id="banner-period-tag" class="px-2 py-0.5 rounded text-[11px] font-bold bg-blue-900/60 text-blue-300 border border-blue-700/50 uppercase tracking-wider">
-                            Kỳ Đối Soát: 04-Sep (Mới Nhất)
+                            Kỳ Đối Soát: 07-Sep (Mới Nhất)
                         </span>
                         <span class="text-xs text-slate-400 font-mono" id="banner-project-count">12 Dự Án Cọc Ly Tâm</span>
                     </div>
@@ -216,7 +219,7 @@
                         Cân Đối Năng Lực Sản Xuất & Nhu Cầu Xuất Hàng
                     </h1>
                     <p id="banner-desc" class="text-xs text-slate-400 mt-1 max-w-3xl leading-relaxed">
-                        Dữ liệu đối soát ngày <strong class="text-slate-200">04-Sep</strong> ghi nhận tổng sản lượng đúc đạt <strong class="text-emerald-400">15,062 Seg</strong> (+1,231 Seg so với kỳ 27-Aug), hoàn tất 100% đơn hàng tại 3 dự án (Phan Thiết, Ninh Thuận, Thạnh Lộc). Tổng PO tăng lên <strong class="text-blue-400">23,056 Seg</strong> nhờ bổ sung Sun Vũng Tàu và Long Đức.
+                        Dữ liệu đối soát ngày <strong class="text-slate-200">07-Sep</strong> ghi nhận tổng sản lượng đúc đạt <strong class="text-emerald-400">14,115 Seg</strong> (đạt 63.3% tổng PO 22,289 Seg). Thiếu hụt công suất giảm mạnh từ 144 xuống <strong class="text-emerald-400">122 Seg/ngày (-22 Seg)</strong>, tỷ lệ đáp ứng giao hàng cải thiện lên <strong class="text-blue-400">60.1%</strong> (+4.3% so với kỳ 04-Sep).
                     </p>
                 </div>
 
@@ -224,23 +227,23 @@
                 <div class="flex items-center gap-4 sm:gap-6 shrink-0 bg-slate-950/80 px-4 py-3 rounded-xl border border-slate-800 text-xs">
                     <div>
                         <div class="text-slate-400 uppercase tracking-wider text-[10px] font-medium">Tổng Đã SX (PD)</div>
-                        <div class="text-base font-bold text-blue-400 font-mono mt-0.5" id="banner-pd-val">15,062 Seg</div>
+                        <div class="text-base font-bold text-blue-400 font-mono mt-0.5" id="banner-pd-val">14,115 Seg</div>
                         <div class="text-[10px] text-emerald-400 font-mono flex items-center gap-0.5" id="banner-pd-delta-tag">
-                            <i data-lucide="trending-up" class="w-3 h-3 inline"></i> +1,231 Seg (+8.9%)
+                            <i data-lucide="trending-up" class="w-3 h-3 inline"></i> Đạt 63.3% PO
                         </div>
                     </div>
                     <div class="h-10 w-px bg-slate-800"></div>
                     <div>
                         <div class="text-slate-400 uppercase tracking-wider text-[10px] font-medium">Năng Lực SX/Ngày</div>
-                        <div class="text-base font-bold text-slate-200 font-mono mt-0.5" id="banner-cap-val">182 Seg/ngày</div>
-                        <div class="text-[10px] text-slate-400 font-mono" id="banner-cap-sub">12 Dự án</div>
+                        <div class="text-base font-bold text-slate-200 font-mono mt-0.5" id="banner-cap-val">184 Seg/ngày</div>
+                        <div class="text-[10px] text-emerald-400 font-mono" id="banner-cap-sub">+2 Seg so với 04-Sep</div>
                     </div>
                     <div class="h-10 w-px bg-slate-800"></div>
                     <div>
                         <div class="text-slate-400 uppercase tracking-wider text-[10px] font-medium">Thiếu Hụt (Shortage)</div>
-                        <div class="text-base font-bold text-rose-400 font-mono mt-0.5" id="banner-shortage-val">144 Seg/ngày</div>
-                        <div class="text-[10px] text-rose-400 font-mono flex items-center gap-0.5" id="banner-shortage-delta-tag">
-                            <i data-lucide="alert-circle" class="w-3 h-3 inline"></i> +35 Seg (Sale tăng)
+                        <div class="text-base font-bold text-emerald-400 font-mono mt-0.5" id="banner-shortage-val">122 Seg/ngày</div>
+                        <div class="text-[10px] text-emerald-400 font-mono flex items-center gap-0.5" id="banner-shortage-delta-tag">
+                            <i data-lucide="arrow-down-right" class="w-3 h-3 inline"></i> -22 Seg (Giảm thiếu)
                         </div>
                     </div>
                 </div>
@@ -260,16 +263,16 @@
                         </span>
                     </div>
                     <div class="mt-3">
-                        <div class="text-3xl font-bold font-mono text-white tracking-tight" id="kpi-po-total">23,056</div>
-                        <div class="flex items-center gap-1.5 text-xs text-emerald-400 mt-1 font-mono" id="kpi-po-delta">
-                            <i data-lucide="trending-up" class="w-3.5 h-3.5"></i>
-                            <span>+709 Seg (Sun Vũng Tàu & Long Đức)</span>
+                        <div class="text-3xl font-bold font-mono text-white tracking-tight" id="kpi-po-total">22,289</div>
+                        <div class="flex items-center gap-1.5 text-xs text-blue-400 mt-1 font-mono" id="kpi-po-delta">
+                            <i data-lucide="info" class="w-3.5 h-3.5"></i>
+                            <span>Bổ sung PO Phan Thiết (+109 Seg)</span>
                         </div>
                     </div>
                 </div>
                 <div class="mt-4 pt-3 border-t border-slate-800 flex items-center justify-between text-xs">
                     <span class="text-slate-400">Còn lại chưa SX (Remain):</span>
-                    <span class="text-slate-200 font-mono font-bold" id="kpi-remain-total">7,979 Seg (34.6%)</span>
+                    <span class="text-slate-200 font-mono font-bold" id="kpi-remain-total">8,174 Seg (36.7%)</span>
                 </div>
             </div>
 
@@ -283,20 +286,20 @@
                         </span>
                     </div>
                     <div class="mt-3">
-                        <div class="text-3xl font-bold font-mono text-blue-400 tracking-tight" id="kpi-pd-total">15,062</div>
+                        <div class="text-3xl font-bold font-mono text-blue-400 tracking-tight" id="kpi-pd-total">14,115</div>
                         <div class="flex items-center gap-1.5 text-xs text-emerald-400 mt-1 font-mono font-medium">
                             <i data-lucide="trending-up" class="w-3.5 h-3.5"></i>
-                            <span id="kpi-pd-delta">+1,231 Seg so với kỳ 27-Aug (+8.90%)</span>
+                            <span id="kpi-pd-delta">+421 Seg đúc thêm tại các DA chính</span>
                         </div>
                     </div>
                 </div>
                 <div class="mt-4 pt-3 border-t border-slate-800 space-y-1.5">
                     <div class="flex justify-between text-xs font-mono text-slate-400">
                         <span>Tiến độ tổng:</span>
-                        <strong class="text-blue-400 font-bold" id="kpi-pd-pct">65.3%</strong>
+                        <strong class="text-blue-400 font-bold" id="kpi-pd-pct">63.3%</strong>
                     </div>
                     <div class="w-full bg-slate-800 rounded-full h-1.5 overflow-hidden">
-                        <div class="bg-blue-500 h-1.5 rounded-full transition-all duration-500" id="kpi-pd-bar" style="width: 65.33%"></div>
+                        <div class="bg-blue-500 h-1.5 rounded-full transition-all duration-500" id="kpi-pd-bar" style="width: 63.33%"></div>
                     </div>
                 </div>
             </div>
@@ -311,16 +314,16 @@
                         </span>
                     </div>
                     <div class="mt-3">
-                        <div class="text-3xl font-bold font-mono text-rose-400 tracking-tight" id="kpi-shortage-total">144</div>
-                        <div class="flex items-center gap-1.5 text-xs text-amber-400 mt-1 font-mono font-medium">
-                            <i data-lucide="arrow-up" class="w-3.5 h-3.5"></i>
-                            <span id="kpi-shortage-delta">+35 Seg do nhu cầu xuất tăng</span>
+                        <div class="text-3xl font-bold font-mono text-rose-400 tracking-tight" id="kpi-shortage-total">122</div>
+                        <div class="flex items-center gap-1.5 text-xs text-emerald-400 mt-1 font-mono font-medium">
+                            <i data-lucide="arrow-down-right" class="w-3.5 h-3.5"></i>
+                            <span id="kpi-shortage-delta">Giảm -22 Seg so với 04-Sep (-15.3%)</span>
                         </div>
                     </div>
                 </div>
                 <div class="mt-4 pt-3 border-t border-slate-800 flex items-center justify-between text-xs font-mono">
-                    <span class="text-slate-400">Nhu cầu: <strong class="text-slate-200 font-bold" id="kpi-req-val">326 Seg/ngày</strong></span>
-                    <span class="text-slate-400">Năng lực: <strong class="text-blue-400 font-bold" id="kpi-cap-val">182 Seg/ngày</strong></span>
+                    <span class="text-slate-400">Nhu cầu: <strong class="text-slate-200 font-bold" id="kpi-req-val">306 Seg/ngày</strong></span>
+                    <span class="text-slate-400">Năng lực: <strong class="text-blue-400 font-bold" id="kpi-cap-val">184 Seg/ngày</strong></span>
                 </div>
             </div>
 
@@ -334,27 +337,27 @@
                         </span>
                     </div>
                     <div class="mt-3">
-                        <div class="text-3xl font-bold font-mono text-emerald-400 tracking-tight" id="kpi-meet-total">55.8%</div>
-                        <div class="flex items-center gap-1.5 text-xs text-slate-400 mt-1 font-mono font-medium">
-                            <i data-lucide="info" class="w-3.5 h-3.5 text-blue-400"></i>
-                            <span id="kpi-meet-delta">Áp lực giao hàng cao</span>
+                        <div class="text-3xl font-bold font-mono text-emerald-400 tracking-tight" id="kpi-meet-total">60.1%</div>
+                        <div class="flex items-center gap-1.5 text-xs text-emerald-400 mt-1 font-mono font-medium">
+                            <i data-lucide="trending-up" class="w-3.5 h-3.5 text-emerald-400"></i>
+                            <span id="kpi-meet-delta">Tăng +4.30% so với 04-Sep</span>
                         </div>
                     </div>
                 </div>
                 <div class="mt-4 pt-3 border-t border-slate-800 space-y-1.5">
                     <div class="flex justify-between text-xs font-mono text-slate-400">
-                        <span>Số dự án hoàn thành / an toàn:</span>
-                        <strong class="text-emerald-400 font-bold" id="kpi-ok-count">3 Hoàn Tất / 12 Dự án</strong>
+                        <span>Số dự án hoàn tất / đáp ứng tốt:</span>
+                        <strong class="text-emerald-400 font-bold" id="kpi-ok-count">8 / 12 Dự án</strong>
                     </div>
                     <div class="w-full bg-slate-800 rounded-full h-1.5 overflow-hidden">
-                        <div class="bg-emerald-500 h-1.5 rounded-full transition-all duration-500" id="kpi-meet-bar" style="width: 55.83%"></div>
+                        <div class="bg-emerald-500 h-1.5 rounded-full transition-all duration-500" id="kpi-meet-bar" style="width: 60.13%"></div>
                     </div>
                 </div>
             </div>
 
         </section>
 
-        <!-- 4. COMPARISON HIGHLIGHTS & VARIANCE INTELLIGENCE BANNER (NỘI DUNG SO SÁNH CHUYÊN SÂU) -->
+        <!-- 4. COMPARISON HIGHLIGHTS & VARIANCE INTELLIGENCE BANNER -->
         <section class="erp-card rounded-xl p-6 border-indigo-900/40 bg-gradient-to-r from-[#0F172A] via-[#111C38] to-[#0F172A] space-y-4">
             <div class="flex flex-col md:flex-row md:items-center justify-between gap-3 border-b border-slate-800 pb-3">
                 <div class="flex items-center gap-2.5">
@@ -363,57 +366,57 @@
                     </div>
                     <div>
                         <h2 class="text-sm font-bold text-white uppercase tracking-wider flex items-center gap-2">
-                            <span>Phân Tích Biến Động & Đột Phá Giữa 2 Kỳ Đối Soát (27-Aug vs 04-Sep)</span>
+                            <span>Phân Tích Biến Động & Điểm Nhấn Đối Soát (04-Sep vs 07-Sep)</span>
                             <span class="px-2 py-0.5 text-[10px] font-semibold rounded bg-indigo-900/60 text-indigo-300 border border-indigo-700/50">Variance Insights</span>
                         </h2>
-                        <p class="text-xs text-slate-400">Tổng hợp các chuyển biến trọng yếu trong công tác sản xuất và điều phối năng lực</p>
+                        <p class="text-xs text-slate-400">Tổng hợp các chuyển biến trọng yếu trong công tác sản xuất và điều phối năng lực kỳ 07-Sep</p>
                     </div>
                 </div>
                 <div class="flex items-center gap-2 text-xs font-mono text-slate-400 bg-slate-950/60 px-3 py-1.5 rounded-lg border border-slate-800">
-                    <span>Khoảng thời gian: <strong class="text-slate-200">8 Ngày sản xuất (27-Aug → 04-Sep)</strong></span>
+                    <span>Chu kỳ đối chiếu: <strong class="text-slate-200">3 Ngày sản xuất (04-Sep → 07-Sep)</strong></span>
                 </div>
             </div>
 
             <!-- 4 Quick Insight Cards -->
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-3.5">
                 <!-- Insight 1 -->
-                <div class="p-3.5 rounded-lg bg-slate-900/90 border border-slate-800 space-y-1">
+                <div class="p-3.5 rounded-lg bg-slate-900/90 border border-emerald-900/40 bg-emerald-950/10 space-y-1">
                     <div class="flex items-center justify-between text-xs">
-                        <span class="text-slate-400 font-medium">Về Đích 100% PO</span>
-                        <span class="badge-ok px-1.5 py-0.5 rounded text-[10px] font-bold">3 Dự Án</span>
+                        <span class="text-emerald-400 font-medium">Bứt Phá Năng Lực Cung Ứng</span>
+                        <span class="badge-ok px-1.5 py-0.5 rounded text-[10px] font-bold">96.7% Đáp Ứng</span>
                     </div>
-                    <div class="text-xs font-bold text-white">Phan Thiết, Ninh Thuận, Thạnh Lộc</div>
-                    <p class="text-[11px] text-slate-400 leading-snug">Phan Thiết (818 Seg) và Ninh Thuận (500 Seg) đã hoàn tất 100% hợp đồng đúc cọc.</p>
+                    <div class="text-xs font-bold text-white">Sun Nha Trang</div>
+                    <p class="text-[11px] text-slate-400 leading-snug">Capacity tăng vọt từ 14 lên 29 Seg/ngày, giải tỏa áp lực thiếu hụt (từ thiếu 16 Seg xuống chỉ còn 1 Seg).</p>
                 </div>
 
                 <!-- Insight 2 -->
                 <div class="p-3.5 rounded-lg bg-slate-900/90 border border-slate-800 space-y-1">
                     <div class="flex items-center justify-between text-xs">
-                        <span class="text-slate-400 font-medium">Bổ Sung Hợp Đồng Mới</span>
-                        <span class="badge-purple px-1.5 py-0.5 rounded text-[10px] font-bold">+709 Seg PO</span>
+                        <span class="text-slate-400 font-medium">Phát Sinh Hợp Đồng Mới</span>
+                        <span class="badge-purple px-1.5 py-0.5 rounded text-[10px] font-bold">+109 Seg PO</span>
                     </div>
-                    <div class="text-xs font-bold text-white">Sun Vũng Tàu & Long Đức (TNT)</div>
-                    <p class="text-[11px] text-slate-400 leading-snug">Sun Vũng Tàu tăng PO lên 1,476 Seg (đã đúc 1,388 Seg), tiếp nhận mới Long Đức (TNT) PO 52 Seg.</p>
+                    <div class="text-xs font-bold text-white">Sân Bay Phan Thiết</div>
+                    <p class="text-[11px] text-slate-400 leading-snug">Khối lượng PO tăng từ 818 lên 927 Seg; năng lực cung ứng đáp ứng tốt 87.5% (Cap 14 / Req 16 Seg).</p>
                 </div>
 
                 <!-- Insight 3 -->
                 <div class="p-3.5 rounded-lg bg-slate-900/90 border border-rose-900/50 bg-rose-950/10 space-y-1">
                     <div class="flex items-center justify-between text-xs">
-                        <span class="text-rose-400 font-medium">Điểm Nóng Thiếu Hụt</span>
-                        <span class="badge-danger px-1.5 py-0.5 rounded text-[10px] font-bold">144 Seg/ngày</span>
+                        <span class="text-rose-400 font-medium">Điểm Nóng Cần Tập Trung</span>
+                        <span class="badge-danger px-1.5 py-0.5 rounded text-[10px] font-bold">82 Seg Thiếu</span>
                     </div>
-                    <div class="text-xs font-bold text-rose-300">Tôn Đông Á, Sun Vũng Tàu, Sun Nha Trang</div>
-                    <p class="text-[11px] text-slate-400 leading-snug">Tôn Đông Á thiếu 55 Seg (Cap 5/60); Sun Vũng Tàu thiếu 19 Seg; Sun Nha Trang thiếu 16 Seg/ngày.</p>
+                    <div class="text-xs font-bold text-rose-300">Tôn Đông Á, Sun Vũng Tàu, SeAH2</div>
+                    <p class="text-[11px] text-slate-400 leading-snug">Tôn Đông Á thiếu 50 Seg (Cap 10/60); Sun Vũng Tàu thiếu 17 Seg (Cap 13/30); SeAH2 thiếu 15 Seg (Cap 5/20).</p>
                 </div>
 
                 <!-- Insight 4 -->
                 <div class="p-3.5 rounded-lg bg-slate-900/90 border border-slate-800 space-y-1">
                     <div class="flex items-center justify-between text-xs">
-                        <span class="text-slate-400 font-medium">Tốc Độ Đúc Bình Quân</span>
-                        <span class="badge-completed px-1.5 py-0.5 rounded text-[10px] font-bold">+1,231 Seg</span>
+                        <span class="text-slate-400 font-medium">Chỉ Số Tổng Thể Tích Cực</span>
+                        <span class="badge-completed px-1.5 py-0.5 rounded text-[10px] font-bold">-22 Seg Thiếu</span>
                     </div>
-                    <div class="text-xs font-bold text-white">154 Seg / Ngày Lũy Kế</div>
-                    <p class="text-[11px] text-slate-400 leading-snug">Tiến độ đúc toàn dự án đạt <strong class="text-blue-400">65.3%</strong>, giảm dư lượng cần đúc xuống 7,979 Seg.</p>
+                    <div class="text-xs font-bold text-white">Thiếu Hụt Giảm Còn 122 Seg</div>
+                    <p class="text-[11px] text-slate-400 leading-snug">Tỷ lệ đáp ứng đơn hàng toàn hệ thống đạt <strong class="text-blue-400">60.1%</strong>, nâng số dự án an toàn/đáp ứng cao lên 8 dự án.</p>
                 </div>
             </div>
         </section>
@@ -428,7 +431,7 @@
                         <div>
                             <h2 class="text-base font-bold text-white flex items-center gap-2" id="chart-main-title">
                                 <i data-lucide="bar-chart-2" class="w-4 h-4 text-blue-400"></i>
-                                <span>Phân Tích Tiến Độ Sản Xuất & Nhu Cầu Từng Dự Án (04-Sep)</span>
+                                <span>Phân Tích Tiến Độ Sản Xuất & Nhu Cầu Từng Dự Án (07-Sep)</span>
                             </h2>
                             <p class="text-xs text-slate-400 mt-0.5" id="chart-main-subtitle">So sánh Khối lượng PO (Xám), Hoàn thành (Xanh) và Nhu cầu Sale Request (Đường Cam)</p>
                         </div>
@@ -443,7 +446,7 @@
                             </button>
                             <button id="btn-chart-compare" onclick="switchChartMode('compare_periods')" class="px-2.5 py-1 font-semibold rounded text-slate-400 hover:text-slate-200 transition flex items-center gap-1">
                                 <i data-lucide="git-compare" class="w-3 h-3"></i>
-                                <span>So 27-Aug vs 04-Sep</span>
+                                <span>So 04-Sep vs 07-Sep</span>
                             </button>
                         </div>
                     </div>
@@ -463,7 +466,7 @@
                 </div>
             </div>
 
-            <!-- Biểu đồ phụ: Doughnut Trạng Thái & Bứt Phá (1 Cột) -->
+            <!-- Biểu đồ phụ: Doughnut Trạng Thái (1 Cột) -->
             <div class="erp-card rounded-xl p-6 flex flex-col justify-between">
                 <div>
                     <div class="flex items-center justify-between mb-4">
@@ -471,7 +474,7 @@
                             <i data-lucide="pie-chart" class="w-4 h-4 text-slate-400"></i>
                             <span>Phân Bổ Trạng Thái Đáp Ứng</span>
                         </h2>
-                        <span class="text-xs font-mono px-2 py-0.5 rounded bg-slate-800 text-slate-300 border border-slate-700" id="doughnut-badge">Kỳ 04-Sep</span>
+                        <span class="text-xs font-mono px-2 py-0.5 rounded bg-slate-800 text-slate-300 border border-slate-700" id="doughnut-badge">Kỳ 07-Sep</span>
                     </div>
 
                     <!-- Doughnut Canvas -->
@@ -480,7 +483,7 @@
                         <!-- Center Text -->
                         <div class="absolute flex flex-col items-center justify-center pointer-events-none text-center">
                             <span class="text-[10.5px] text-slate-400 font-mono">ĐÁP ỨNG TB</span>
-                            <span class="text-xl font-bold font-mono text-emerald-400" id="doughnut-center-val">55.8%</span>
+                            <span class="text-xl font-bold font-mono text-emerald-400" id="doughnut-center-val">60.1%</span>
                         </div>
                     </div>
 
@@ -492,7 +495,7 @@
 
                 <div class="mt-4 pt-3 border-t border-slate-800 text-[11px] text-slate-400 flex items-center gap-1.5">
                     <i data-lucide="info" class="w-3.5 h-3.5 text-blue-400 shrink-0"></i>
-                    <span id="doughnut-note">3 dự án hoàn thành 100% PO, 5 dự án đáp ứng trên 50%.</span>
+                    <span id="doughnut-note">2 dự án hoàn thành 100% PO, 7 dự án đáp ứng trên 50%.</span>
                 </div>
             </div>
 
@@ -507,19 +510,19 @@
                 <div class="flex items-center gap-2 flex-wrap">
                     <button id="tab-btn-detail" onclick="switchTableTab('detail')" class="px-3.5 py-1.5 rounded-lg text-xs font-bold bg-blue-600 text-white shadow-sm transition flex items-center gap-1.5">
                         <i data-lucide="table" class="w-3.5 h-3.5"></i>
-                        <span id="tab-title-detail">Chi Tiết Kỳ 04-Sep (Hiện Tại)</span>
+                        <span id="tab-title-detail">Chi Tiết Kỳ 07-Sep (Hiện Tại)</span>
                     </button>
                     <button id="tab-btn-variance" onclick="switchTableTab('variance')" class="px-3.5 py-1.5 rounded-lg text-xs font-bold bg-slate-900 hover:bg-slate-800 text-slate-400 hover:text-white border border-slate-800 transition flex items-center gap-1.5">
                         <i data-lucide="git-compare" class="w-3.5 h-3.5 text-indigo-400"></i>
-                        <span>Bảng So Sánh Biến Động (27-Aug vs 04-Sep)</span>
+                        <span>Bảng So Sánh Biến Động (04-Sep vs 07-Sep)</span>
                     </button>
-                    <button id="tab-btn-27aug" onclick="switchTableTab('27aug')" class="px-3.5 py-1.5 rounded-lg text-xs font-bold bg-slate-900 hover:bg-slate-800 text-slate-400 hover:text-white border border-slate-800 transition hidden sm:flex items-center gap-1.5">
+                    <button id="tab-btn-04sep" onclick="switchTableTab('04sep')" class="px-3.5 py-1.5 rounded-lg text-xs font-bold bg-slate-900 hover:bg-slate-800 text-slate-400 hover:text-white border border-slate-800 transition hidden sm:flex items-center gap-1.5">
                         <i data-lucide="history" class="w-3.5 h-3.5"></i>
-                        <span>Chi Tiết Kỳ 27-Aug</span>
+                        <span>Chi Tiết Kỳ 04-Sep</span>
                     </button>
-                    <button id="tab-btn-24aug" onclick="switchTableTab('24aug')" class="px-3.5 py-1.5 rounded-lg text-xs font-bold bg-slate-900 hover:bg-slate-800 text-slate-400 hover:text-white border border-slate-800 transition hidden md:flex items-center gap-1.5">
+                    <button id="tab-btn-27aug" onclick="switchTableTab('27aug')" class="px-3.5 py-1.5 rounded-lg text-xs font-bold bg-slate-900 hover:bg-slate-800 text-slate-400 hover:text-white border border-slate-800 transition hidden md:flex items-center gap-1.5">
                         <i data-lucide="archive" class="w-3.5 h-3.5"></i>
-                        <span>Chi Tiết Kỳ 24-Aug</span>
+                        <span>Chi Tiết Kỳ 27-Aug</span>
                     </button>
                 </div>
 
@@ -599,17 +602,17 @@
                 </table>
             </div>
 
-            <!-- View 2: Variance / Comparison Table (27-Aug vs 04-Sep) -->
+            <!-- View 2: Variance / Comparison Table (04-Sep vs 07-Sep) -->
             <div id="table-view-variance" class="hidden overflow-x-auto rounded-lg border border-slate-800 bg-[#0B1120]">
                 <table class="w-full text-left text-xs border-collapse" id="varianceTable">
                     <thead>
                         <tr class="bg-slate-900 border-b border-slate-800 text-slate-300 uppercase tracking-wider font-semibold text-[11px]">
                             <th class="py-3 px-3 text-center w-12">STT</th>
                             <th class="py-3 px-4 min-w-[160px]">Tên Dự Án</th>
-                            <th class="py-3 px-3.5 text-right min-w-[140px]">Đã Sản Xuất (PD)<br><span class="text-[10px] text-slate-500 font-normal">27-Aug → 04-Sep (Δ)</span></th>
-                            <th class="py-3 px-3.5 text-right min-w-[140px]">Nhu Cầu Xuất (Sale)<br><span class="text-[10px] text-slate-500 font-normal">27-Aug → 04-Sep (Δ)</span></th>
-                            <th class="py-3 px-3.5 text-right min-w-[140px]">Năng Lực SX (Cap)<br><span class="text-[10px] text-slate-500 font-normal">27-Aug → 04-Sep (Δ)</span></th>
-                            <th class="py-3 px-3.5 text-right min-w-[140px]">Thiếu Hụt (Shortage)<br><span class="text-[10px] text-slate-500 font-normal">27-Aug → 04-Sep (Δ)</span></th>
+                            <th class="py-3 px-3.5 text-right min-w-[140px]">Đã Sản Xuất (PD)<br><span class="text-[10px] text-slate-500 font-normal">04-Sep → 07-Sep (Δ)</span></th>
+                            <th class="py-3 px-3.5 text-right min-w-[140px]">Nhu Cầu Xuất (Sale)<br><span class="text-[10px] text-slate-500 font-normal">04-Sep → 07-Sep (Δ)</span></th>
+                            <th class="py-3 px-3.5 text-right min-w-[140px]">Năng Lực SX (Cap)<br><span class="text-[10px] text-slate-500 font-normal">04-Sep → 07-Sep (Δ)</span></th>
+                            <th class="py-3 px-3.5 text-right min-w-[140px]">Thiếu Hụt (Shortage)<br><span class="text-[10px] text-slate-500 font-normal">04-Sep → 07-Sep (Δ)</span></th>
                             <th class="py-3 px-4 text-center min-w-[150px]">Tỷ Lệ Đáp Ứng (Meet %)<br><span class="text-[10px] text-slate-500 font-normal">Chuyển biến tỷ lệ</span></th>
                             <th class="py-3 px-3.5 text-center min-w-[120px]">Đánh Giá Xu Hướng</th>
                         </tr>
@@ -656,7 +659,7 @@
 
             <!-- Right: Database sync, Latency, Realtime clock -->
             <div class="flex items-center gap-4">
-                <span class="text-slate-400">ĐỐI SOÁT: <strong class="text-slate-200" id="footer-period-text">04-Sep (Mới Nhất)</strong></span>
+                <span class="text-slate-400">ĐỐI SOÁT: <strong class="text-slate-200" id="footer-period-text">07-Sep (Mới Nhất)</strong></span>
                 <span class="hidden sm:inline text-slate-400">LATENCY: <strong class="text-emerald-400">10ms</strong></span>
                 <div class="flex items-center gap-1 text-slate-200 bg-slate-900 px-2 py-0.5 rounded border border-slate-800 font-semibold">
                     <i data-lucide="clock" class="w-3 h-3 text-slate-400"></i>
@@ -690,7 +693,7 @@
             </div>
 
             <div class="mt-5 pt-3.5 border-t border-slate-800 flex items-center justify-between">
-                <span class="text-[11px] text-slate-500 font-mono">Dữ liệu nguồn: Sheet CONDITION PROJECT (04-Sep & 27-Aug)</span>
+                <span class="text-[11px] text-slate-500 font-mono">Dữ liệu nguồn: Sheet CONDITION PROJECT (07-Sep & 04-Sep)</span>
                 <button onclick="closeModal()" class="px-4 py-1.5 rounded-lg bg-slate-800 hover:bg-slate-700 text-white text-xs font-semibold border border-slate-700 transition">
                     Đóng
                 </button>
@@ -701,8 +704,34 @@
     <!-- 9. JAVASCRIPT BUSINESS LOGIC & MULTI-PERIOD DATA -->
     <script>
         // ==========================================
-        // 1. DATA REPOSITORIES: 04-Sep (NEWEST), 27-Aug & 24-Aug
+        // 1. DATA REPOSITORIES: 07-Sep (NEWEST), 04-Sep, 27-Aug & 24-Aug
         // ==========================================
+        const data07Sep = [
+            { id: 1, name: "SUN NHA TRANG", dia: "D350A", po: 5429, remain: 492, pd: 4937, compRate: 0.90937558, saleReq: 30, capacity: 29, shortage: 1, meetRate: 0.96666667, status: "warning" },
+            { id: 2, name: "VAM CO PORT", dia: "D400A, D300A", po: 7655, remain: 3243, pd: 4412, compRate: 0.57635532, saleReq: 60, capacity: 50, shortage: 10, meetRate: 0.83333333, status: "warning" },
+            { id: 3, name: "SEAH2", dia: "D400A, D500A", po: 1591, remain: 129, pd: 1462, compRate: 0.91891892, saleReq: 20, capacity: 5, shortage: 15, meetRate: 0.25000000, status: "danger" },
+            { id: 4, name: "SUN VUNGTAU", dia: "D400A", po: 600, remain: 580, pd: 20, compRate: 0.03333333, saleReq: 30, capacity: 13, shortage: 17, meetRate: 0.43333333, status: "danger" },
+            { id: 5, name: "AQUA CITY", dia: "D300A, D350A", po: 1950, remain: 960, pd: 990, compRate: 0.50769231, saleReq: 45, capacity: 34, shortage: 11, meetRate: 0.75555556, status: "warning" },
+            { id: 6, name: "PHANTHIET AIRPORT", dia: "D300A", po: 927, remain: 109, pd: 818, compRate: 0.88241640, saleReq: 16, capacity: 14, shortage: 2, meetRate: 0.87500000, status: "warning" },
+            { id: 7, name: "HOAPHAT FACTORY", dia: "D500A", po: 800, remain: 300, pd: 500, compRate: 0.62500000, saleReq: 20, capacity: 11, shortage: 9, meetRate: 0.55000000, status: "warning" },
+            { id: 8, name: "TON DONGA", dia: "D300A, D400A", po: 2419, remain: 1996, pd: 423, compRate: 0.17486565, saleReq: 60, capacity: 10, shortage: 50, meetRate: 0.16666667, status: "danger" },
+            { id: 9, name: "TRUNG NGUYEN COFFEE", dia: "D300A", po: 343, remain: 313, pd: 30, compRate: 0.08746356, saleReq: 15, capacity: 10, shortage: 5, meetRate: 0.66666667, status: "warning" },
+            { id: 10, name: "LONGDUC (TNT)", dia: "D400A", po: 52, remain: 52, pd: 0, compRate: 0.00000000, saleReq: 10, capacity: 8, shortage: 2, meetRate: 0.80000000, status: "warning" },
+            { id: 11, name: "NINHTHUAN FACTORY", dia: "D350A", po: 500, remain: 0, pd: 500, compRate: 1.00000000, saleReq: 0, capacity: 0, shortage: 0, meetRate: null, status: "completed" },
+            { id: 12, name: "THANH LOC", dia: "D600A", po: 23, remain: 0, pd: 23, compRate: 1.00000000, saleReq: 0, capacity: 0, shortage: 0, meetRate: null, status: "completed" }
+        ];
+
+        const summary07Sep = {
+            po: 22289,
+            remain: 8174,
+            pd: 14115,
+            compRate: 0.63327202, // 63.33%
+            saleReq: 306,
+            capacity: 184,
+            shortage: 122,
+            meetRate: 0.60130719 // 60.13%
+        };
+
         const data04Sep = [
             { id: 1, name: "SUN NHA TRANG", dia: "D350A", po: 5429, remain: 536, pd: 4893, compRate: 0.90127095, saleReq: 30, capacity: 14, shortage: 16, meetRate: 0.46666667, status: "danger" },
             { id: 2, name: "VAM CO PORT", dia: "D400A, D300A", po: 7655, remain: 3396, pd: 4259, compRate: 0.55636839, saleReq: 60, capacity: 49, shortage: 11, meetRate: 0.81666667, status: "warning" },
@@ -782,10 +811,10 @@
         };
 
         // State variables
-        let currentPeriod = '04sep'; // '04sep' | '27aug' | '24aug' | 'compare'
-        let currentTableTab = 'detail'; // 'detail' | 'variance' | '27aug' | '24aug'
-        let activeDataset = [...data04Sep];
-        let activeSummary = { ...summary04Sep };
+        let currentPeriod = '07sep'; // '07sep' | '04sep' | '27aug' | '24aug' | 'compare'
+        let currentTableTab = 'detail'; // 'detail' | 'variance' | '04sep' | '27aug'
+        let activeDataset = [...data07Sep];
+        let activeSummary = { ...summary07Sep };
         let currentSort = { column: 'id', ascending: true };
         
         let comboChartInstance = null;
@@ -830,13 +859,15 @@
         // 3. PERIOD CONTROLLER
         // ==========================================
         function updateBannerAndKPIs(period) {
+            const is07 = period === '07sep';
             const is04 = period === '04sep';
             const is27 = period === '27aug';
             const is24 = period === '24aug';
             const isCompare = period === 'compare';
             
-            let sum = summary04Sep;
-            if (is27) sum = summary27Aug;
+            let sum = summary07Sep;
+            if (is04) sum = summary04Sep;
+            else if (is27) sum = summary27Aug;
             else if (is24) sum = summary24Aug;
 
             // Banner Elements
@@ -849,22 +880,29 @@
             const bannerShortage = document.getElementById('banner-shortage-val');
             const bannerPdDelta = document.getElementById('banner-pd-delta-tag');
             const bannerShortageDelta = document.getElementById('banner-shortage-delta-tag');
+            const bannerCapSub = document.getElementById('banner-cap-sub');
             const footerPeriod = document.getElementById('footer-period-text');
 
             if (isCompare) {
-                if (bannerTag) bannerTag.innerHTML = `Chế Độ So Sánh: 27-Aug vs 04-Sep`;
+                if (bannerTag) bannerTag.innerHTML = `Chế Độ So Sánh: 04-Sep vs 07-Sep`;
                 if (bannerTitle) bannerTitle.textContent = `Đối Chiếu Biến Động Sản Xuất & Năng Lực Cung Ứng`;
-                if (bannerDesc) bannerDesc.innerHTML = `Qua 8 ngày sản xuất từ 27-Aug đến 04-Sep: Toàn nhà máy đúc thêm <strong class="text-emerald-400">+1,231 Seg (+8.90%)</strong>, hoàn tất 100% hợp đồng tại 3 dự án (Phan Thiết, Ninh Thuận, Thạnh Lộc). Tổng PO tăng lên <strong class="text-blue-400">23,056 Seg</strong> nhờ bổ sung Sun Vũng Tàu và Long Đức.`;
+                if (bannerDesc) bannerDesc.innerHTML = `Qua chu kỳ 3 ngày từ 04-Sep đến 07-Sep: Thiếu hụt công suất giảm mạnh từ 144 xuống <strong class="text-emerald-400">122 Seg/ngày (-22 Seg)</strong>, tỷ lệ đáp ứng giao hàng cải thiện lên <strong class="text-blue-400">60.1%</strong> (+4.30%). Sun Nha Trang bứt phá đạt tỷ lệ đáp ứng 96.7% (Cap 29/30 Seg/ngày).`;
                 if (bannerCount) bannerCount.textContent = `12 Dự Án So Sánh`;
-                if (footerPeriod) footerPeriod.textContent = `So Sánh 27-Aug vs 04-Sep`;
-            } else if (is04) {
-                if (bannerTag) bannerTag.innerHTML = `Kỳ Đối Soát: 04-Sep (Mới Nhất)`;
+                if (footerPeriod) footerPeriod.textContent = `So Sánh 04-Sep vs 07-Sep`;
+            } else if (is07) {
+                if (bannerTag) bannerTag.innerHTML = `Kỳ Đối Soát: 07-Sep (Mới Nhất)`;
                 if (bannerTitle) bannerTitle.textContent = `Cân Đối Năng Lực Sản Xuất & Nhu Cầu Xuất Hàng`;
-                if (bannerDesc) bannerDesc.innerHTML = `Dữ liệu đối soát ngày <strong class="text-slate-200">04-Sep</strong> ghi nhận tổng sản lượng đúc đạt <strong class="text-emerald-400">15,062 Seg</strong> (+1,231 Seg so với kỳ 27-Aug), hoàn tất 100% đơn hàng tại 3 dự án (Phan Thiết, Ninh Thuận, Thạnh Lộc). Tổng PO tăng lên <strong class="text-blue-400">23,056 Seg</strong> nhờ bổ sung Sun Vũng Tàu và Long Đức.`;
+                if (bannerDesc) bannerDesc.innerHTML = `Dữ liệu đối soát ngày <strong class="text-slate-200">07-Sep</strong> ghi nhận tổng sản lượng đúc đạt <strong class="text-emerald-400">14,115 Seg</strong> (đạt 63.3% tổng PO 22,289 Seg). Thiếu hụt công suất giảm mạnh từ 144 xuống <strong class="text-emerald-400">122 Seg/ngày (-22 Seg)</strong>, tỷ lệ đáp ứng giao hàng cải thiện lên <strong class="text-blue-400">60.1%</strong> (+4.3% so với kỳ 04-Sep).`;
                 if (bannerCount) bannerCount.textContent = `12 Dự Án Cọc Ly Tâm`;
-                if (footerPeriod) footerPeriod.textContent = `04-Sep (Mới Nhất)`;
+                if (footerPeriod) footerPeriod.textContent = `07-Sep (Mới Nhất)`;
+            } else if (is04) {
+                if (bannerTag) bannerTag.innerHTML = `Kỳ Đối Soát: 04-Sep`;
+                if (bannerTitle) bannerTitle.textContent = `Báo Cáo Năng Lực Sản Xuất Kỳ 04-Sep`;
+                if (bannerDesc) bannerDesc.innerHTML = `Dữ liệu đối soát ngày <strong class="text-slate-200">04-Sep</strong> ghi nhận tổng sản lượng đúc đạt <strong class="text-slate-200">15,062 Seg</strong>, tổng PO 23,056 Seg, thiếu hụt công suất <strong class="text-rose-400">144 Seg/ngày</strong>, tỷ lệ đáp ứng đạt <strong class="text-blue-400">55.8%</strong>.`;
+                if (bannerCount) bannerCount.textContent = `12 Dự Án Cọc Ly Tâm`;
+                if (footerPeriod) footerPeriod.textContent = `04-Sep`;
             } else if (is27) {
-                if (bannerTag) bannerTag.innerHTML = `Kỳ Đối Soát: 27-Aug (Trước Đây)`;
+                if (bannerTag) bannerTag.innerHTML = `Kỳ Đối Soát: 27-Aug`;
                 if (bannerTitle) bannerTitle.textContent = `Báo Cáo Năng Lực Sản Xuất Kỳ 27-Aug`;
                 if (bannerDesc) bannerDesc.innerHTML = `Dữ liệu ngày <strong class="text-slate-200">27-Aug</strong> ghi nhận tổng sản lượng đúc <strong class="text-slate-200">13,831 Seg</strong>, thiếu hụt công suất <strong class="text-rose-400">109 Seg/ngày</strong>, tỷ lệ đáp ứng giao hàng đạt <strong class="text-blue-400">62.9%</strong>.`;
                 if (bannerCount) bannerCount.textContent = `11 Dự Án Hoạt Động`;
@@ -881,15 +919,22 @@
             if (bannerCap) bannerCap.textContent = `${formatNumber(sum.capacity)} Seg/ngày`;
             if (bannerShortage) bannerShortage.textContent = `${formatNumber(sum.shortage)} Seg/ngày`;
 
-            if (is04 || isCompare) {
+            if (is07 || isCompare) {
+                if (bannerPdDelta) bannerPdDelta.innerHTML = `<i data-lucide="trending-up" class="w-3 h-3 inline"></i> Đạt 63.3% PO`;
+                if (bannerShortageDelta) bannerShortageDelta.innerHTML = `<i data-lucide="arrow-down-right" class="w-3 h-3 inline"></i> -22 Seg (Giảm thiếu)`;
+                if (bannerCapSub) bannerCapSub.textContent = `+2 Seg so với 04-Sep`;
+            } else if (is04) {
                 if (bannerPdDelta) bannerPdDelta.innerHTML = `<i data-lucide="trending-up" class="w-3 h-3 inline"></i> +1,231 Seg (+8.9%)`;
                 if (bannerShortageDelta) bannerShortageDelta.innerHTML = `<i data-lucide="alert-circle" class="w-3 h-3 inline"></i> +35 Seg (Sale tăng)`;
+                if (bannerCapSub) bannerCapSub.textContent = `12 Dự án`;
             } else if (is27) {
                 if (bannerPdDelta) bannerPdDelta.innerHTML = `<i data-lucide="trending-up" class="w-3 h-3 inline"></i> +369 Seg (+2.7%)`;
                 if (bannerShortageDelta) bannerShortageDelta.innerHTML = `<i data-lucide="arrow-down-right" class="w-3 h-3 inline"></i> -54 Seg (-33.1%)`;
+                if (bannerCapSub) bannerCapSub.textContent = `11 Dự án`;
             } else {
                 if (bannerPdDelta) bannerPdDelta.innerHTML = `<span>Kỳ tham chiếu gốc</span>`;
                 if (bannerShortageDelta) bannerShortageDelta.innerHTML = `<span>Mức cơ sở 163 Seg</span>`;
+                if (bannerCapSub) bannerCapSub.textContent = `11 Dự án`;
             }
 
             // KPIs
@@ -906,16 +951,22 @@
             document.getElementById('kpi-meet-total').textContent = `${(sum.meetRate * 100).toFixed(1)}%`;
             document.getElementById('kpi-meet-bar').style.width = `${Math.min(sum.meetRate * 100, 100).toFixed(1)}%`;
 
-            const currentArr = (is24 ? data24Aug : (is27 ? data27Aug : data04Sep));
+            const currentArr = (is24 ? data24Aug : (is27 ? data27Aug : (is04 ? data04Sep : data07Sep)));
             const okCount = currentArr.filter(p => p.status === 'completed' || (p.remain <= 0 && p.po > 0)).length;
-            document.getElementById('kpi-ok-count').textContent = `${okCount} Hoàn Tất / ${currentArr.length} Dự án`;
+            const highMeetCount = currentArr.filter(p => p.status === 'completed' || (p.meetRate !== null && p.meetRate >= 0.5)).length;
+            document.getElementById('kpi-ok-count').textContent = `${highMeetCount} / ${currentArr.length} Dự án`;
 
             const poDeltaEl = document.getElementById('kpi-po-delta');
             const pdDeltaEl = document.getElementById('kpi-pd-delta');
             const shortageDeltaEl = document.getElementById('kpi-shortage-delta');
             const meetDeltaEl = document.getElementById('kpi-meet-delta');
 
-            if (is04 || isCompare) {
+            if (is07 || isCompare) {
+                if (poDeltaEl) poDeltaEl.innerHTML = `<i data-lucide="info" class="w-3.5 h-3.5"></i> <span>Bổ sung PO Phan Thiết (+109 Seg)</span>`;
+                if (pdDeltaEl) pdDeltaEl.textContent = `+421 Seg đúc thêm tại các DA chính`;
+                if (shortageDeltaEl) shortageDeltaEl.textContent = `Giảm -22 Seg so với 04-Sep (-15.3%)`;
+                if (meetDeltaEl) meetDeltaEl.textContent = `Tăng +4.30% so với 04-Sep`;
+            } else if (is04) {
                 if (poDeltaEl) poDeltaEl.innerHTML = `<i data-lucide="trending-up" class="w-3.5 h-3.5"></i> <span>+709 Seg (Sun Vũng Tàu & Long Đức)</span>`;
                 if (pdDeltaEl) pdDeltaEl.textContent = `+1,231 Seg so với kỳ 27-Aug (+8.90%)`;
                 if (shortageDeltaEl) shortageDeltaEl.textContent = `+35 Seg do nhu cầu xuất tăng`;
@@ -937,20 +988,28 @@
             currentPeriod = period;
             
             // Buttons UI state
+            const btn07 = document.getElementById('nav-btn-07sep');
             const btn04 = document.getElementById('nav-btn-04sep');
             const btn27 = document.getElementById('nav-btn-27aug');
             const btn24 = document.getElementById('nav-btn-24aug');
             const btnCmp = document.getElementById('nav-btn-compare');
 
-            [btn04, btn27, btn24, btnCmp].forEach(b => {
+            [btn07, btn04, btn27, btn24, btnCmp].forEach(b => {
                 if (b) b.className = 'px-3 py-1.5 font-semibold rounded-md text-slate-400 hover:text-white transition flex items-center gap-1.5';
             });
 
-            if (period === '04sep') {
+            if (period === '07sep') {
+                btn07.className = 'px-3 py-1.5 font-semibold rounded-md bg-blue-600 text-white shadow-sm transition flex items-center gap-1.5';
+                activeDataset = [...data07Sep];
+                activeSummary = { ...summary07Sep };
+                document.getElementById('tab-title-detail').textContent = 'Chi Tiết Kỳ 07-Sep (Hiện Tại)';
+                switchTableTab('detail');
+                switchChartMode('combo');
+            } else if (period === '04sep') {
                 btn04.className = 'px-3 py-1.5 font-semibold rounded-md bg-blue-600 text-white shadow-sm transition flex items-center gap-1.5';
                 activeDataset = [...data04Sep];
                 activeSummary = { ...summary04Sep };
-                document.getElementById('tab-title-detail').textContent = 'Chi Tiết Kỳ 04-Sep (Hiện Tại)';
+                document.getElementById('tab-title-detail').textContent = 'Chi Tiết Kỳ 04-Sep';
                 switchTableTab('detail');
                 switchChartMode('combo');
             } else if (period === '27aug') {
@@ -969,8 +1028,8 @@
                 switchChartMode('combo');
             } else if (period === 'compare') {
                 btnCmp.className = 'px-3 py-1.5 font-semibold rounded-md bg-indigo-600 text-white shadow-sm transition flex items-center gap-1.5';
-                activeDataset = [...data04Sep];
-                activeSummary = { ...summary04Sep };
+                activeDataset = [...data07Sep];
+                activeSummary = { ...summary07Sep };
                 switchTableTab('variance');
                 switchChartMode('compare_periods');
             }
@@ -986,13 +1045,13 @@
             currentTableTab = tab;
             const tabDetail = document.getElementById('tab-btn-detail');
             const tabVariance = document.getElementById('tab-btn-variance');
+            const tab04 = document.getElementById('tab-btn-04sep');
             const tab27 = document.getElementById('tab-btn-27aug');
-            const tab24 = document.getElementById('tab-btn-24aug');
 
             const viewDetail = document.getElementById('table-view-detail');
             const viewVariance = document.getElementById('table-view-variance');
 
-            [tabDetail, tabVariance, tab27, tab24].forEach(btn => {
+            [tabDetail, tabVariance, tab04, tab27].forEach(btn => {
                 if (btn) btn.className = 'px-3.5 py-1.5 rounded-lg text-xs font-bold bg-slate-900 hover:bg-slate-800 text-slate-400 hover:text-white border border-slate-800 transition flex items-center gap-1.5';
             });
 
@@ -1000,27 +1059,27 @@
                 tabDetail.className = 'px-3.5 py-1.5 rounded-lg text-xs font-bold bg-blue-600 text-white shadow-sm transition flex items-center gap-1.5';
                 viewDetail.classList.remove('hidden');
                 viewVariance.classList.add('hidden');
-                activeDataset = [...data04Sep];
-                activeSummary = { ...summary04Sep };
+                activeDataset = [...data07Sep];
+                activeSummary = { ...summary07Sep };
                 applyFiltersAndSearch();
             } else if (tab === 'variance') {
                 tabVariance.className = 'px-3.5 py-1.5 rounded-lg text-xs font-bold bg-indigo-600 text-white shadow-sm transition flex items-center gap-1.5';
                 viewDetail.classList.add('hidden');
                 viewVariance.classList.remove('hidden');
                 renderVarianceTable();
+            } else if (tab === '04sep') {
+                tab04.className = 'px-3.5 py-1.5 rounded-lg text-xs font-bold bg-slate-700 text-white shadow-sm transition flex items-center gap-1.5';
+                viewDetail.classList.remove('hidden');
+                viewVariance.classList.add('hidden');
+                activeDataset = [...data04Sep];
+                activeSummary = { ...summary04Sep };
+                applyFiltersAndSearch();
             } else if (tab === '27aug') {
                 tab27.className = 'px-3.5 py-1.5 rounded-lg text-xs font-bold bg-slate-700 text-white shadow-sm transition flex items-center gap-1.5';
                 viewDetail.classList.remove('hidden');
                 viewVariance.classList.add('hidden');
                 activeDataset = [...data27Aug];
                 activeSummary = { ...summary27Aug };
-                applyFiltersAndSearch();
-            } else if (tab === '24aug') {
-                tab24.className = 'px-3.5 py-1.5 rounded-lg text-xs font-bold bg-slate-700 text-white shadow-sm transition flex items-center gap-1.5';
-                viewDetail.classList.remove('hidden');
-                viewVariance.classList.add('hidden');
-                activeDataset = [...data24Aug];
-                activeSummary = { ...summary24Aug };
                 applyFiltersAndSearch();
             }
             lucide.createIcons();
@@ -1149,28 +1208,28 @@
         }
 
         // ==========================================
-        // 6. RENDER VARIANCE TABLE (27-AUG VS 04-SEP COMPARISON)
+        // 6. RENDER VARIANCE TABLE (04-SEP VS 07-SEP COMPARISON)
         // ==========================================
         function renderVarianceTable() {
             const tbody = document.getElementById('varianceTableBody');
             const tfoot = document.getElementById('varianceTableFoot');
             const searchQuery = (document.getElementById('table-search')?.value || '').toLowerCase().trim();
 
-            const rows = data04Sep.filter(item => item.name.toLowerCase().includes(searchQuery)).map(p04 => {
-                const p27 = data27Aug.find(p => p.id === p04.id || p.name === p04.name) || {
-                    id: p04.id, name: p04.name, dia: p04.dia, po: 0, remain: 0, pd: 0, compRate: 0, saleReq: 0, capacity: 0, shortage: 0, meetRate: null, status: 'completed'
+            const rows = data07Sep.filter(item => item.name.toLowerCase().includes(searchQuery)).map(p07 => {
+                const p04 = data04Sep.find(p => p.id === p07.id || p.name === p07.name) || {
+                    id: p07.id, name: p07.name, dia: p07.dia, po: 0, remain: 0, pd: 0, compRate: 0, saleReq: 0, capacity: 0, shortage: 0, meetRate: null, status: 'completed'
                 };
                 
-                const deltaPD = p04.pd - p27.pd;
-                const deltaSale = p04.saleReq - p27.saleReq;
-                const deltaCap = p04.capacity - p27.capacity;
-                const deltaShortage = p04.shortage - p27.shortage;
+                const deltaPD = p07.pd - p04.pd;
+                const deltaSale = p07.saleReq - p04.saleReq;
+                const deltaCap = p07.capacity - p04.capacity;
+                const deltaShortage = p07.shortage - p04.shortage;
                 
                 // Meet rate delta
                 let meetDeltaText = "Không đổi";
                 let meetDeltaClass = "text-slate-400";
-                if (p04.meetRate !== null && p27.meetRate !== null) {
-                    const diff = (p04.meetRate - p27.meetRate) * 100;
+                if (p07.meetRate !== null && p04.meetRate !== null) {
+                    const diff = (p07.meetRate - p04.meetRate) * 100;
                     if (diff > 0) {
                         meetDeltaText = `▲ +${diff.toFixed(1)}%`;
                         meetDeltaClass = "text-emerald-400 font-bold";
@@ -1178,58 +1237,62 @@
                         meetDeltaText = `▼ ${diff.toFixed(1)}%`;
                         meetDeltaClass = "text-rose-400 font-bold";
                     }
-                } else if (p04.status === 'completed') {
+                } else if (p07.status === 'completed') {
                     meetDeltaText = "Hoàn tất PO";
                     meetDeltaClass = "text-blue-400 font-semibold";
                 }
 
                 // Trend badge
                 let trendBadge = `<span class="badge-ok px-2 py-0.5 rounded text-[10.5px] font-semibold">Tích cực</span>`;
-                if (p04.remain === 0 && p04.po > 0 && p27.remain > 0) {
+                if (p07.remain === 0 && p07.po > 0 && p04.remain > 0) {
                     trendBadge = `<span class="badge-ok px-2 py-0.5 rounded text-[10.5px] font-bold pulse-badge">Về đích 100%</span>`;
-                } else if (p04.id === 11 && p27.po === 0) {
-                    trendBadge = `<span class="badge-purple px-2 py-0.5 rounded text-[10.5px] font-semibold">Dự án mới</span>`;
-                } else if (p04.shortage > p27.shortage || (p04.shortage > 0 && p04.meetRate < 0.5)) {
+                } else if (p07.id === 6 && p07.po > p04.po) {
+                    trendBadge = `<span class="badge-purple px-2 py-0.5 rounded text-[10.5px] font-semibold">Tăng hợp đồng</span>`;
+                } else if (p07.id === 1 && p07.meetRate > 0.9) {
+                    trendBadge = `<span class="badge-ok px-2 py-0.5 rounded text-[10.5px] font-bold pulse-badge">Bứt phá 96.7%</span>`;
+                } else if (p07.shortage > p04.shortage || (p07.shortage > 0 && p07.meetRate < 0.5)) {
                     trendBadge = `<span class="badge-danger px-2 py-0.5 rounded text-[10.5px] font-semibold">Cảnh báo thiếu</span>`;
-                } else if (deltaPD > 0 && p04.shortage <= p27.shortage) {
+                } else if (deltaShortage < 0) {
+                    trendBadge = `<span class="badge-ok px-2 py-0.5 rounded text-[10.5px] font-semibold">Giảm thiếu hụt</span>`;
+                } else if (deltaPD > 0 && p07.shortage <= p04.shortage) {
                     trendBadge = `<span class="badge-ok px-2 py-0.5 rounded text-[10.5px] font-semibold">Tăng sản lượng</span>`;
-                } else if (p04.shortage === p27.shortage && deltaPD === 0) {
+                } else if (p07.shortage === p04.shortage && deltaPD === 0) {
                     trendBadge = `<span class="badge-neutral px-2 py-0.5 rounded text-[10.5px] font-medium">Ổn định</span>`;
                 }
 
                 return `
-                    <tr class="table-row-hover cursor-pointer" onclick="openModal(${p04.id})">
-                        <td class="py-3 px-3 text-center font-mono text-slate-400">${p04.id}</td>
+                    <tr class="table-row-hover cursor-pointer" onclick="openModal(${p07.id})">
+                        <td class="py-3 px-3 text-center font-mono text-slate-400">${p07.id}</td>
                         <td class="py-3 px-4 font-semibold text-white">
-                            ${p04.name}
-                            <div class="text-[11px] text-slate-500 font-mono">${p04.dia}</div>
+                            ${p07.name}
+                            <div class="text-[11px] text-slate-500 font-mono">${p07.dia}</div>
                         </td>
                         <td class="py-3 px-3.5 text-right font-mono">
-                            <span class="text-slate-400">${formatNumber(p27.pd)}</span> → <strong class="text-blue-400">${formatNumber(p04.pd)}</strong>
-                            <div class="text-[10.5px] ${deltaPD > 0 ? 'text-emerald-400 font-bold' : 'text-slate-500'}">
-                                ${deltaPD > 0 ? `+${deltaPD} Seg` : '0 Seg'}
+                            <span class="text-slate-400">${formatNumber(p04.pd)}</span> → <strong class="text-blue-400">${formatNumber(p07.pd)}</strong>
+                            <div class="text-[10.5px] ${deltaPD > 0 ? 'text-emerald-400 font-bold' : (deltaPD < 0 ? 'text-slate-400' : 'text-slate-500')}">
+                                ${deltaPD > 0 ? `+${deltaPD} Seg` : (deltaPD < 0 ? `${deltaPD} Seg` : '0 Seg')}
                             </div>
                         </td>
                         <td class="py-3 px-3.5 text-right font-mono">
-                            <span class="text-slate-400">${p27.saleReq}</span> → <strong class="text-slate-200">${p04.saleReq}</strong>
+                            <span class="text-slate-400">${p04.saleReq}</span> → <strong class="text-slate-200">${p07.saleReq}</strong>
                             <div class="text-[10.5px] ${deltaSale < 0 ? 'text-blue-400' : (deltaSale > 0 ? 'text-amber-400' : 'text-slate-500')}">
                                 ${deltaSale > 0 ? `+${deltaSale}` : (deltaSale < 0 ? `${deltaSale}` : '0')} Seg/ngày
                             </div>
                         </td>
                         <td class="py-3 px-3.5 text-right font-mono">
-                            <span class="text-slate-400">${p27.capacity}</span> → <strong class="text-slate-200">${p04.capacity}</strong>
+                            <span class="text-slate-400">${p04.capacity}</span> → <strong class="text-slate-200">${p07.capacity}</strong>
                             <div class="text-[10.5px] ${deltaCap > 0 ? 'text-emerald-400 font-bold' : (deltaCap < 0 ? 'text-rose-400 font-bold' : 'text-slate-500')}">
                                 ${deltaCap > 0 ? `+${deltaCap}` : (deltaCap < 0 ? `${deltaCap}` : '0')} Seg/ngày
                             </div>
                         </td>
                         <td class="py-3 px-3.5 text-right font-mono">
-                            <span class="text-slate-400">${p27.shortage}</span> → <strong class="${p04.shortage > 0 ? 'text-rose-400' : 'text-slate-400'}">${p04.shortage}</strong>
+                            <span class="text-slate-400">${p04.shortage}</span> → <strong class="${p07.shortage > 0 ? 'text-rose-400' : 'text-slate-400'}">${p07.shortage}</strong>
                             <div class="text-[10.5px] ${deltaShortage < 0 ? 'text-emerald-400 font-bold' : (deltaShortage > 0 ? 'text-rose-400 font-bold' : 'text-slate-500')}">
                                 ${deltaShortage < 0 ? `Giảm ${deltaShortage}` : (deltaShortage > 0 ? `Tăng +${deltaShortage}` : '0')} Seg
                             </div>
                         </td>
                         <td class="py-3 px-4 text-center font-mono">
-                            <div class="text-slate-300 text-xs">${formatPercent(p27.meetRate)} → <strong class="text-white">${formatPercent(p04.meetRate)}</strong></div>
+                            <div class="text-slate-300 text-xs">${formatPercent(p04.meetRate)} → <strong class="text-white">${formatPercent(p07.meetRate)}</strong></div>
                             <div class="text-[10.5px] ${meetDeltaClass}">${meetDeltaText}</div>
                         </td>
                         <td class="py-3 px-3.5 text-center">
@@ -1242,38 +1305,37 @@
             tbody.innerHTML = rows;
 
             // Total Variance Foot
-            const totalDeltaPD = summary04Sep.pd - summary27Aug.pd;
-            const totalDeltaSale = summary04Sep.saleReq - summary27Aug.saleReq;
-            const totalDeltaCap = summary04Sep.capacity - summary27Aug.capacity;
-            const totalDeltaShort = summary04Sep.shortage - summary27Aug.shortage;
-            const totalMeetDiff = (summary04Sep.meetRate - summary27Aug.meetRate) * 100;
+            const totalDeltaSale = summary07Sep.saleReq - summary04Sep.saleReq;
+            const totalDeltaCap = summary07Sep.capacity - summary04Sep.capacity;
+            const totalDeltaShort = summary07Sep.shortage - summary04Sep.shortage;
+            const totalMeetDiff = (summary07Sep.meetRate - summary04Sep.meetRate) * 100;
 
             tfoot.innerHTML = `
                 <tr class="text-white text-xs">
                     <td class="py-3.5 px-3 text-center font-bold text-slate-400 font-mono">∑</td>
                     <td class="py-3.5 px-4 font-bold uppercase tracking-wider text-slate-200">TỔNG BIẾN ĐỘNG CHU KỲ</td>
                     <td class="py-3.5 px-3.5 text-right font-mono font-bold">
-                        <span class="text-slate-400">${formatNumber(summary27Aug.pd)}</span> → <span class="text-blue-400">${formatNumber(summary04Sep.pd)}</span>
-                        <div class="text-[11px] text-emerald-400">+${formatNumber(totalDeltaPD)} Seg (+8.90%)</div>
+                        <span class="text-slate-400">${formatNumber(summary04Sep.pd)}</span> → <span class="text-blue-400">${formatNumber(summary07Sep.pd)}</span>
+                        <div class="text-[11px] text-emerald-400">+421 Seg đúc thêm</div>
                     </td>
                     <td class="py-3.5 px-3.5 text-right font-mono font-bold">
-                        <span class="text-slate-400">${summary27Aug.saleReq}</span> → <span>${summary04Sep.saleReq}</span>
-                        <div class="text-[11px] text-amber-400">+${totalDeltaSale} Seg/ngày</div>
+                        <span class="text-slate-400">${summary04Sep.saleReq}</span> → <span>${summary07Sep.saleReq}</span>
+                        <div class="text-[11px] text-blue-400">${totalDeltaSale} Seg/ngày</div>
                     </td>
                     <td class="py-3.5 px-3.5 text-right font-mono font-bold">
-                        <span class="text-slate-400">${summary27Aug.capacity}</span> → <span>${summary04Sep.capacity}</span>
-                        <div class="text-[11px] text-slate-400">${totalDeltaCap} Seg/ngày</div>
+                        <span class="text-slate-400">${summary04Sep.capacity}</span> → <span>${summary07Sep.capacity}</span>
+                        <div class="text-[11px] text-emerald-400">+${totalDeltaCap} Seg/ngày</div>
                     </td>
                     <td class="py-3.5 px-3.5 text-right font-mono font-bold">
-                        <span class="text-slate-400">${summary27Aug.shortage}</span> → <span class="text-rose-400">${summary04Sep.shortage}</span>
-                        <div class="text-[11px] text-rose-400 font-bold">+${totalDeltaShort} Seg (Áp lực Sale)</div>
+                        <span class="text-slate-400">${summary04Sep.shortage}</span> → <span class="text-emerald-400">${summary07Sep.shortage}</span>
+                        <div class="text-[11px] text-emerald-400 font-bold">${totalDeltaShort} Seg (Giảm áp lực)</div>
                     </td>
                     <td class="py-3.5 px-4 text-center font-mono font-bold">
-                        <span>${formatPercent(summary27Aug.meetRate)} → <span class="text-emerald-400">${formatPercent(summary04Sep.meetRate)}</span></span>
-                        <div class="text-[11px] text-slate-400 font-bold">${totalMeetDiff.toFixed(2)}%</div>
+                        <span>${formatPercent(summary04Sep.meetRate)} → <span class="text-emerald-400">${formatPercent(summary07Sep.meetRate)}</span></span>
+                        <div class="text-[11px] text-emerald-400 font-bold">+${totalMeetDiff.toFixed(2)}%</div>
                     </td>
                     <td class="py-3.5 px-3.5 text-center">
-                        <span class="badge-ok px-2 py-0.5 rounded text-[11px] font-bold">Tăng Trưởng Sản Lượng</span>
+                        <span class="badge-ok px-2 py-0.5 rounded text-[11px] font-bold">Tỷ Lệ Đáp Ứng Cải Thiện</span>
                     </td>
                 </tr>
             `;
@@ -1380,10 +1442,10 @@
         function initMainChart() {
             const ctx = document.getElementById('mainComboChart').getContext('2d');
             
-            const labels = data04Sep.map(p => p.name);
-            const poData = data04Sep.map(p => p.po);
-            const pdData = data04Sep.map(p => p.pd);
-            const saleReqData = data04Sep.map(p => p.saleReq);
+            const labels = data07Sep.map(p => p.name);
+            const poData = data07Sep.map(p => p.po);
+            const pdData = data07Sep.map(p => p.pd);
+            const saleReqData = data07Sep.map(p => p.saleReq);
 
             comboChartInstance = new Chart(ctx, {
                 type: 'bar',
@@ -1497,18 +1559,18 @@
                 if (b) b.className = 'px-2.5 py-1 font-semibold rounded text-slate-400 hover:text-slate-200 transition';
             });
 
-            const labels = data04Sep.map(p => p.name);
+            const labels = data07Sep.map(p => p.name);
 
             if (mode === 'combo') {
                 btnCombo.className = 'px-2.5 py-1 font-semibold rounded bg-blue-600 text-white shadow-sm transition';
-                titleEl.innerHTML = `<i data-lucide="bar-chart-2" class="w-4 h-4 text-blue-400"></i><span>Phân Tích Tiến Độ Sản Xuất & Nhu Cầu Từng Dự Án (04-Sep)</span>`;
+                titleEl.innerHTML = `<i data-lucide="bar-chart-2" class="w-4 h-4 text-blue-400"></i><span>Phân Tích Tiến Độ Sản Xuất & Nhu Cầu Từng Dự Án (07-Sep)</span>`;
                 subtitleEl.textContent = 'So sánh Khối lượng PO (Xám), Hoàn thành (Xanh) và Nhu cầu Sale Request (Đường Cam)';
 
                 comboChartInstance.data.labels = labels;
                 comboChartInstance.data.datasets = [
                     {
                         label: 'PO Received (Seg)',
-                        data: data04Sep.map(p => p.po),
+                        data: data07Sep.map(p => p.po),
                         backgroundColor: '#475569',
                         hoverBackgroundColor: '#64748B',
                         borderRadius: 4,
@@ -1517,7 +1579,7 @@
                     },
                     {
                         label: 'PD Completion (Seg)',
-                        data: data04Sep.map(p => p.pd),
+                        data: data07Sep.map(p => p.pd),
                         backgroundColor: '#2563EB',
                         hoverBackgroundColor: '#3B82F6',
                         borderRadius: 4,
@@ -1526,7 +1588,7 @@
                     },
                     {
                         label: 'Sale Request (Seg/ngày)',
-                        data: data04Sep.map(p => p.saleReq),
+                        data: data07Sep.map(p => p.saleReq),
                         type: 'line',
                         borderColor: '#D97706',
                         backgroundColor: 'transparent',
@@ -1546,30 +1608,30 @@
 
             } else if (mode === 'demand') {
                 btnDemand.className = 'px-2.5 py-1 font-semibold rounded bg-blue-600 text-white shadow-sm transition';
-                titleEl.innerHTML = `<i data-lucide="scale" class="w-4 h-4 text-emerald-400"></i><span>Cân Đối Cung - Cầu & Thiếu Hụt Theo Ngày (Kỳ 04-Sep)</span>`;
+                titleEl.innerHTML = `<i data-lucide="scale" class="w-4 h-4 text-emerald-400"></i><span>Cân Đối Cung - Cầu & Thiếu Hụt Theo Ngày (Kỳ 07-Sep)</span>`;
                 subtitleEl.textContent = 'Nhu cầu xuất hàng (Xám) vs Năng lực sản xuất thực tế (Xanh) vs Thiếu hụt (Đỏ)';
 
-                const shortageColors = data04Sep.map(p => p.shortage > 0 ? '#EF4444' : '#334155');
+                const shortageColors = data07Sep.map(p => p.shortage > 0 ? '#EF4444' : '#334155');
 
                 comboChartInstance.data.labels = labels;
                 comboChartInstance.data.datasets = [
                     {
                         label: 'Nhu Cầu Xuất (Seg/ngày)',
-                        data: data04Sep.map(p => p.saleReq),
+                        data: data07Sep.map(p => p.saleReq),
                         backgroundColor: '#64748B',
                         borderRadius: 4,
                         yAxisID: 'y'
                     },
                     {
                         label: 'Năng Lực SX (Seg/ngày)',
-                        data: data04Sep.map(p => p.capacity),
+                        data: data07Sep.map(p => p.capacity),
                         backgroundColor: '#2563EB',
                         borderRadius: 4,
                         yAxisID: 'y'
                     },
                     {
                         label: 'Thiếu Hụt Shortage (Seg/ngày)',
-                        data: data04Sep.map(p => p.shortage),
+                        data: data07Sep.map(p => p.shortage),
                         backgroundColor: shortageColors,
                         borderRadius: 4,
                         yAxisID: 'y'
@@ -1581,35 +1643,35 @@
 
             } else if (mode === 'compare_periods') {
                 btnCompare.className = 'px-2.5 py-1 font-semibold rounded bg-indigo-600 text-white shadow-sm transition';
-                titleEl.innerHTML = `<i data-lucide="git-compare" class="w-4 h-4 text-indigo-400"></i><span>So Sánh Năng Lực & Thiếu Hụt: Kỳ 27-Aug vs Kỳ 04-Sep</span>`;
+                titleEl.innerHTML = `<i data-lucide="git-compare" class="w-4 h-4 text-indigo-400"></i><span>So Sánh Năng Lực & Thiếu Hụt: Kỳ 04-Sep vs Kỳ 07-Sep</span>`;
                 subtitleEl.textContent = 'Trực quan hóa sự dịch chuyển năng lực sản xuất và biến động thiếu hụt giữa 2 kỳ';
 
                 comboChartInstance.data.labels = labels;
                 comboChartInstance.data.datasets = [
                     {
-                        label: 'Năng Lực Cũ (27-Aug)',
-                        data: data27Aug.map(p => p.capacity),
+                        label: 'Năng Lực Cũ (04-Sep)',
+                        data: data04Sep.map(p => p.capacity),
                         backgroundColor: '#475569',
                         borderRadius: 4,
                         yAxisID: 'y'
                     },
                     {
-                        label: 'Năng Lực Mới (04-Sep)',
-                        data: data04Sep.map(p => p.capacity),
+                        label: 'Năng Lực Mới (07-Sep)',
+                        data: data07Sep.map(p => p.capacity),
                         backgroundColor: '#3B82F6',
                         borderRadius: 4,
                         yAxisID: 'y'
                     },
                     {
-                        label: 'Thiếu Hụt Cũ (27-Aug)',
-                        data: data27Aug.map(p => p.shortage),
+                        label: 'Thiếu Hụt Cũ (04-Sep)',
+                        data: data04Sep.map(p => p.shortage),
                         backgroundColor: '#991B1B',
                         borderRadius: 4,
                         yAxisID: 'y'
                     },
                     {
-                        label: 'Thiếu Hụt Mới (04-Sep)',
-                        data: data04Sep.map(p => p.shortage),
+                        label: 'Thiếu Hụt Mới (07-Sep)',
+                        data: data07Sep.map(p => p.shortage),
                         backgroundColor: '#EF4444',
                         borderRadius: 4,
                         yAxisID: 'y'
@@ -1640,10 +1702,10 @@
                 `;
             } else if (mode === 'compare_periods') {
                 legendContainer.innerHTML = `
-                    <span class="flex items-center gap-1.5"><span class="w-3 h-3 rounded-sm bg-[#475569]"></span> Cap 27-Aug</span>
-                    <span class="flex items-center gap-1.5"><span class="w-3 h-3 rounded-sm bg-[#3B82F6]"></span> Cap 04-Sep</span>
-                    <span class="flex items-center gap-1.5"><span class="w-3 h-3 rounded-sm bg-[#991B1B]"></span> Shortage 27-Aug</span>
-                    <span class="flex items-center gap-1.5"><span class="w-3 h-3 rounded-sm bg-[#EF4444]"></span> Shortage 04-Sep</span>
+                    <span class="flex items-center gap-1.5"><span class="w-3 h-3 rounded-sm bg-[#475569]"></span> Cap 04-Sep</span>
+                    <span class="flex items-center gap-1.5"><span class="w-3 h-3 rounded-sm bg-[#3B82F6]"></span> Cap 07-Sep</span>
+                    <span class="flex items-center gap-1.5"><span class="w-3 h-3 rounded-sm bg-[#991B1B]"></span> Shortage 04-Sep</span>
+                    <span class="flex items-center gap-1.5"><span class="w-3 h-3 rounded-sm bg-[#EF4444]"></span> Shortage 07-Sep</span>
                 `;
             }
         }
@@ -1654,7 +1716,7 @@
         function initDoughnutChart() {
             const ctx = document.getElementById('statusDoughnutChart').getContext('2d');
             
-            const dataset = data04Sep;
+            const dataset = data07Sep;
             const successCount = dataset.filter(p => p.status === 'success' || p.status === 'completed' || (p.meetRate !== null && p.meetRate >= 1.0)).length;
             const warningCount = dataset.filter(p => p.status === 'warning' || (p.meetRate !== null && p.meetRate >= 0.5 && p.meetRate < 1.0)).length;
             const dangerCount = dataset.filter(p => p.status === 'danger' || (p.meetRate !== null && p.meetRate < 0.5)).length;
@@ -1696,12 +1758,17 @@
         }
 
         function updateDoughnutChart() {
-            let dataset = data04Sep;
-            let avgRate = '55.8%';
-            let badgeText = 'Kỳ 04-Sep';
-            let noteText = '3 dự án hoàn thành 100% PO, 5 dự án đáp ứng trên 50%.';
+            let dataset = data07Sep;
+            let avgRate = '60.1%';
+            let badgeText = 'Kỳ 07-Sep';
+            let noteText = '2 dự án hoàn thành 100% PO, 7 dự án đáp ứng trên 50%.';
 
-            if (currentPeriod === '27aug') {
+            if (currentPeriod === '04sep') {
+                dataset = data04Sep;
+                avgRate = '55.8%';
+                badgeText = 'Kỳ 04-Sep';
+                noteText = '3 dự án hoàn thành 100% PO, 5 dự án đáp ứng trên 50%.';
+            } else if (currentPeriod === '27aug') {
                 dataset = data27Aug;
                 avgRate = '62.9%';
                 badgeText = 'Kỳ 27-Aug';
@@ -1758,60 +1825,60 @@
         // 10. PROJECT DETAIL MODAL WITH MULTI-PERIOD COMPARISON
         // ==========================================
         function openModal(id) {
-            const p04 = data04Sep.find(item => item.id === id);
-            const p27 = data27Aug.find(item => item.id === id || item.name === p04?.name) || p04;
-            if (!p04) return;
+            const p07 = data07Sep.find(item => item.id === id);
+            const p04 = data04Sep.find(item => item.id === id || item.name === p07?.name) || p07;
+            if (!p07) return;
 
-            document.getElementById('modal-idx').textContent = p04.id;
-            document.getElementById('modal-title').textContent = p04.name;
-            document.getElementById('modal-dia').textContent = `Quy cách cọc ly tâm: ${p04.dia}`;
+            document.getElementById('modal-idx').textContent = p07.id;
+            document.getElementById('modal-title').textContent = p07.name;
+            document.getElementById('modal-dia').textContent = `Quy cách cọc ly tâm: ${p07.dia}`;
 
-            const deltaPD = p04.pd - p27.pd;
-            const deltaCap = p04.capacity - p27.capacity;
-            const deltaShortage = p04.shortage - p27.shortage;
-            const deltaPO = p04.po - p27.po;
+            const deltaPD = p07.pd - p04.pd;
+            const deltaCap = p07.capacity - p04.capacity;
+            const deltaShortage = p07.shortage - p04.shortage;
+            const deltaPO = p07.po - p04.po;
 
             const modalContent = document.getElementById('modal-content');
             modalContent.innerHTML = `
-                <!-- Main Numbers Grid (04-Sep) -->
+                <!-- Main Numbers Grid (07-Sep) -->
                 <div class="grid grid-cols-2 sm:grid-cols-4 gap-2.5">
                     <div class="p-2.5 rounded-lg bg-slate-900 border border-slate-800">
                         <span class="text-slate-400 text-[10px] uppercase font-mono">PO Nhận</span>
-                        <p class="text-sm font-bold text-white mt-0.5 font-mono">${formatNumber(p04.po)} Seg</p>
+                        <p class="text-sm font-bold text-white mt-0.5 font-mono">${formatNumber(p07.po)} Seg</p>
                     </div>
                     <div class="p-2.5 rounded-lg bg-slate-900 border border-slate-800">
                         <span class="text-slate-400 text-[10px] uppercase font-mono">Đã Đúc (PD)</span>
-                        <p class="text-sm font-bold text-blue-400 mt-0.5 font-mono">${formatNumber(p04.pd)} Seg</p>
+                        <p class="text-sm font-bold text-blue-400 mt-0.5 font-mono">${formatNumber(p07.pd)} Seg</p>
                     </div>
                     <div class="p-2.5 rounded-lg bg-slate-900 border border-slate-800">
                         <span class="text-slate-400 text-[10px] uppercase font-mono">Còn Lại</span>
-                        <p class="text-sm font-bold ${p04.remain === 0 ? 'text-emerald-400' : 'text-slate-200'} mt-0.5 font-mono">${formatNumber(p04.remain)} Seg</p>
+                        <p class="text-sm font-bold ${p07.remain === 0 ? 'text-emerald-400' : 'text-slate-200'} mt-0.5 font-mono">${formatNumber(p07.remain)} Seg</p>
                     </div>
                     <div class="p-2.5 rounded-lg bg-slate-900 border border-slate-800">
                         <span class="text-slate-400 text-[10px] uppercase font-mono">Hoàn Thành</span>
-                        <p class="text-sm font-bold text-slate-200 mt-0.5 font-mono">${formatPercent(p04.compRate)}</p>
+                        <p class="text-sm font-bold text-slate-200 mt-0.5 font-mono">${formatPercent(p07.compRate)}</p>
                     </div>
                 </div>
 
-                <!-- Comparison Box: 27-Aug vs 04-Sep -->
+                <!-- Comparison Box: 04-Sep vs 07-Sep -->
                 <div class="p-3 rounded-lg bg-slate-900/90 border border-indigo-900/50 space-y-2">
                     <div class="flex items-center justify-between text-xs font-semibold text-indigo-300 border-b border-slate-800 pb-1.5">
-                        <span class="flex items-center gap-1"><i data-lucide="git-compare" class="w-3.5 h-3.5"></i> Đối Chiếu Chu Kỳ (27-Aug vs 04-Sep)</span>
-                        <span class="text-[11px] font-mono text-slate-400">8 Ngày SX</span>
+                        <span class="flex items-center gap-1"><i data-lucide="git-compare" class="w-3.5 h-3.5"></i> Đối Chiếu Chu Kỳ (04-Sep vs 07-Sep)</span>
+                        <span class="text-[11px] font-mono text-slate-400">3 Ngày SX</span>
                     </div>
 
                     <div class="grid grid-cols-3 gap-2 text-xs font-mono">
                         <div class="p-2 rounded bg-slate-950/80 border border-slate-800/80">
                             <span class="text-[10px] text-slate-400">Sản Lượng Đúc (PD):</span>
-                            <div class="font-bold text-white mt-0.5">${p27.pd} → ${p04.pd}</div>
-                            <div class="text-[10px] ${deltaPD > 0 ? 'text-emerald-400 font-bold' : 'text-slate-500'}">
-                                ${deltaPD > 0 ? `+${deltaPD} Seg` : 'Không tăng'}
+                            <div class="font-bold text-white mt-0.5">${p04.pd} → ${p07.pd}</div>
+                            <div class="text-[10px] ${deltaPD > 0 ? 'text-emerald-400 font-bold' : (deltaPD < 0 ? 'text-slate-400' : 'text-slate-500')}">
+                                ${deltaPD > 0 ? `+${deltaPD} Seg` : (deltaPD < 0 ? `${deltaPD} Seg` : 'Không tăng')}
                             </div>
                         </div>
 
                         <div class="p-2 rounded bg-slate-950/80 border border-slate-800/80">
                             <span class="text-[10px] text-slate-400">Năng Lực (Capacity):</span>
-                            <div class="font-bold text-white mt-0.5">${p27.capacity} → ${p04.capacity}</div>
+                            <div class="font-bold text-white mt-0.5">${p04.capacity} → ${p07.capacity}</div>
                             <div class="text-[10px] ${deltaCap > 0 ? 'text-emerald-400 font-bold' : (deltaCap < 0 ? 'text-rose-400 font-bold' : 'text-slate-500')}">
                                 ${deltaCap > 0 ? `+${deltaCap}` : (deltaCap < 0 ? `${deltaCap}` : '0')} Seg/ngày
                             </div>
@@ -1819,7 +1886,7 @@
 
                         <div class="p-2 rounded bg-slate-950/80 border border-slate-800/80">
                             <span class="text-[10px] text-slate-400">Thiếu Hụt (Shortage):</span>
-                            <div class="font-bold ${p04.shortage > 0 ? 'text-rose-400' : 'text-slate-400'} mt-0.5">${p27.shortage} → ${p04.shortage}</div>
+                            <div class="font-bold ${p07.shortage > 0 ? 'text-rose-400' : 'text-slate-400'} mt-0.5">${p04.shortage} → ${p07.shortage}</div>
                             <div class="text-[10px] ${deltaShortage < 0 ? 'text-emerald-400 font-bold' : (deltaShortage > 0 ? 'text-rose-400 font-bold' : 'text-slate-500')}">
                                 ${deltaShortage < 0 ? `Giảm ${deltaShortage}` : (deltaShortage > 0 ? `Tăng +${deltaShortage}` : '0')} Seg
                             </div>
@@ -1831,31 +1898,31 @@
                 <div class="p-3 rounded-lg bg-slate-900 border border-slate-800 space-y-2 text-xs">
                     <div class="flex justify-between items-center">
                         <span class="text-slate-400">Nhu cầu giao hàng (Sale Request):</span>
-                        <strong class="text-white font-mono">${p04.saleReq} Seg/ngày</strong>
+                        <strong class="text-white font-mono">${p07.saleReq} Seg/ngày</strong>
                     </div>
                     <div class="flex justify-between items-center">
                         <span class="text-slate-400">Năng lực sản xuất (Capacity):</span>
-                        <strong class="text-blue-400 font-mono">${p04.capacity} Seg/ngày</strong>
+                        <strong class="text-blue-400 font-mono">${p07.capacity} Seg/ngày</strong>
                     </div>
                     <div class="flex justify-between items-center">
                         <span class="text-slate-400">Mức độ thiếu hụt (Shortage):</span>
-                        <strong class="${p04.shortage > 0 ? 'text-rose-400 font-bold' : 'text-slate-400'} font-mono">${p04.shortage} Seg/ngày</strong>
+                        <strong class="${p07.shortage > 0 ? 'text-rose-400 font-bold' : 'text-slate-400'} font-mono">${p07.shortage} Seg/ngày</strong>
                     </div>
                     <div class="flex justify-between items-center pt-1.5 border-t border-slate-800">
                         <span class="text-slate-300 font-semibold">Tỷ lệ đáp ứng (Meet Sale %):</span>
-                        <div>${getMeetRateBadge(p04.meetRate, p04.status)}</div>
+                        <div>${getMeetRateBadge(p07.meetRate, p07.status)}</div>
                     </div>
                 </div>
 
-                ${p04.remain === 0 && p04.po > 0 ? `
+                ${p07.remain === 0 && p07.po > 0 ? `
                 <div class="p-2.5 rounded-md bg-blue-950/40 border border-blue-900/50 text-blue-300 text-xs flex items-center gap-2">
                     <i data-lucide="check-circle-2" class="w-4 h-4 text-blue-400 shrink-0"></i>
-                    <span>Dự án đã đúc hoàn tất 100% khối lượng hợp đồng (${formatNumber(p04.po)} Seg).</span>
+                    <span>Dự án đã đúc hoàn tất 100% khối lượng hợp đồng (${formatNumber(p07.po)} Seg).</span>
                 </div>
-                ` : (p04.shortage > 0 ? `
+                ` : (p07.shortage > 0 ? `
                 <div class="p-2.5 rounded-md bg-rose-950/40 border border-rose-900/50 text-rose-300 text-xs flex items-center gap-2">
                     <i data-lucide="alert-triangle" class="w-4 h-4 text-rose-400 shrink-0"></i>
-                    <span>Cảnh báo thiếu hụt <strong>${p04.shortage} Seg/ngày</strong> so với yêu cầu điều phối.</span>
+                    <span>Cảnh báo thiếu hụt <strong>${p07.shortage} Seg/ngày</strong> so với yêu cầu điều phối.</span>
                 </div>
                 ` : `
                 <div class="p-2.5 rounded-md bg-emerald-950/40 border border-emerald-900/50 text-emerald-300 text-xs flex items-center gap-2">
@@ -1878,11 +1945,11 @@
             document.getElementById('table-search').value = '';
             document.getElementById('status-filter').value = 'all';
             currentSort = { column: 'id', ascending: true };
-            setDashboardPeriod('04sep');
+            setDashboardPeriod('07sep');
             
             const toast = document.createElement('div');
             toast.className = 'fixed top-5 right-5 bg-slate-800 text-white px-4 py-2 rounded-lg text-xs font-semibold shadow-lg border border-slate-700 z-50 flex items-center gap-2';
-            toast.innerHTML = `<i data-lucide="check-circle" class="w-4 h-4 text-emerald-400"></i><span>Đã đồng bộ lại dữ liệu mới nhất (04-Sep)!</span>`;
+            toast.innerHTML = `<i data-lucide="check-circle" class="w-4 h-4 text-emerald-400"></i><span>Đã đồng bộ lại dữ liệu mới nhất (07-Sep)!</span>`;
             document.body.appendChild(toast);
             lucide.createIcons();
             setTimeout(() => toast.remove(), 2000);
@@ -1894,33 +1961,36 @@
             let csvContent = "";
 
             if (isVariance) {
-                const headers = ["STT", "Ten Du An", "Quy Cach", "PD (27-Aug)", "PD (04-Sep)", "Delta PD", "SaleReq (27-Aug)", "SaleReq (04-Sep)", "Cap (27-Aug)", "Cap (04-Sep)", "Shortage (27-Aug)", "Shortage (04-Sep)", "MeetRate (27-Aug)", "MeetRate (04-Sep)"];
-                const rows = data04Sep.map(p04 => {
-                    const p27 = data27Aug.find(p => p.id === p04.id || p.name === p04.name) || {
-                        id: p04.id, name: p04.name, dia: p04.dia, po: 0, remain: 0, pd: 0, compRate: 0, saleReq: 0, capacity: 0, shortage: 0, meetRate: null
+                const headers = ["STT", "Ten Du An", "Quy Cach", "PD (04-Sep)", "PD (07-Sep)", "Delta PD", "SaleReq (04-Sep)", "SaleReq (07-Sep)", "Cap (04-Sep)", "Cap (07-Sep)", "Shortage (04-Sep)", "Shortage (07-Sep)", "MeetRate (04-Sep)", "MeetRate (07-Sep)"];
+                const rows = data07Sep.map(p07 => {
+                    const p04 = data04Sep.find(p => p.id === p07.id || p.name === p07.name) || {
+                        id: p07.id, name: p07.name, dia: p07.dia, po: 0, remain: 0, pd: 0, compRate: 0, saleReq: 0, capacity: 0, shortage: 0, meetRate: null
                     };
                     return [
-                        p04.id,
-                        `"${p04.name}"`,
-                        `"${p04.dia}"`,
-                        p27.pd,
+                        p07.id,
+                        `"${p07.name}"`,
+                        `"${p07.dia}"`,
                         p04.pd,
-                        p04.pd - p27.pd,
-                        p27.saleReq,
+                        p07.pd,
+                        p07.pd - p04.pd,
                         p04.saleReq,
-                        p27.capacity,
+                        p07.saleReq,
                         p04.capacity,
-                        p27.shortage,
+                        p07.capacity,
                         p04.shortage,
-                        p27.meetRate !== null ? `"${(p27.meetRate * 100).toFixed(1)}%"` : '"N/A"',
-                        p04.meetRate !== null ? `"${(p04.meetRate * 100).toFixed(1)}%"` : '"N/A"'
+                        p07.shortage,
+                        p04.meetRate !== null ? `"${(p04.meetRate * 100).toFixed(1)}%"` : '"N/A"',
+                        p07.meetRate !== null ? `"${(p07.meetRate * 100).toFixed(1)}%"` : '"N/A"'
                     ];
                 });
                 csvContent = "\uFEFF" + [headers.join(","), ...rows.map(e => e.join(","))].join("\n");
             } else {
-                let dataset = data04Sep;
-                let summary = summary04Sep;
-                if (currentPeriod === '27aug') {
+                let dataset = data07Sep;
+                let summary = summary07Sep;
+                if (currentPeriod === '04sep') {
+                    dataset = data04Sep;
+                    summary = summary04Sep;
+                } else if (currentPeriod === '27aug') {
                     dataset = data27Aug;
                     summary = summary27Aug;
                 } else if (currentPeriod === '24aug') {
