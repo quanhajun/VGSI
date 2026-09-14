@@ -173,7 +173,7 @@
                 <div class="flex items-center gap-2.5">
                     <div class="hidden md:flex items-center gap-2 px-3 py-1.5 rounded-lg bg-slate-900 border border-slate-800 text-xs font-mono text-slate-300">
                         <i data-lucide="calendar" class="w-3.5 h-3.5 text-blue-400"></i>
-                        <span>Ngày Đối Soát: <strong class="text-white">07-Sep</strong></span>
+                        <span>Ngày Đối Soát: <strong class="text-white">14-Sep</strong></span>
                     </div>
 
                     <button onclick="refreshData()" class="p-2 rounded-lg bg-slate-900 hover:bg-slate-800 text-slate-300 hover:text-white border border-slate-800 transition" title="Làm mới bảng">
@@ -208,7 +208,7 @@
                         Cân Đối Năng Lực Sản Xuất & Nhu Cầu Xuất Hàng
                     </h1>
                     <p class="text-xs text-slate-400 mt-1 max-w-3xl leading-relaxed">
-                        Dữ liệu đối soát cập nhật ghi nhận tổng sản lượng đúc đạt <strong class="text-emerald-400">15,000 Seg</strong> (đạt <strong class="text-blue-400">67.5%</strong> tổng hợp đồng PO 22,216 Seg). Tổng năng lực sản xuất đạt <strong class="text-slate-200">188 Seg/ngày</strong>, đáp ứng <strong class="text-emerald-400">78.7%</strong> tổng nhu cầu xuất hàng (239 Seg/ngày), mức thiếu hụt công suất toàn hệ thống giảm còn <strong class="text-rose-400">51 Seg/ngày</strong>.
+                        Dữ liệu đối soát cập nhật ghi nhận tổng sản lượng đúc đạt <strong class="text-emerald-400">15,272 Seg</strong> (đạt <strong class="text-blue-400">68.7%</strong> tổng hợp đồng PO 22,216 Seg). Tổng năng lực sản xuất đạt <strong class="text-slate-200">188 Seg/ngày</strong>, đáp ứng <strong class="text-emerald-400">78.7%</strong> tổng nhu cầu xuất hàng (239 Seg/ngày), mức thiếu hụt công suất toàn hệ thống giảm còn <strong class="text-rose-400">51 Seg/ngày</strong>.
                     </p>
                 </div>
 
@@ -216,9 +216,9 @@
                 <div class="flex items-center gap-4 sm:gap-6 shrink-0 bg-slate-950/80 px-4 py-3 rounded-xl border border-slate-800 text-xs">
                     <div>
                         <div class="text-slate-400 uppercase tracking-wider text-[10px] font-medium">Tổng Đã Đúc (PD)</div>
-                        <div class="text-base font-bold text-blue-400 font-mono mt-0.5">15,000 Seg</div>
+                        <div class="text-base font-bold text-blue-400 font-mono mt-0.5">15,272 Seg</div>
                         <div class="text-[10px] text-emerald-400 font-mono flex items-center gap-0.5">
-                            <i data-lucide="check-circle-2" class="w-3 h-3 inline"></i> Đạt 67.5% PO
+                            <i data-lucide="check-circle-2" class="w-3 h-3 inline"></i> Đạt 68.7% PO
                         </div>
                     </div>
                     <div class="h-10 w-px bg-slate-800"></div>
@@ -261,7 +261,7 @@
                 </div>
                 <div class="mt-4 pt-3 border-t border-slate-800 flex items-center justify-between text-xs">
                     <span class="text-slate-400">Còn lại chưa SX (Remain):</span>
-                    <span class="text-slate-200 font-mono font-bold" id="kpi-remain-total">7,216 Seg (32.5%)</span>
+                    <span class="text-slate-200 font-mono font-bold" id="kpi-remain-total">6,944 Seg (31.3%)</span>
                 </div>
             </div>
 
@@ -275,7 +275,7 @@
                         </span>
                     </div>
                     <div class="mt-3">
-                        <div class="text-3xl font-bold font-mono text-blue-400 tracking-tight" id="kpi-pd-total">15,000</div>
+                        <div class="text-3xl font-bold font-mono text-blue-400 tracking-tight" id="kpi-pd-total">15,272</div>
                         <div class="flex items-center gap-1.5 text-xs text-emerald-400 mt-1 font-mono font-medium">
                             <i data-lucide="check-circle" class="w-3.5 h-3.5"></i>
                             <span id="kpi-pd-delta">5 dự án đã hoàn thành 100% PO</span>
@@ -285,10 +285,10 @@
                 <div class="mt-4 pt-3 border-t border-slate-800 space-y-1.5">
                     <div class="flex justify-between text-xs font-mono text-slate-400">
                         <span>Tiến độ đúc toàn bộ PO:</span>
-                        <strong class="text-blue-400 font-bold" id="kpi-pd-pct">67.5%</strong>
+                        <strong class="text-blue-400 font-bold" id="kpi-pd-pct">68.7%</strong>
                     </div>
                     <div class="w-full bg-slate-800 rounded-full h-1.5 overflow-hidden">
-                        <div class="bg-blue-500 h-1.5 rounded-full transition-all duration-500" id="kpi-pd-bar" style="width: 67.52%"></div>
+                        <div class="bg-blue-500 h-1.5 rounded-full transition-all duration-500" id="kpi-pd-bar" style="width: 68.74%"></div>
                     </div>
                 </div>
             </div>
@@ -329,14 +329,14 @@
                         <div class="text-3xl font-bold font-mono text-emerald-400 tracking-tight" id="kpi-meet-total">78.7%</div>
                         <div class="flex items-center gap-1.5 text-xs text-emerald-400 mt-1 font-mono font-medium">
                             <i data-lucide="trending-up" class="w-3.5 h-3.5 text-emerald-400"></i>
-                            <span id="kpi-meet-delta">9/13 Dự án đáp ứng tốt (>=75%)</span>
+                            <span id="kpi-meet-delta">8/13 Dự án đạt 100% / Hoàn tất PO</span>
                         </div>
                     </div>
                 </div>
                 <div class="mt-4 pt-3 border-t border-slate-800 space-y-1.5">
                     <div class="flex justify-between text-xs font-mono text-slate-400">
                         <span>Dự án hoàn tất / đạt yêu cầu:</span>
-                        <strong class="text-emerald-400 font-bold" id="kpi-ok-count">9 / 13 Dự án</strong>
+                        <strong class="text-emerald-400 font-bold" id="kpi-ok-count">8 / 13 Dự án</strong>
                     </div>
                     <div class="w-full bg-slate-800 rounded-full h-1.5 overflow-hidden">
                         <div class="bg-emerald-500 h-1.5 rounded-full transition-all duration-500" id="kpi-meet-bar" style="width: 78.66%"></div>
@@ -375,12 +375,12 @@
                         <span class="text-emerald-400 font-semibold flex items-center gap-1">
                             <i data-lucide="flag" class="w-3.5 h-3.5"></i> Sắp Về Đích
                         </span>
-                        <span class="badge-ok px-1.5 py-0.5 rounded text-[10px] font-bold">Đạt 93%</span>
+                        <span class="badge-ok px-1.5 py-0.5 rounded text-[10px] font-bold">Đạt 94%</span>
                     </div>
                     <div class="text-xs font-bold text-white">Sun Nha Trang & SeAH2</div>
                     <p class="text-[11px] text-slate-300 leading-snug">
-                        • <strong>Sun Nha Trang:</strong> Đầu tháng 10 kết thúc sản xuất (còn 376 Seg).<br>
-                        • <strong>SeAH2:</strong> Thứ 6 tuần sau kết thúc sản xuất (còn 116 Seg).
+                        • <strong>Sun Nha Trang:</strong> Đầu tháng 10 kết thúc sản xuất (còn 327 Seg).<br>
+                        • <strong>SeAH2:</strong> Thứ 6 tuần sau kết thúc sản xuất (còn 100 Seg).
                     </p>
                 </div>
 
@@ -501,7 +501,7 @@
 
                 <div class="mt-4 pt-3 border-t border-slate-800 text-[11px] text-slate-400 flex items-center gap-1.5">
                     <i data-lucide="info" class="w-3.5 h-3.5 text-blue-400 shrink-0"></i>
-                    <span id="doughnut-note">5 dự án hoàn thành 100% PO, 4 dự án đáp ứng trên 75%.</span>
+                    <span id="doughnut-note">8 dự án hoàn thành 100% PO / đạt công suất, 4 dự án đáp ứng từ 50% - 99%.</span>
                 </div>
             </div>
 
@@ -687,9 +687,9 @@
                 name: "SUN NHA TRANG", 
                 dia: "D350A", 
                 po: 5429, 
-                remain: 376, 
-                pd: 5053, 
-                compRate: 5053 / 5429, // 93.07%
+                remain: 327, 
+                pd: 5102, 
+                compRate: 5102 / 5429, // 93.98%
                 saleReq: 30, 
                 capacity: 29, 
                 shortage: 1, 
@@ -702,9 +702,9 @@
                 name: "VAM CO PORT", 
                 dia: "D400A, D300A", 
                 po: 7655, 
-                remain: 3049, 
-                pd: 4606, 
-                compRate: 4606 / 7655, // 60.17%
+                remain: 2951, 
+                pd: 4704, 
+                compRate: 4704 / 7655, // 61.45%
                 saleReq: 50, 
                 capacity: 50, 
                 shortage: 0, 
@@ -717,24 +717,24 @@
                 name: "SEAH2", 
                 dia: "D400A, D500A", 
                 po: 1591, 
-                remain: 116, 
-                pd: 1475, 
-                compRate: 1475 / 1591, // 92.71%
-                saleReq: 10, 
-                capacity: 8, 
-                shortage: 2, 
-                meetRate: 8 / 10, // 80%
+                remain: 100, 
+                pd: 1491, 
+                compRate: 1491 / 1591, // 93.71%
+                saleReq: 16, 
+                capacity: 16, 
+                shortage: 0, 
+                meetRate: 1.0, // 100%
                 note: "Thứ 6 tuần sau kết thúc sản xuất",
-                status: "warning" 
+                status: "success" 
             },
             { 
                 id: 4, 
                 name: "SUN VUNGTAU", 
                 dia: "D400A", 
                 po: 600, 
-                remain: 528, 
-                pd: 72, 
-                compRate: 72 / 600, // 12%
+                remain: 515, 
+                pd: 85, 
+                compRate: 85 / 600, // 14.17%
                 saleReq: 30, 
                 capacity: 13, 
                 shortage: 17, 
@@ -747,13 +747,13 @@
                 name: "AQUA CITY", 
                 dia: "D300A, D350A", 
                 po: 1950, 
-                remain: 823, 
-                pd: 1127, 
-                compRate: 1127 / 1950, // 57.79%
+                remain: 774, 
+                pd: 1176, 
+                compRate: 1176 / 1950, // 60.31%
                 saleReq: 45, 
-                capacity: 34, 
-                shortage: 11, 
-                meetRate: 34 / 45, // 75.56%
+                capacity: 32, 
+                shortage: 13, 
+                meetRate: 32 / 45, // 71.11%
                 note: "Tiến độ theo dự án",
                 status: "warning" 
             },
@@ -762,30 +762,30 @@
                 name: "HOAPHAT FACTORY", 
                 dia: "D500A", 
                 po: 800, 
-                remain: 253, 
-                pd: 547, 
-                compRate: 547 / 800, // 68.38%
-                saleReq: 15, 
-                capacity: 12, 
-                shortage: 3, 
-                meetRate: 12 / 15, // 80%
+                remain: 231, 
+                pd: 569, 
+                compRate: 569 / 800, // 71.13%
+                saleReq: 20, 
+                capacity: 20, 
+                shortage: 0, 
+                meetRate: 1.0, // 100%
                 note: "PO Cuối hết đơn",
-                status: "warning" 
+                status: "success" 
             },
             { 
                 id: 7, 
                 name: "TON DONGA", 
                 dia: "D300A, D400A", 
                 po: 2419, 
-                remain: 1951, 
-                pd: 468, 
-                compRate: 468 / 2419, // 19.35%
+                remain: 1926, 
+                pd: 493, 
+                compRate: 493 / 2419, // 20.38%
                 saleReq: 30, 
                 capacity: 15, 
                 shortage: 15, 
                 meetRate: 15 / 30, // 50%
                 note: "Tạm giảm, liên quan đến thanh toán",
-                status: "danger" 
+                status: "warning" 
             },
             { 
                 id: 8, 
@@ -795,12 +795,12 @@
                 remain: 120, 
                 pd: 0, 
                 compRate: 0.0, 
-                saleReq: 0, 
-                capacity: 0, 
-                shortage: 0, 
-                meetRate: null, 
+                saleReq: 10, 
+                capacity: 5, 
+                shortage: 5, 
+                meetRate: 5 / 10, // 50%
                 note: "Mới, bắt đầu sản xuất vào thứ 2 (14/09)",
-                status: "neutral" 
+                status: "warning" 
             },
             { 
                 id: 9, 
@@ -810,10 +810,10 @@
                 remain: 0, 
                 pd: 927, 
                 compRate: 1.0, 
-                saleReq: 16, 
-                capacity: 14, 
-                shortage: 2, 
-                meetRate: 14 / 16, // 87.5%
+                saleReq: 0, 
+                capacity: 0, 
+                shortage: 0, 
+                meetRate: null, 
                 note: "Xong",
                 status: "completed" 
             },
@@ -825,10 +825,10 @@
                 remain: 0, 
                 pd: 150, 
                 compRate: 1.0, 
-                saleReq: 10, 
-                capacity: 10, 
+                saleReq: 0, 
+                capacity: 0, 
                 shortage: 0, 
-                meetRate: 1.0, // 100%
+                meetRate: null, 
                 note: "Xong",
                 status: "completed" 
             },
@@ -840,10 +840,10 @@
                 remain: 0, 
                 pd: 52, 
                 compRate: 1.0, 
-                saleReq: 3, 
-                capacity: 3, 
+                saleReq: 0, 
+                capacity: 0, 
                 shortage: 0, 
-                meetRate: 1.0, // 100%
+                meetRate: null, 
                 note: "Xong",
                 status: "completed" 
             },
@@ -881,9 +881,9 @@
 
         const summaryData = {
             po: 22216,
-            remain: 7216,
-            pd: 15000,
-            compRate: 15000 / 22216, // 67.52%
+            remain: 6944,
+            pd: 15272,
+            compRate: 15272 / 22216, // 68.74%
             saleReq: 239,
             capacity: 188,
             shortage: 51,
