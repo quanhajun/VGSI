@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="vi" class="dark">
+<html lang="vi" class="light">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -45,67 +45,67 @@
 
     <style>
         :root {
-            color-scheme: dark;
+            color-scheme: light;
         }
 
         body {
-            background-color: #080C14;
-            color: #E2E8F0;
+            background-color: #F8FAFC;
+            color: #1E293B;
             font-family: 'Inter', sans-serif;
             -webkit-font-smoothing: antialiased;
         }
 
-        /* Clean Corporate Cards */
+        /* Clean Corporate Cards (Light Theme) */
         .erp-card {
-            background-color: #0F172A;
-            border: 1px solid #1E293B;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
+            background-color: #FFFFFF;
+            border: 1px solid #E2E8F0;
+            box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.05), 0 1px 2px -1px rgba(0, 0, 0, 0.03);
         }
 
         .erp-card-hover {
             transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
         }
         .erp-card-hover:hover {
-            border-color: #334155;
-            background-color: #131E35;
+            border-color: #CBD5E1;
+            box-shadow: 0 6px 16px -2px rgba(0, 0, 0, 0.08);
             transform: translateY(-1px);
         }
 
-        /* Status Badges */
+        /* Status Badges - Light Theme Optimized */
         .badge-ok {
-            background-color: rgba(16, 185, 129, 0.12);
-            color: #34D399;
-            border: 1px solid rgba(16, 185, 129, 0.3);
+            background-color: #ECFDF5;
+            color: #047857;
+            border: 1px solid #A7F3D0;
         }
         .badge-warn {
-            background-color: rgba(245, 158, 11, 0.12);
-            color: #FBBF24;
-            border: 1px solid rgba(245, 158, 11, 0.3);
+            background-color: #FFFBEB;
+            color: #B45309;
+            border: 1px solid #FDE68A;
         }
         .badge-danger {
-            background-color: rgba(239, 68, 68, 0.12);
-            color: #F87171;
-            border: 1px solid rgba(239, 68, 68, 0.3);
+            background-color: #FEF2F2;
+            color: #B91C1C;
+            border: 1px solid #FECACA;
         }
         .badge-neutral {
-            background-color: rgba(100, 116, 139, 0.15);
-            color: #94A3B8;
-            border: 1px solid rgba(100, 116, 139, 0.3);
+            background-color: #F1F5F9;
+            color: #475569;
+            border: 1px solid #E2E8F0;
         }
         .badge-completed {
-            background-color: rgba(59, 130, 246, 0.15);
-            color: #93C5FD;
-            border: 1px solid rgba(59, 130, 246, 0.35);
+            background-color: #EFF6FF;
+            color: #1D4ED8;
+            border: 1px solid #BFDBFE;
         }
         .badge-purple {
-            background-color: rgba(139, 92, 246, 0.15);
-            color: #C4B5FD;
-            border: 1px solid rgba(139, 92, 246, 0.35);
+            background-color: #F5F3FF;
+            color: #6D28D9;
+            border: 1px solid #DDD6FE;
         }
         .badge-note {
-            background-color: rgba(30, 41, 59, 0.7);
-            color: #CBD5E1;
-            border: 1px solid rgba(51, 65, 85, 0.8);
+            background-color: #F8FAFC;
+            color: #334155;
+            border: 1px solid #E2E8F0;
         }
 
         /* Custom Scrollbars */
@@ -114,20 +114,20 @@
             height: 6px;
         }
         ::-webkit-scrollbar-track {
-            background: #0B1120;
+            background: #F1F5F9;
         }
         ::-webkit-scrollbar-thumb {
-            background: #1E293B;
+            background: #CBD5E1;
             border-radius: 4px;
         }
         ::-webkit-scrollbar-thumb:hover {
-            background: #334155;
+            background: #94A3B8;
         }
 
         /* Subtle pulsing for alerts */
         @keyframes pulse-subtle {
             0%, 100% { opacity: 1; transform: scale(1); }
-            50% { opacity: 0.85; transform: scale(1.02); }
+            50% { opacity: 0.9; transform: scale(1.02); }
         }
         .pulse-badge {
             animation: pulse-subtle 3s infinite ease-in-out;
@@ -135,52 +135,53 @@
 
         /* Table row hover */
         .table-row-hover:hover {
-            background-color: rgba(30, 41, 59, 0.6);
+            background-color: #F8FAFC;
         }
 
         /* Interactive sortable headers */
         th.sortable {
             cursor: pointer;
             user-select: none;
+            transition: color 0.15s ease;
         }
         th.sortable:hover {
-            color: #60A5FA;
+            color: #2563EB;
         }
     </style>
 </head>
-<body class="min-h-screen flex flex-col antialiased selection:bg-blue-600 selection:text-white pb-14">
+<body class="min-h-screen flex flex-col antialiased selection:bg-blue-600 selection:text-white pb-14 bg-slate-50 text-slate-800">
 
     <!-- 1. TOP ENTERPRISE NAVIGATION BAR -->
-    <header class="sticky top-0 z-30 bg-[#0B1120]/95 backdrop-blur-md border-b border-slate-800/90 shadow-md">
+    <header class="sticky top-0 z-30 bg-white/95 backdrop-blur-md border-b border-slate-200 shadow-sm">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex items-center justify-between h-16">
                 
                 <!-- Left: Corporate Brand Identity -->
                 <div class="flex items-center space-x-3.5">
-                    <div class="w-10 h-10 rounded-xl bg-gradient-to-br from-blue-500 to-indigo-600 flex items-center justify-center text-white shadow-lg font-bold">
+                    <div class="w-10 h-10 rounded-xl bg-gradient-to-br from-blue-600 to-indigo-700 flex items-center justify-center text-white shadow-md font-bold">
                         <i data-lucide="layers" class="w-5 h-5"></i>
                     </div>
                     <div>
                         <div class="flex items-center gap-2">
-                            <span class="font-bold text-base tracking-tight text-white">PROJECT CONDITION & SALES CONTROL</span>
-                            <span class="px-2 py-0.5 text-[10px] font-semibold rounded bg-blue-950 text-blue-300 border border-blue-800/80" id="header-version-badge">Báo Cáo Kỳ Hiện Tại</span>
+                            <span class="font-bold text-base tracking-tight text-slate-900">PROJECT CONDITION & SALES CONTROL</span>
+                            <span class="px-2 py-0.5 text-[10px] font-semibold rounded bg-blue-50 text-blue-700 border border-blue-200" id="header-version-badge">Kỳ Đối Soát 21-Sep</span>
                         </div>
-                        <p class="text-xs text-slate-400">Hệ thống Đối Soát Năng Lực Sản Xuất & Điều Phối Đơn Hàng Cọc Bê Tông</p>
+                        <p class="text-xs text-slate-500">Hệ thống Đối Soát Năng Lực Sản Xuất & Điều Phối Đơn Hàng Cọc Bê Tông</p>
                     </div>
                 </div>
 
                 <!-- Right: Action Buttons -->
                 <div class="flex items-center gap-2.5">
-                    <div class="hidden md:flex items-center gap-2 px-3 py-1.5 rounded-lg bg-slate-900 border border-slate-800 text-xs font-mono text-slate-300">
-                        <i data-lucide="calendar" class="w-3.5 h-3.5 text-blue-400"></i>
-                        <span>Ngày Đối Soát: <strong class="text-white">14-Sep</strong></span>
+                    <div class="hidden md:flex items-center gap-2 px-3 py-1.5 rounded-lg bg-slate-50 border border-slate-200 text-xs font-mono text-slate-700">
+                        <i data-lucide="calendar" class="w-3.5 h-3.5 text-blue-600"></i>
+                        <span>Ngày Đối Soát: <strong class="text-slate-900">21-Sep</strong></span>
                     </div>
 
-                    <button onclick="refreshData()" class="p-2 rounded-lg bg-slate-900 hover:bg-slate-800 text-slate-300 hover:text-white border border-slate-800 transition" title="Làm mới bảng">
+                    <button onclick="refreshData()" class="p-2 rounded-lg bg-white hover:bg-slate-100 text-slate-600 hover:text-slate-900 border border-slate-200 shadow-sm transition" title="Làm mới bảng">
                         <i data-lucide="refresh-cw" class="w-4 h-4"></i>
                     </button>
 
-                    <button onclick="exportToCSV()" class="flex items-center gap-1.5 px-3.5 py-1.5 rounded-lg bg-blue-600 hover:bg-blue-500 text-white text-xs font-semibold shadow-sm transition">
+                    <button onclick="exportToCSV()" class="flex items-center gap-1.5 px-3.5 py-1.5 rounded-lg bg-blue-600 hover:bg-blue-700 text-white text-xs font-semibold shadow-sm transition">
                         <i data-lucide="download" class="w-3.5 h-3.5"></i>
                         <span class="hidden sm:inline">Xuất Excel / CSV</span>
                     </button>
@@ -193,46 +194,46 @@
     <main class="flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 pt-6 space-y-6">
 
         <!-- EXECUTIVE SUMMARY BANNER -->
-        <div class="erp-card rounded-xl p-6 relative overflow-hidden">
-            <div class="absolute -right-10 -bottom-10 w-64 h-64 bg-blue-600/10 rounded-full blur-3xl pointer-events-none"></div>
+        <div class="erp-card rounded-xl p-6 relative overflow-hidden bg-white border border-slate-200">
+            <div class="absolute -right-10 -bottom-10 w-64 h-64 bg-blue-500/5 rounded-full blur-3xl pointer-events-none"></div>
             
             <div class="flex flex-col lg:flex-row lg:items-center justify-between gap-5 relative z-10">
                 <div>
-                    <div class="flex items-center gap-2 mb-1">
-                        <span class="px-2.5 py-0.5 rounded text-[11px] font-bold bg-blue-900/60 text-blue-300 border border-blue-700/50 uppercase tracking-wider">
-                            Kỳ Đối Soát Mới Nhất
+                    <div class="flex items-center gap-2 mb-1.5">
+                        <span class="px-2.5 py-0.5 rounded text-[11px] font-bold bg-blue-100 text-blue-800 border border-blue-200 uppercase tracking-wider">
+                            Kỳ Đối Soát Cập Nhật: 21-Sep
                         </span>
-                        <span class="text-xs text-slate-400 font-mono">13 Dự Án Cọc Ly Tâm</span>
+                        <span class="text-xs text-slate-500 font-mono font-medium">10 Dự Án Cọc Ly Tâm</span>
                     </div>
-                    <h1 class="text-xl md:text-2xl font-bold text-white tracking-tight">
+                    <h1 class="text-xl md:text-2xl font-bold text-slate-900 tracking-tight">
                         Cân Đối Năng Lực Sản Xuất & Nhu Cầu Xuất Hàng
                     </h1>
-                    <p class="text-xs text-slate-400 mt-1 max-w-3xl leading-relaxed">
-                        Dữ liệu đối soát cập nhật ghi nhận tổng sản lượng đúc đạt <strong class="text-emerald-400">15,272 Seg</strong> (đạt <strong class="text-blue-400">68.7%</strong> tổng hợp đồng PO 22,216 Seg). Tổng năng lực sản xuất đạt <strong class="text-slate-200">188 Seg/ngày</strong>, đáp ứng <strong class="text-emerald-400">78.7%</strong> tổng nhu cầu xuất hàng (239 Seg/ngày), mức thiếu hụt công suất toàn hệ thống giảm còn <strong class="text-rose-400">51 Seg/ngày</strong>.
+                    <p class="text-xs text-slate-600 mt-1 max-w-3xl leading-relaxed">
+                        Dữ liệu đối soát cập nhật ngày <strong class="text-slate-900">21-Sep</strong> ghi nhận tổng sản lượng đúc đạt <strong class="text-blue-600">14,574 Seg</strong> (đạt <strong class="text-blue-700 font-bold">68.4%</strong> tổng hợp đồng PO 21,295 Seg). Tổng năng lực sản xuất đạt <strong class="text-slate-800 font-bold">176 Seg/ngày</strong>, đáp ứng <strong class="text-emerald-700 font-bold">74.9%</strong> tổng nhu cầu xuất hàng (235 Seg/ngày), thiếu hụt công suất điều phối là <strong class="text-rose-600 font-bold">69 Seg/ngày</strong>.
                     </p>
                 </div>
 
                 <!-- Quick Summary Stats Pill Box -->
-                <div class="flex items-center gap-4 sm:gap-6 shrink-0 bg-slate-950/80 px-4 py-3 rounded-xl border border-slate-800 text-xs">
+                <div class="flex items-center gap-4 sm:gap-6 shrink-0 bg-slate-50 px-4 py-3 rounded-xl border border-slate-200 text-xs">
                     <div>
-                        <div class="text-slate-400 uppercase tracking-wider text-[10px] font-medium">Tổng Đã Đúc (PD)</div>
-                        <div class="text-base font-bold text-blue-400 font-mono mt-0.5">15,272 Seg</div>
-                        <div class="text-[10px] text-emerald-400 font-mono flex items-center gap-0.5">
-                            <i data-lucide="check-circle-2" class="w-3 h-3 inline"></i> Đạt 68.7% PO
+                        <div class="text-slate-500 uppercase tracking-wider text-[10px] font-medium">Tổng Đã Đúc (PD)</div>
+                        <div class="text-base font-bold text-blue-600 font-mono mt-0.5">14,574 Seg</div>
+                        <div class="text-[10px] text-emerald-600 font-mono flex items-center gap-0.5 font-medium">
+                            <i data-lucide="check-circle-2" class="w-3 h-3 inline"></i> Đạt 68.4% PO
                         </div>
                     </div>
-                    <div class="h-10 w-px bg-slate-800"></div>
+                    <div class="h-10 w-px bg-slate-200"></div>
                     <div>
-                        <div class="text-slate-400 uppercase tracking-wider text-[10px] font-medium">Năng Lực SX/Ngày</div>
-                        <div class="text-base font-bold text-slate-200 font-mono mt-0.5">188 Seg/ngày</div>
-                        <div class="text-[10px] text-blue-400 font-mono">Nhu cầu: 239 Seg</div>
+                        <div class="text-slate-500 uppercase tracking-wider text-[10px] font-medium">Năng Lực SX/Ngày</div>
+                        <div class="text-base font-bold text-slate-800 font-mono mt-0.5">176 Seg/ngày</div>
+                        <div class="text-[10px] text-blue-600 font-mono font-medium">Nhu cầu: 235 Seg</div>
                     </div>
-                    <div class="h-10 w-px bg-slate-800"></div>
+                    <div class="h-10 w-px bg-slate-200"></div>
                     <div>
-                        <div class="text-slate-400 uppercase tracking-wider text-[10px] font-medium">Thiếu Hụt Công Suất</div>
-                        <div class="text-base font-bold text-rose-400 font-mono mt-0.5">51 Seg/ngày</div>
-                        <div class="text-[10px] text-emerald-400 font-mono flex items-center gap-0.5">
-                            <i data-lucide="gauge" class="w-3 h-3 inline"></i> Đáp ứng 78.7%
+                        <div class="text-slate-500 uppercase tracking-wider text-[10px] font-medium">Thiếu Hụt Công Suất</div>
+                        <div class="text-base font-bold text-rose-600 font-mono mt-0.5">69 Seg/ngày</div>
+                        <div class="text-[10px] text-emerald-600 font-mono flex items-center gap-0.5 font-medium">
+                            <i data-lucide="gauge" class="w-3 h-3 inline"></i> Đáp ứng 74.9%
                         </div>
                     </div>
                 </div>
@@ -246,22 +247,22 @@
             <div class="erp-card erp-card-hover rounded-xl p-5 flex flex-col justify-between">
                 <div>
                     <div class="flex items-center justify-between">
-                        <span class="text-xs font-semibold text-slate-400 uppercase tracking-wider">Tổng Khối Lượng PO</span>
-                        <span class="p-1.5 rounded-lg bg-slate-800/80 text-slate-300 border border-slate-700/50">
-                            <i data-lucide="file-check-2" class="w-4 h-4 text-slate-400"></i>
+                        <span class="text-xs font-semibold text-slate-500 uppercase tracking-wider">Tổng Khối Lượng PO</span>
+                        <span class="p-1.5 rounded-lg bg-slate-100 text-slate-600 border border-slate-200">
+                            <i data-lucide="file-check-2" class="w-4 h-4 text-slate-600"></i>
                         </span>
                     </div>
                     <div class="mt-3">
-                        <div class="text-3xl font-bold font-mono text-white tracking-tight" id="kpi-po-total">22,216</div>
-                        <div class="flex items-center gap-1.5 text-xs text-blue-400 mt-1 font-mono" id="kpi-po-delta">
+                        <div class="text-3xl font-bold font-mono text-slate-900 tracking-tight" id="kpi-po-total">21,295</div>
+                        <div class="flex items-center gap-1.5 text-xs text-blue-600 mt-1 font-mono font-medium" id="kpi-po-delta">
                             <i data-lucide="layers" class="w-3.5 h-3.5"></i>
-                            <span>13 dự án (bổ sung Hóa Chất DVL)</span>
+                            <span>10 dự án (bổ sung SPL Nam Thuận)</span>
                         </div>
                     </div>
                 </div>
-                <div class="mt-4 pt-3 border-t border-slate-800 flex items-center justify-between text-xs">
-                    <span class="text-slate-400">Còn lại chưa SX (Remain):</span>
-                    <span class="text-slate-200 font-mono font-bold" id="kpi-remain-total">6,944 Seg (31.3%)</span>
+                <div class="mt-4 pt-3 border-t border-slate-100 flex items-center justify-between text-xs">
+                    <span class="text-slate-500">Còn lại chưa SX (Remain):</span>
+                    <span class="text-slate-800 font-mono font-bold" id="kpi-remain-total">6,721 Seg (31.6%)</span>
                 </div>
             </div>
 
@@ -269,26 +270,26 @@
             <div class="erp-card erp-card-hover rounded-xl p-5 flex flex-col justify-between">
                 <div>
                     <div class="flex items-center justify-between">
-                        <span class="text-xs font-semibold text-slate-400 uppercase tracking-wider">Đã Sản Xuất (PD Completion)</span>
-                        <span class="p-1.5 rounded-lg bg-blue-950/80 text-blue-400 border border-blue-800/50">
+                        <span class="text-xs font-semibold text-slate-500 uppercase tracking-wider">Đã Sản Xuất (PD Completion)</span>
+                        <span class="p-1.5 rounded-lg bg-blue-50 text-blue-600 border border-blue-200">
                             <i data-lucide="factory" class="w-4 h-4"></i>
                         </span>
                     </div>
                     <div class="mt-3">
-                        <div class="text-3xl font-bold font-mono text-blue-400 tracking-tight" id="kpi-pd-total">15,272</div>
-                        <div class="flex items-center gap-1.5 text-xs text-emerald-400 mt-1 font-mono font-medium">
+                        <div class="text-3xl font-bold font-mono text-blue-600 tracking-tight" id="kpi-pd-total">14,574</div>
+                        <div class="flex items-center gap-1.5 text-xs text-emerald-600 mt-1 font-mono font-medium">
                             <i data-lucide="check-circle" class="w-3.5 h-3.5"></i>
-                            <span id="kpi-pd-delta">5 dự án đã hoàn thành 100% PO</span>
+                            <span id="kpi-pd-delta">2 dự án đã hoàn thành 100% PO</span>
                         </div>
                     </div>
                 </div>
-                <div class="mt-4 pt-3 border-t border-slate-800 space-y-1.5">
-                    <div class="flex justify-between text-xs font-mono text-slate-400">
+                <div class="mt-4 pt-3 border-t border-slate-100 space-y-1.5">
+                    <div class="flex justify-between text-xs font-mono text-slate-600">
                         <span>Tiến độ đúc toàn bộ PO:</span>
-                        <strong class="text-blue-400 font-bold" id="kpi-pd-pct">68.7%</strong>
+                        <strong class="text-blue-600 font-bold" id="kpi-pd-pct">68.4%</strong>
                     </div>
-                    <div class="w-full bg-slate-800 rounded-full h-1.5 overflow-hidden">
-                        <div class="bg-blue-500 h-1.5 rounded-full transition-all duration-500" id="kpi-pd-bar" style="width: 68.74%"></div>
+                    <div class="w-full bg-slate-100 rounded-full h-1.5 overflow-hidden">
+                        <div class="bg-blue-600 h-1.5 rounded-full transition-all duration-500" id="kpi-pd-bar" style="width: 68.44%"></div>
                     </div>
                 </div>
             </div>
@@ -297,22 +298,22 @@
             <div class="erp-card erp-card-hover rounded-xl p-5 flex flex-col justify-between">
                 <div>
                     <div class="flex items-center justify-between">
-                        <span class="text-xs font-semibold text-slate-400 uppercase tracking-wider">Thiếu Hụt Công Suất</span>
-                        <span class="p-1.5 rounded-lg bg-rose-950/80 text-rose-400 border border-rose-800/50">
+                        <span class="text-xs font-semibold text-slate-500 uppercase tracking-wider">Thiếu Hụt Công Suất</span>
+                        <span class="p-1.5 rounded-lg bg-rose-50 text-rose-600 border border-rose-200">
                             <i data-lucide="alert-triangle" class="w-4 h-4"></i>
                         </span>
                     </div>
                     <div class="mt-3">
-                        <div class="text-3xl font-bold font-mono text-rose-400 tracking-tight" id="kpi-shortage-total">51</div>
-                        <div class="flex items-center gap-1.5 text-xs text-rose-400 mt-1 font-mono font-medium">
+                        <div class="text-3xl font-bold font-mono text-rose-600 tracking-tight" id="kpi-shortage-total">69</div>
+                        <div class="flex items-center gap-1.5 text-xs text-rose-600 mt-1 font-mono font-medium">
                             <i data-lucide="alert-circle" class="w-3.5 h-3.5"></i>
-                            <span id="kpi-shortage-delta">Tập trung: Sun VT, Tôn Đông Á, Aqua</span>
+                            <span id="kpi-shortage-delta">Tập trung: Tôn Đông Á, Vàm Cỏ, Aqua</span>
                         </div>
                     </div>
                 </div>
-                <div class="mt-4 pt-3 border-t border-slate-800 flex items-center justify-between text-xs font-mono">
-                    <span class="text-slate-400">Nhu cầu: <strong class="text-slate-200 font-bold" id="kpi-req-val">239 Seg/ngày</strong></span>
-                    <span class="text-slate-400">Năng lực: <strong class="text-blue-400 font-bold" id="kpi-cap-val">188 Seg/ngày</strong></span>
+                <div class="mt-4 pt-3 border-t border-slate-100 flex items-center justify-between text-xs font-mono">
+                    <span class="text-slate-500">Nhu cầu: <strong class="text-slate-800 font-bold" id="kpi-req-val">235 Seg/ngày</strong></span>
+                    <span class="text-slate-500">Năng lực: <strong class="text-blue-600 font-bold" id="kpi-cap-val">176 Seg/ngày</strong></span>
                 </div>
             </div>
 
@@ -320,26 +321,26 @@
             <div class="erp-card erp-card-hover rounded-xl p-5 flex flex-col justify-between">
                 <div>
                     <div class="flex items-center justify-between">
-                        <span class="text-xs font-semibold text-slate-400 uppercase tracking-wider">Tỷ Lệ Đáp Ứng Sale Req</span>
-                        <span class="p-1.5 rounded-lg bg-emerald-950/80 text-emerald-400 border border-emerald-800/50">
+                        <span class="text-xs font-semibold text-slate-500 uppercase tracking-wider">Tỷ Lệ Đáp Ứng Sale Req</span>
+                        <span class="p-1.5 rounded-lg bg-emerald-50 text-emerald-600 border border-emerald-200">
                             <i data-lucide="gauge" class="w-4 h-4"></i>
                         </span>
                     </div>
                     <div class="mt-3">
-                        <div class="text-3xl font-bold font-mono text-emerald-400 tracking-tight" id="kpi-meet-total">78.7%</div>
-                        <div class="flex items-center gap-1.5 text-xs text-emerald-400 mt-1 font-mono font-medium">
-                            <i data-lucide="trending-up" class="w-3.5 h-3.5 text-emerald-400"></i>
-                            <span id="kpi-meet-delta">8/13 Dự án đạt 100% / Hoàn tất PO</span>
+                        <div class="text-3xl font-bold font-mono text-emerald-600 tracking-tight" id="kpi-meet-total">74.9%</div>
+                        <div class="flex items-center gap-1.5 text-xs text-emerald-600 mt-1 font-mono font-medium">
+                            <i data-lucide="trending-up" class="w-3.5 h-3.5 text-emerald-600"></i>
+                            <span id="kpi-meet-delta">5/10 Dự án đạt 100% / Hoàn tất PO</span>
                         </div>
                     </div>
                 </div>
-                <div class="mt-4 pt-3 border-t border-slate-800 space-y-1.5">
-                    <div class="flex justify-between text-xs font-mono text-slate-400">
+                <div class="mt-4 pt-3 border-t border-slate-100 space-y-1.5">
+                    <div class="flex justify-between text-xs font-mono text-slate-600">
                         <span>Dự án hoàn tất / đạt yêu cầu:</span>
-                        <strong class="text-emerald-400 font-bold" id="kpi-ok-count">8 / 13 Dự án</strong>
+                        <strong class="text-emerald-600 font-bold" id="kpi-ok-count">5 / 10 Dự án</strong>
                     </div>
-                    <div class="w-full bg-slate-800 rounded-full h-1.5 overflow-hidden">
-                        <div class="bg-emerald-500 h-1.5 rounded-full transition-all duration-500" id="kpi-meet-bar" style="width: 78.66%"></div>
+                    <div class="w-full bg-slate-100 rounded-full h-1.5 overflow-hidden">
+                        <div class="bg-emerald-500 h-1.5 rounded-full transition-all duration-500" id="kpi-meet-bar" style="width: 74.89%"></div>
                     </div>
                 </div>
             </div>
@@ -347,22 +348,22 @@
         </section>
 
         <!-- 4. OPERATIONAL DIRECTIVES & PROJECT NOTES SUMMARY BOARD -->
-        <section class="erp-card rounded-xl p-6 border-slate-800 space-y-4">
-            <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b border-slate-800 pb-3">
+        <section class="erp-card rounded-xl p-6 border-slate-200 space-y-4">
+            <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b border-slate-200 pb-3">
                 <div class="flex items-center gap-2.5">
-                    <div class="p-2 rounded-lg bg-amber-950/80 text-amber-400 border border-amber-800/60">
+                    <div class="p-2 rounded-lg bg-amber-50 text-amber-700 border border-amber-200">
                         <i data-lucide="clipboard-list" class="w-4 h-4"></i>
                     </div>
                     <div>
-                        <h2 class="text-sm font-bold text-white uppercase tracking-wider flex items-center gap-2">
+                        <h2 class="text-sm font-bold text-slate-900 uppercase tracking-wider flex items-center gap-2">
                             <span>Ghi Chú Vận Hành & Tiến Độ Trọng Yếu Từng Dự Án</span>
-                            <span class="px-2 py-0.5 text-[10px] font-semibold rounded bg-amber-900/60 text-amber-300 border border-amber-700/50">Operational Highlights</span>
+                            <span class="px-2 py-0.5 text-[10px] font-semibold rounded bg-amber-100 text-amber-800 border border-amber-200">Operational Highlights</span>
                         </h2>
-                        <p class="text-xs text-slate-400">Tổng hợp các mốc tiến độ hoàn tất, kế hoạch đúc và lưu ý công nợ / cọc thử</p>
+                        <p class="text-xs text-slate-500">Tổng hợp các mốc tiến độ hoàn tất, kế hoạch đúc và lưu ý công nợ / cọc thử</p>
                     </div>
                 </div>
-                <div class="flex items-center gap-2 text-xs font-mono text-slate-400">
-                    <span class="px-2 py-1 rounded bg-slate-900 border border-slate-800">Cập nhật trực tiếp từ file Excel</span>
+                <div class="flex items-center gap-2 text-xs font-mono text-slate-500">
+                    <span class="px-2.5 py-1 rounded bg-slate-100 border border-slate-200">Cập nhật trực tiếp từ file Excel</span>
                 </div>
             </div>
 
@@ -370,61 +371,62 @@
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-3.5">
                 
                 <!-- Note 1: Dự án sắp về đích -->
-                <div class="p-3.5 rounded-lg bg-slate-900/90 border border-emerald-900/40 bg-emerald-950/10 space-y-1.5">
+                <div class="p-3.5 rounded-lg bg-emerald-50/70 border border-emerald-200 space-y-1.5">
                     <div class="flex items-center justify-between text-xs">
-                        <span class="text-emerald-400 font-semibold flex items-center gap-1">
-                            <i data-lucide="flag" class="w-3.5 h-3.5"></i> Sắp Về Đích
+                        <span class="text-emerald-800 font-semibold flex items-center gap-1">
+                            <i data-lucide="flag" class="w-3.5 h-3.5 text-emerald-600"></i> Sắp Về Đích
                         </span>
-                        <span class="badge-ok px-1.5 py-0.5 rounded text-[10px] font-bold">Đạt 94%</span>
+                        <span class="badge-ok px-1.5 py-0.5 rounded text-[10px] font-bold">Đạt 94.0%</span>
                     </div>
-                    <div class="text-xs font-bold text-white">Sun Nha Trang & SeAH2</div>
-                    <p class="text-[11px] text-slate-300 leading-snug">
-                        • <strong>Sun Nha Trang:</strong> Đầu tháng 10 kết thúc sản xuất (còn 327 Seg).<br>
-                        • <strong>SeAH2:</strong> Thứ 6 tuần sau kết thúc sản xuất (còn 100 Seg).
+                    <div class="text-xs font-bold text-emerald-950">Sun Nha Trang & Hòa Phát</div>
+                    <p class="text-[11px] text-slate-700 leading-snug">
+                        • <strong>Sun Nha Trang:</strong> Đầu tháng 10 kết thúc sản xuất (còn 334 Seg).<br>
+                        • <strong>Hòa Phát:</strong> PO cuối hết đơn (đã đúc 681 Seg / 800 Seg, còn 119 Seg).
                     </p>
                 </div>
 
                 <!-- Note 2: Dự án mới chuẩn bị SX -->
-                <div class="p-3.5 rounded-lg bg-slate-900/90 border border-indigo-900/40 bg-indigo-950/10 space-y-1.5">
+                <div class="p-3.5 rounded-lg bg-purple-50/70 border border-purple-200 space-y-1.5">
                     <div class="flex items-center justify-between text-xs">
-                        <span class="text-indigo-400 font-semibold flex items-center gap-1">
-                            <i data-lucide="sparkles" class="w-3.5 h-3.5"></i> Dự Án Mới
+                        <span class="text-purple-800 font-semibold flex items-center gap-1">
+                            <i data-lucide="sparkles" class="w-3.5 h-3.5 text-purple-600"></i> Dự Án Mới
                         </span>
-                        <span class="badge-purple px-1.5 py-0.5 rounded text-[10px] font-bold">Thứ 2 (14/09)</span>
+                        <span class="badge-purple px-1.5 py-0.5 rounded text-[10px] font-bold">PO Mới</span>
                     </div>
-                    <div class="text-xs font-bold text-white">Hóa Chất DVL & Thanh Lộc</div>
-                    <p class="text-[11px] text-slate-300 leading-snug">
-                        • <strong>Hóa Chất DVL:</strong> PO mới 120 Seg, bắt đầu sản xuất vào thứ 2 (14/09).<br>
-                        • <strong>Thanh Lộc:</strong> Đã xong cọc thử, dự kiến tháng 10 đúc đại trà (DT).
+                    <div class="text-xs font-bold text-purple-950">SPL Nam Thuận & Hóa Chất DVL</div>
+                    <p class="text-[11px] text-slate-700 leading-snug">
+                        • <strong>SPL Nam Thuận:</strong> PO mới 380 Seg (D350A), nhu cầu 20 Seg/ngày.<br>
+                        • <strong>Hóa Chất DVL:</strong> PO 304 Seg, đã đúc 50 Seg, đáp ứng 100% sale req.
                     </p>
                 </div>
 
                 <!-- Note 3: Lưu ý cọc thử & công nợ -->
-                <div class="p-3.5 rounded-lg bg-slate-900/90 border border-amber-900/50 bg-amber-950/10 space-y-1.5">
+                <div class="p-3.5 rounded-lg bg-amber-50/70 border border-amber-200 space-y-1.5">
                     <div class="flex items-center justify-between text-xs">
-                        <span class="text-amber-400 font-semibold flex items-center gap-1">
-                            <i data-lucide="alert-circle" class="w-3.5 h-3.5"></i> Cần Lưu Ý
+                        <span class="text-amber-800 font-semibold flex items-center gap-1">
+                            <i data-lucide="alert-circle" class="w-3.5 h-3.5 text-amber-600"></i> Cần Lưu Ý
                         </span>
                         <span class="badge-warn px-1.5 py-0.5 rounded text-[10px] font-bold">Thanh Toán & Cọc</span>
                     </div>
-                    <div class="text-xs font-bold text-amber-200">Tôn Đông Á & Sun Vũng Tàu</div>
-                    <p class="text-[11px] text-slate-300 leading-snug">
-                        • <strong>Tôn Đông Á:</strong> Tạm giảm công suất do liên quan thanh toán.<br>
+                    <div class="text-xs font-bold text-amber-950">Tôn Đông Á & Sun Vũng Tàu</div>
+                    <p class="text-[11px] text-slate-700 leading-snug">
+                        • <strong>Tôn Đông Á:</strong> Tạm giảm công suất do liên quan thanh toán (thiếu 20 Seg).<br>
                         • <strong>Sun Vũng Tàu:</strong> Mới đặt cọc bot, đang cọc thử chưa quyết chiều dài.
                     </p>
                 </div>
 
                 <!-- Note 4: Các dự án đã hoàn thành -->
-                <div class="p-3.5 rounded-lg bg-slate-900/90 border border-blue-900/40 bg-blue-950/10 space-y-1.5">
+                <div class="p-3.5 rounded-lg bg-blue-50/70 border border-blue-200 space-y-1.5">
                     <div class="flex items-center justify-between text-xs">
-                        <span class="text-blue-400 font-semibold flex items-center gap-1">
-                            <i data-lucide="check-check" class="w-3.5 h-3.5"></i> Đã Xong 100% PO
+                        <span class="text-blue-800 font-semibold flex items-center gap-1">
+                            <i data-lucide="check-check" class="w-3.5 h-3.5 text-blue-600"></i> Đã Xong 100% PO
                         </span>
-                        <span class="badge-completed px-1.5 py-0.5 rounded text-[10px] font-bold">5 Dự Án</span>
+                        <span class="badge-completed px-1.5 py-0.5 rounded text-[10px] font-bold">2 Dự Án</span>
                     </div>
-                    <div class="text-xs font-bold text-white">Sân Bay Phan Thiết, Trung Nguyên...</div>
-                    <p class="text-[11px] text-slate-300 leading-snug">
-                        Đã đúc xong 100% PO: Phan Thiết (927), Trung Nguyên (150), Long Đức (52), Ninh Thuận (500), Thanh Lộc (23). Hòa Phát: PO Cuối hết đơn.
+                    <div class="text-xs font-bold text-blue-950">SeAH2 & Thanh Lộc</div>
+                    <p class="text-[11px] text-slate-700 leading-snug">
+                        • <strong>SeAH2:</strong> Xong 1,591 Seg (có thể phát sinh do khu vực chưa duyệt bản vẽ).<br>
+                        • <strong>Thanh Lộc:</strong> Xong cọc thử 27 Seg, dự kiến tháng 11 đúc đại trà (DT).
                     </p>
                 </div>
 
@@ -439,19 +441,19 @@
                 <div>
                     <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-4">
                         <div>
-                            <h2 class="text-base font-bold text-white flex items-center gap-2" id="chart-main-title">
-                                <i data-lucide="bar-chart-2" class="w-4 h-4 text-blue-400"></i>
+                            <h2 class="text-base font-bold text-slate-900 flex items-center gap-2" id="chart-main-title">
+                                <i data-lucide="bar-chart-2" class="w-4 h-4 text-blue-600"></i>
                                 <span>Phân Tích Tiến Độ Sản Xuất & Nhu Cầu Từng Dự Án</span>
                             </h2>
-                            <p class="text-xs text-slate-400 mt-0.5" id="chart-main-subtitle">So sánh Khối lượng PO (Xám), Đã đúc hoàn thành (Xanh) và Nhu cầu Sale Request (Đường Cam)</p>
+                            <p class="text-xs text-slate-500 mt-0.5" id="chart-main-subtitle">So sánh Khối lượng PO (Xám), Đã đúc hoàn thành (Xanh) và Nhu cầu Sale Request (Đường Cam)</p>
                         </div>
                         
                         <!-- Toggle Switchers -->
-                        <div class="inline-flex rounded-lg bg-slate-950 p-1 border border-slate-800 self-start sm:self-auto text-xs">
-                            <button id="btn-chart-combo" onclick="switchChartMode('combo')" class="px-2.5 py-1 font-semibold rounded bg-blue-600 text-white shadow-sm transition">
+                        <div class="inline-flex rounded-lg bg-slate-100 p-1 border border-slate-200 self-start sm:self-auto text-xs">
+                            <button id="btn-chart-combo" onclick="switchChartMode('combo')" class="px-2.5 py-1 font-semibold rounded bg-white text-blue-700 shadow-sm border border-slate-200/80 transition">
                                 Tổng PO & Đã Đúc
                             </button>
-                            <button id="btn-chart-demand" onclick="switchChartMode('demand')" class="px-2.5 py-1 font-semibold rounded text-slate-400 hover:text-slate-200 transition">
+                            <button id="btn-chart-demand" onclick="switchChartMode('demand')" class="px-2.5 py-1 font-semibold rounded text-slate-600 hover:text-slate-900 transition">
                                 Cân Đối Cung - Cầu (Ngày)
                             </button>
                         </div>
@@ -464,11 +466,11 @@
                 </div>
 
                 <!-- Dynamic Chart Legend / Footnote -->
-                <div class="mt-4 pt-3 border-t border-slate-800 flex flex-wrap items-center justify-between gap-3 text-xs text-slate-400">
+                <div class="mt-4 pt-3 border-t border-slate-100 flex flex-wrap items-center justify-between gap-3 text-xs text-slate-500">
                     <div class="flex items-center gap-4 flex-wrap" id="chart-legend-container">
                         <!-- Injected via JS -->
                     </div>
-                    <span class="text-slate-500 font-mono text-[11px]">*Đơn vị: Segment (Seg)</span>
+                    <span class="text-slate-400 font-mono text-[11px]">*Đơn vị: Segment (Seg)</span>
                 </div>
             </div>
 
@@ -476,11 +478,11 @@
             <div class="erp-card rounded-xl p-6 flex flex-col justify-between">
                 <div>
                     <div class="flex items-center justify-between mb-4">
-                        <h2 class="text-base font-bold text-white flex items-center gap-2">
-                            <i data-lucide="pie-chart" class="w-4 h-4 text-slate-400"></i>
+                        <h2 class="text-base font-bold text-slate-900 flex items-center gap-2">
+                            <i data-lucide="pie-chart" class="w-4 h-4 text-slate-600"></i>
                             <span>Phân Bổ Trạng Thái Đáp Ứng</span>
                         </h2>
-                        <span class="text-xs font-mono px-2 py-0.5 rounded bg-slate-800 text-slate-300 border border-slate-700">13 Dự Án</span>
+                        <span class="text-xs font-mono px-2 py-0.5 rounded bg-slate-100 text-slate-700 border border-slate-200">10 Dự Án</span>
                     </div>
 
                     <!-- Doughnut Canvas -->
@@ -488,8 +490,8 @@
                         <canvas id="statusDoughnutChart"></canvas>
                         <!-- Center Text -->
                         <div class="absolute flex flex-col items-center justify-center pointer-events-none text-center">
-                            <span class="text-[10.5px] text-slate-400 font-mono">ĐÁP ỨNG TB</span>
-                            <span class="text-xl font-bold font-mono text-emerald-400" id="doughnut-center-val">78.7%</span>
+                            <span class="text-[10.5px] text-slate-500 font-mono font-medium">ĐÁP ỨNG TB</span>
+                            <span class="text-xl font-bold font-mono text-emerald-600" id="doughnut-center-val">74.9%</span>
                         </div>
                     </div>
 
@@ -499,9 +501,9 @@
                     </div>
                 </div>
 
-                <div class="mt-4 pt-3 border-t border-slate-800 text-[11px] text-slate-400 flex items-center gap-1.5">
-                    <i data-lucide="info" class="w-3.5 h-3.5 text-blue-400 shrink-0"></i>
-                    <span id="doughnut-note">8 dự án hoàn thành 100% PO / đạt công suất, 4 dự án đáp ứng từ 50% - 99%.</span>
+                <div class="mt-4 pt-3 border-t border-slate-100 text-[11px] text-slate-500 flex items-center gap-1.5">
+                    <i data-lucide="info" class="w-3.5 h-3.5 text-blue-600 shrink-0"></i>
+                    <span id="doughnut-note">5 dự án hoàn thành 100% PO / đạt công suất, 4 dự án đáp ứng từ 50% - 99%.</span>
                 </div>
             </div>
 
@@ -511,15 +513,15 @@
         <section class="erp-card rounded-xl p-6 space-y-4">
             
             <!-- Table Header Controls & Search Bar -->
-            <div class="flex flex-col lg:flex-row lg:items-center justify-between gap-4 border-b border-slate-800 pb-4">
+            <div class="flex flex-col lg:flex-row lg:items-center justify-between gap-4 border-b border-slate-200 pb-4">
                 <!-- Title & Count -->
                 <div class="flex items-center gap-2.5">
-                    <div class="p-1.5 rounded bg-blue-950 text-blue-400 border border-blue-800/80">
+                    <div class="p-1.5 rounded bg-blue-50 text-blue-600 border border-blue-200">
                         <i data-lucide="table" class="w-4 h-4"></i>
                     </div>
                     <div>
-                        <h3 class="text-sm font-bold text-white uppercase tracking-wider">Chi Tiết Tình Trạng Từng Dự Án & Ghi Chú</h3>
-                        <p class="text-xs text-slate-400">Đối chiếu chi tiết tiến độ đúc, năng lực sản xuất, nhu cầu và ghi chú vận hành</p>
+                        <h3 class="text-sm font-bold text-slate-900 uppercase tracking-wider">Chi Tiết Tình Trạng Từng Dự Án & Ghi Chú</h3>
+                        <p class="text-xs text-slate-500">Đối chiếu chi tiết tiến độ đúc, năng lực sản xuất, nhu cầu và ghi chú vận hành</p>
                     </div>
                 </div>
 
@@ -532,14 +534,14 @@
                             id="table-search" 
                             onkeyup="handleSearch()"
                             placeholder="Tìm kiếm dự án, ghi chú, quy cách..." 
-                            class="w-full pl-9 pr-8 py-1.5 rounded-lg bg-slate-950 border border-slate-800 text-xs text-slate-200 placeholder-slate-500 focus:outline-none focus:border-blue-500 transition"
+                            class="w-full pl-9 pr-8 py-1.5 rounded-lg bg-white border border-slate-300 text-xs text-slate-800 placeholder-slate-400 focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500 transition shadow-sm"
                         >
-                        <button id="clear-search" onclick="clearSearch()" class="hidden absolute right-2.5 top-1/2 -translate-y-1/2 text-slate-400 hover:text-white">
+                        <button id="clear-search" onclick="clearSearch()" class="hidden absolute right-2.5 top-1/2 -translate-y-1/2 text-slate-400 hover:text-slate-700">
                             <i data-lucide="x" class="w-3.5 h-3.5"></i>
                         </button>
                     </div>
 
-                    <select id="status-filter" onchange="handleFilter()" class="py-1.5 px-3 rounded-lg bg-slate-950 border border-slate-800 text-xs text-slate-200 focus:outline-none focus:border-blue-500 transition">
+                    <select id="status-filter" onchange="handleFilter()" class="py-1.5 px-3 rounded-lg bg-white border border-slate-300 text-xs text-slate-800 focus:outline-none focus:border-blue-500 transition shadow-sm">
                         <option value="all">Tất Cả Trạng Thái</option>
                         <option value="success">Đạt Yêu Cầu (>=100%)</option>
                         <option value="warning">Cảnh Báo (50% - 99%)</option>
@@ -550,10 +552,10 @@
             </div>
 
             <!-- Main Detailed Table -->
-            <div class="overflow-x-auto rounded-lg border border-slate-800 bg-[#0B1120]">
+            <div class="overflow-x-auto rounded-lg border border-slate-200 bg-white">
                 <table class="w-full text-left text-xs border-collapse" id="projectTable">
                     <thead>
-                        <tr class="bg-slate-900 border-b border-slate-800 text-slate-300 uppercase tracking-wider font-semibold text-[11px]">
+                        <tr class="bg-slate-50 border-b border-slate-200 text-slate-700 uppercase tracking-wider font-semibold text-[11px]">
                             <th class="py-3 px-3 text-center w-12 sortable" onclick="sortTable('id')">
                                 <div class="flex items-center justify-center gap-1">STT <span id="sort-icon-id"></span></div>
                             </th>
@@ -593,23 +595,23 @@
                             <th class="py-3 px-3 text-center">Thao tác</th>
                         </tr>
                     </thead>
-                    <tbody id="tableBody" class="divide-y divide-slate-800/70 text-slate-300 font-normal">
+                    <tbody id="tableBody" class="divide-y divide-slate-200 text-slate-700 font-normal">
                         <!-- Injected via JS -->
                     </tbody>
-                    <tfoot id="tableFoot" class="bg-slate-900 font-bold text-white border-t-2 border-slate-700">
+                    <tfoot id="tableFoot" class="bg-slate-100 font-bold text-slate-900 border-t-2 border-slate-300">
                         <!-- Total Injected via JS -->
                     </tfoot>
                 </table>
             </div>
 
             <!-- Table Meta Info -->
-            <div class="flex flex-col sm:flex-row items-center justify-between gap-3 text-xs text-slate-400 pt-1">
-                <div id="table-record-count" class="font-mono">Hiển thị 13 / 13 dự án</div>
+            <div class="flex flex-col sm:flex-row items-center justify-between gap-3 text-xs text-slate-500 pt-1">
+                <div id="table-record-count" class="font-mono">Hiển thị 10 / 10 dự án</div>
                 <div class="flex items-center gap-2 flex-wrap text-[11px]">
-                    <span class="inline-flex items-center gap-1 px-2 py-0.5 rounded badge-ok">● Đạt / An toàn (>=100%)</span>
-                    <span class="inline-flex items-center gap-1 px-2 py-0.5 rounded badge-warn">▲ Cảnh Báo (50% - 99%)</span>
-                    <span class="inline-flex items-center gap-1 px-2 py-0.5 rounded badge-danger">✕ Thiếu Hụt (&lt;50%)</span>
-                    <span class="inline-flex items-center gap-1 px-2 py-0.5 rounded badge-completed">✓ Xong 100% PO</span>
+                    <span class="inline-flex items-center gap-1 px-2 py-0.5 rounded badge-ok font-medium">● Đạt / An toàn (>=100%)</span>
+                    <span class="inline-flex items-center gap-1 px-2 py-0.5 rounded badge-warn font-medium">▲ Cảnh Báo (50% - 99%)</span>
+                    <span class="inline-flex items-center gap-1 px-2 py-0.5 rounded badge-danger font-medium">✕ Thiếu Hụt (&lt;50%)</span>
+                    <span class="inline-flex items-center gap-1 px-2 py-0.5 rounded badge-completed font-medium">✓ Xong 100% PO</span>
                 </div>
             </div>
 
@@ -618,26 +620,26 @@
     </main>
 
     <!-- 7. LIVE STATUS BAR (MINIMALIST CORPORATE FOOTER) -->
-    <footer class="fixed bottom-0 inset-x-0 z-30 bg-[#0B1120] border-t border-slate-800 py-2 px-4 text-[11px] font-mono text-slate-400">
+    <footer class="fixed bottom-0 inset-x-0 z-30 bg-white/95 backdrop-blur-md border-t border-slate-200 py-2 px-4 text-[11px] font-mono text-slate-500 shadow-sm">
         <div class="max-w-7xl mx-auto flex flex-wrap items-center justify-between gap-3">
             
             <!-- Left: Engine Status -->
             <div class="flex items-center gap-3">
                 <div class="flex items-center gap-1.5">
                     <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
-                    <span class="text-slate-300 font-semibold">ERP ENGINE: REALTIME</span>
+                    <span class="text-slate-700 font-semibold">ERP ENGINE: REALTIME</span>
                 </div>
-                <span class="hidden md:inline text-slate-700">|</span>
-                <span class="hidden md:inline text-slate-400">FILE NGUỒN: <strong class="text-slate-200">PROJECT CONDITION1.xlsx</strong></span>
-                <span class="hidden md:inline text-slate-700">|</span>
-                <span class="hidden md:inline text-slate-400">SHEET: <strong class="text-blue-400">CONDITION PROJECT</strong></span>
+                <span class="hidden md:inline text-slate-300">|</span>
+                <span class="hidden md:inline text-slate-500">FILE NGUỒN: <strong class="text-slate-800">PROJECT CONDITION1.xlsx</strong></span>
+                <span class="hidden md:inline text-slate-300">|</span>
+                <span class="hidden md:inline text-slate-500">SHEET: <strong class="text-blue-600">CONDITION PROJECT</strong></span>
             </div>
 
             <!-- Right: Realtime clock -->
             <div class="flex items-center gap-4">
-                <span class="text-slate-400">TRẠNG THÁI: <strong class="text-emerald-400">ĐÃ ĐỒNG BỘ 13 DỰ ÁN</strong></span>
-                <div class="flex items-center gap-1 text-slate-200 bg-slate-900 px-2 py-0.5 rounded border border-slate-800 font-semibold">
-                    <i data-lucide="clock" class="w-3 h-3 text-slate-400"></i>
+                <span class="text-slate-500">TRẠNG THÁI: <strong class="text-emerald-600">ĐÃ ĐỒNG BỘ 10 DỰ ÁN (21-SEP)</strong></span>
+                <div class="flex items-center gap-1 text-slate-700 bg-slate-100 px-2 py-0.5 rounded border border-slate-200 font-semibold">
+                    <i data-lucide="clock" class="w-3 h-3 text-slate-500"></i>
                     <span id="footer-live-clock">--:--:--</span>
                 </div>
             </div>
@@ -645,21 +647,21 @@
     </footer>
 
     <!-- 8. PROJECT DETAILS & OPERATIONAL QUICK VIEW MODAL -->
-    <div id="projectModal" class="fixed inset-0 z-50 hidden flex items-center justify-center p-4 bg-slate-950/80 backdrop-blur-sm transition-all">
-        <div class="erp-card w-full max-w-xl rounded-xl border border-slate-700 shadow-2xl p-6 relative max-h-[90vh] overflow-y-auto">
+    <div id="projectModal" class="fixed inset-0 z-50 hidden flex items-center justify-center p-4 bg-slate-900/40 backdrop-blur-sm transition-all">
+        <div class="erp-card w-full max-w-xl rounded-xl border border-slate-200 shadow-2xl p-6 relative max-h-[90vh] overflow-y-auto bg-white">
             <div class="absolute top-4 right-4">
-                <button onclick="closeModal()" class="p-1.5 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-400 hover:text-white transition">
+                <button onclick="closeModal()" class="p-1.5 rounded-lg bg-slate-100 hover:bg-slate-200 text-slate-500 hover:text-slate-800 transition">
                     <i data-lucide="x" class="w-4 h-4"></i>
                 </button>
             </div>
 
             <div class="flex items-center gap-3 mb-5">
-                <div class="w-10 h-10 rounded-lg bg-blue-600 text-white flex items-center justify-center font-bold font-mono text-base" id="modal-idx">
+                <div class="w-10 h-10 rounded-lg bg-blue-600 text-white flex items-center justify-center font-bold font-mono text-base shadow-sm" id="modal-idx">
                     1
                 </div>
                 <div>
-                    <h3 class="text-lg font-bold text-white" id="modal-title">SUN NHA TRANG</h3>
-                    <p class="text-xs text-slate-400 font-mono" id="modal-dia">Quy cách cọc: D350A</p>
+                    <h3 class="text-lg font-bold text-slate-900" id="modal-title">SUN NHA TRANG</h3>
+                    <p class="text-xs text-slate-500 font-mono" id="modal-dia">Quy cách cọc: D350A</p>
                 </div>
             </div>
 
@@ -667,9 +669,9 @@
                 <!-- Injected via JS -->
             </div>
 
-            <div class="mt-5 pt-3.5 border-t border-slate-800 flex items-center justify-between">
-                <span class="text-[11px] text-slate-500 font-mono">Dữ liệu nguồn: Sheet CONDITION PROJECT</span>
-                <button onclick="closeModal()" class="px-4 py-1.5 rounded-lg bg-slate-800 hover:bg-slate-700 text-white text-xs font-semibold border border-slate-700 transition">
+            <div class="mt-5 pt-3.5 border-t border-slate-200 flex items-center justify-between">
+                <span class="text-[11px] text-slate-400 font-mono">Dữ liệu nguồn: Sheet CONDITION PROJECT (21-Sep)</span>
+                <button onclick="closeModal()" class="px-4 py-1.5 rounded-lg bg-slate-100 hover:bg-slate-200 text-slate-800 text-xs font-semibold border border-slate-300 transition">
                     Đóng
                 </button>
             </div>
@@ -679,21 +681,21 @@
     <!-- 9. JAVASCRIPT BUSINESS LOGIC -->
     <script>
         // ==========================================
-        // 1. DATA REPOSITORY: LATEST PROJECT CONDITION
+        // 1. DATA REPOSITORY: LATEST PROJECT CONDITION (21-Sep)
         // ==========================================
         const projectData = [
             { 
                 id: 1, 
                 name: "SUN NHA TRANG", 
                 dia: "D350A", 
-                po: 5429, 
-                remain: 327, 
-                pd: 5102, 
-                compRate: 5102 / 5429, // 93.98%
+                po: 5569, 
+                remain: 334, 
+                pd: 5235, 
+                compRate: 5235 / 5569, // 94.00%
                 saleReq: 30, 
-                capacity: 29, 
-                shortage: 1, 
-                meetRate: 29 / 30, // 96.67%
+                capacity: 23, 
+                shortage: 7, 
+                meetRate: 23 / 30, // 76.67%
                 note: "Đầu tháng 10 kết thúc sản xuất",
                 status: "warning" 
             },
@@ -702,69 +704,54 @@
                 name: "VAM CO PORT", 
                 dia: "D400A, D300A", 
                 po: 7655, 
-                remain: 2951, 
-                pd: 4704, 
-                compRate: 4704 / 7655, // 61.45%
+                remain: 2695, 
+                pd: 4960, 
+                compRate: 4960 / 7655, // 64.79%
                 saleReq: 50, 
-                capacity: 50, 
-                shortage: 0, 
-                meetRate: 1.0, // 100%
-                note: "Tiến độ theo dự án",
-                status: "success" 
-            },
-            { 
-                id: 3, 
-                name: "SEAH2", 
-                dia: "D400A, D500A", 
-                po: 1591, 
-                remain: 100, 
-                pd: 1491, 
-                compRate: 1491 / 1591, // 93.71%
-                saleReq: 16, 
-                capacity: 16, 
-                shortage: 0, 
-                meetRate: 1.0, // 100%
-                note: "Thứ 6 tuần sau kết thúc sản xuất",
-                status: "success" 
-            },
-            { 
-                id: 4, 
-                name: "SUN VUNGTAU", 
-                dia: "D400A", 
-                po: 600, 
-                remain: 515, 
-                pd: 85, 
-                compRate: 85 / 600, // 14.17%
-                saleReq: 30, 
-                capacity: 13, 
-                shortage: 17, 
-                meetRate: 13 / 30, // 43.33%
-                note: "Mới đặt cọc bot, đang cọc thử chưa quyết chiều dài",
-                status: "danger" 
-            },
-            { 
-                id: 5, 
-                name: "AQUA CITY", 
-                dia: "D300A, D350A", 
-                po: 1950, 
-                remain: 774, 
-                pd: 1176, 
-                compRate: 1176 / 1950, // 60.31%
-                saleReq: 45, 
-                capacity: 32, 
-                shortage: 13, 
-                meetRate: 32 / 45, // 71.11%
+                capacity: 45, 
+                shortage: 15, 
+                meetRate: 45 / 50, // 90.00%
                 note: "Tiến độ theo dự án",
                 status: "warning" 
             },
             { 
-                id: 6, 
+                id: 3, 
+                name: "SUN VUNGTAU", 
+                dia: "D400A", 
+                po: 600, 
+                remain: 416, 
+                pd: 184, 
+                compRate: 184 / 600, // 30.67%
+                saleReq: 30, 
+                capacity: 18, 
+                shortage: 12, 
+                meetRate: 18 / 30, // 60.00%
+                note: "Mới đặt cọc bot, đang cọc thử chưa quyết chiều dài",
+                status: "warning" 
+            },
+            { 
+                id: 4, 
+                name: "AQUA CITY", 
+                dia: "D300A, D350A", 
+                po: 1950, 
+                remain: 597, 
+                pd: 1353, 
+                compRate: 1353 / 1950, // 69.38%
+                saleReq: 45, 
+                capacity: 30, 
+                shortage: 15, 
+                meetRate: 30 / 45, // 66.67%
+                note: "Tiến độ theo dự án",
+                status: "warning" 
+            },
+            { 
+                id: 5, 
                 name: "HOAPHAT FACTORY", 
                 dia: "D500A", 
                 po: 800, 
-                remain: 231, 
-                pd: 569, 
-                compRate: 569 / 800, // 71.13%
+                remain: 119, 
+                pd: 681, 
+                compRate: 681 / 800, // 85.13%
                 saleReq: 20, 
                 capacity: 20, 
                 shortage: 0, 
@@ -773,7 +760,7 @@
                 status: "success" 
             },
             { 
-                id: 7, 
+                id: 6, 
                 name: "TON DONGA", 
                 dia: "D300A, D400A", 
                 po: 2419, 
@@ -781,113 +768,83 @@
                 pd: 493, 
                 compRate: 493 / 2419, // 20.38%
                 saleReq: 30, 
-                capacity: 15, 
-                shortage: 15, 
-                meetRate: 15 / 30, // 50%
+                capacity: 10, 
+                shortage: 20, 
+                meetRate: 10 / 30, // 33.33%
                 note: "Tạm giảm, liên quan đến thanh toán",
-                status: "warning" 
+                status: "danger" 
+            },
+            { 
+                id: 7, 
+                name: "HOA CHAT DVL", 
+                dia: "D300A, D400A", 
+                po: 304, 
+                remain: 254, 
+                pd: 50, 
+                compRate: 50 / 304, // 16.45%
+                saleReq: 10, 
+                capacity: 10, 
+                shortage: 0, 
+                meetRate: 1.0, // 100%
+                note: "",
+                status: "success" 
             },
             { 
                 id: 8, 
-                name: "HOA CHAT DVL", 
-                dia: "D300A, D400A", 
-                po: 120, 
-                remain: 120, 
+                name: "SPL NAMTHUAN", 
+                dia: "D350A", 
+                po: 380, 
+                remain: 380, 
                 pd: 0, 
-                compRate: 0.0, 
-                saleReq: 10, 
-                capacity: 5, 
-                shortage: 5, 
-                meetRate: 5 / 10, // 50%
-                note: "Mới, bắt đầu sản xuất vào thứ 2 (14/09)",
-                status: "warning" 
+                compRate: 0.0, // 0.00%
+                saleReq: 20, 
+                capacity: 20, 
+                shortage: 0, 
+                meetRate: 1.0, // 100%
+                note: "Dự án mới",
+                status: "success" 
             },
             { 
                 id: 9, 
-                name: "PHANTHIET AIRPORT", 
-                dia: "D300A", 
-                po: 927, 
+                name: "SEAH2", 
+                dia: "D400A, D500A", 
+                po: 1591, 
                 remain: 0, 
-                pd: 927, 
+                pd: 1591, 
                 compRate: 1.0, 
                 saleReq: 0, 
                 capacity: 0, 
                 shortage: 0, 
                 meetRate: null, 
-                note: "Xong",
+                note: "Xong - Có thể phát sinh do còn kv chưa duyệt bản vẽ",
                 status: "completed" 
             },
             { 
                 id: 10, 
-                name: "TRUNG NGUYÊN COFFEE", 
-                dia: "D300A", 
-                po: 150, 
-                remain: 0, 
-                pd: 150, 
-                compRate: 1.0, 
-                saleReq: 0, 
-                capacity: 0, 
-                shortage: 0, 
-                meetRate: null, 
-                note: "Xong",
-                status: "completed" 
-            },
-            { 
-                id: 11, 
-                name: "LONGDUC (TNT)", 
-                dia: "D400A", 
-                po: 52, 
-                remain: 0, 
-                pd: 52, 
-                compRate: 1.0, 
-                saleReq: 0, 
-                capacity: 0, 
-                shortage: 0, 
-                meetRate: null, 
-                note: "Xong",
-                status: "completed" 
-            },
-            { 
-                id: 12, 
-                name: "NINHTHUAN FACTORY", 
-                dia: "D350A", 
-                po: 500, 
-                remain: 0, 
-                pd: 500, 
-                compRate: 1.0, 
-                saleReq: 0, 
-                capacity: 0, 
-                shortage: 0, 
-                meetRate: null, 
-                note: "Xong",
-                status: "completed" 
-            },
-            { 
-                id: 13, 
                 name: "THANH LOC", 
                 dia: "D600A", 
-                po: 23, 
+                po: 27, 
                 remain: 0, 
-                pd: 23, 
+                pd: 27, 
                 compRate: 1.0, 
                 saleReq: 0, 
                 capacity: 0, 
                 shortage: 0, 
                 meetRate: null, 
-                note: "Xong cọc thử - Dự kiến tháng 10 DT",
+                note: "Xong cọc thử - Dự kiến tháng 11 DT",
                 status: "completed" 
             }
         ];
 
         const summaryData = {
-            po: 22216,
-            remain: 6944,
-            pd: 15272,
-            compRate: 15272 / 22216, // 68.74%
-            saleReq: 239,
-            capacity: 188,
-            shortage: 51,
-            meetRate: 188 / 239 // 78.66%
+            po: 21295,
+            remain: 6721,
+            pd: 14574,
+            compRate: 14574 / 21295, // 68.44%
+            saleReq: 235,
+            capacity: 176,
+            shortage: 69,
+            meetRate: 176 / 235 // 74.89%
         };
 
         // State variables
@@ -933,24 +890,25 @@
 
         // Format Note Badge
         function getNoteBadge(note, status, item) {
-            if (!note || note.trim() === '') return '<span class="text-slate-600">-</span>';
+            if (!note || note.trim() === '') return '<span class="text-slate-400">-</span>';
             
             let icon = 'info';
             let colorClass = 'badge-note';
             
-            if (note.toLowerCase().includes('xong') || status === 'completed') {
+            const lower = note.toLowerCase();
+            if (lower.includes('xong') || status === 'completed') {
                 icon = 'check-circle-2';
                 colorClass = 'badge-completed';
-            } else if (note.toLowerCase().includes('thanh toán') || note.toLowerCase().includes('tạm giảm')) {
+            } else if (lower.includes('thanh toán') || lower.includes('tạm giảm')) {
                 icon = 'alert-triangle';
                 colorClass = 'badge-danger';
-            } else if (note.toLowerCase().includes('mới') || note.toLowerCase().includes('thứ 2')) {
+            } else if (lower.includes('mới') || lower.includes('dự án mới')) {
                 icon = 'sparkles';
                 colorClass = 'badge-purple';
-            } else if (note.toLowerCase().includes('kết thúc sản xuất') || note.toLowerCase().includes('đầu tháng 10')) {
+            } else if (lower.includes('kết thúc sản xuất') || lower.includes('đầu tháng 10') || lower.includes('hết đơn')) {
                 icon = 'flag';
                 colorClass = 'badge-ok';
-            } else if (note.toLowerCase().includes('cọc thử') || note.toLowerCase().includes('cọc bot')) {
+            } else if (lower.includes('cọc thử') || lower.includes('cọc bot')) {
                 icon = 'help-circle';
                 colorClass = 'badge-warn';
             }
@@ -1004,7 +962,7 @@
             if (data.length === 0) {
                 tbody.innerHTML = `
                     <tr>
-                        <td colspan="13" class="py-8 text-center text-slate-500 font-mono">
+                        <td colspan="13" class="py-8 text-center text-slate-400 font-mono">
                             <i data-lucide="inbox" class="w-7 h-7 mx-auto mb-1.5 opacity-40"></i>
                             Không có kết quả nào phù hợp với bộ lọc tìm kiếm.
                         </td>
@@ -1018,32 +976,32 @@
 
             tbody.innerHTML = data.map((item) => {
                 const compPercent = item.compRate * 100;
-                const remainClass = item.remain === 0 ? 'text-emerald-400 font-semibold' : 'text-slate-200';
-                const shortageClass = item.shortage > 0 ? 'text-rose-400 font-semibold' : 'text-slate-500';
+                const remainClass = item.remain === 0 ? 'text-emerald-600 font-semibold' : 'text-slate-800 font-medium';
+                const shortageClass = item.shortage > 0 ? 'text-rose-600 font-semibold' : 'text-slate-400';
                 
                 return `
-                    <tr class="table-row-hover cursor-pointer" onclick="openModal(${item.id})">
-                        <td class="py-3 px-3 text-center font-mono text-slate-400">${item.id}</td>
-                        <td class="py-3 px-4 font-semibold text-white">
+                    <tr class="table-row-hover cursor-pointer transition-colors" onclick="openModal(${item.id})">
+                        <td class="py-3 px-3 text-center font-mono text-slate-500">${item.id}</td>
+                        <td class="py-3 px-4 font-semibold text-slate-900">
                             ${item.name}
-                            ${item.remain === 0 && item.po > 0 ? '<span class="ml-1.5 px-1.5 py-0.2 rounded text-[10px] bg-blue-950 text-blue-300 border border-blue-800">100% PO</span>' : ''}
+                            ${item.remain === 0 && item.po > 0 ? '<span class="ml-1.5 px-1.5 py-0.2 rounded text-[10px] bg-blue-50 text-blue-700 border border-blue-200">100% PO</span>' : ''}
                         </td>
-                        <td class="py-3 px-3.5 text-slate-300">
-                            <span class="px-1.5 py-0.5 rounded bg-slate-900 text-[11px] font-mono text-slate-300 border border-slate-800">${item.dia}</span>
+                        <td class="py-3 px-3.5 text-slate-600">
+                            <span class="px-1.5 py-0.5 rounded bg-slate-100 text-[11px] font-mono text-slate-700 border border-slate-200">${item.dia}</span>
                         </td>
-                        <td class="py-3 px-3.5 text-right font-mono font-medium text-slate-200">${formatNumber(item.po)}</td>
+                        <td class="py-3 px-3.5 text-right font-mono font-medium text-slate-800">${formatNumber(item.po)}</td>
                         <td class="py-3 px-3.5 text-right font-mono ${remainClass}">${formatNumber(item.remain)}</td>
-                        <td class="py-3 px-3.5 text-right font-mono font-semibold text-blue-400">${formatNumber(item.pd)}</td>
+                        <td class="py-3 px-3.5 text-right font-mono font-semibold text-blue-600">${formatNumber(item.pd)}</td>
                         <td class="py-3 px-4">
                             <div class="flex items-center gap-2">
-                                <div class="w-12 bg-slate-800 rounded-full h-1.5 overflow-hidden">
-                                    <div class="bg-blue-500 h-1.5 rounded-full" style="width: ${Math.min(compPercent, 100)}%"></div>
+                                <div class="w-12 bg-slate-100 rounded-full h-1.5 overflow-hidden">
+                                    <div class="bg-blue-600 h-1.5 rounded-full" style="width: ${Math.min(compPercent, 100)}%"></div>
                                 </div>
-                                <span class="font-mono text-[11px] text-slate-300">${formatPercent(item.compRate)}</span>
+                                <span class="font-mono text-[11px] text-slate-600">${formatPercent(item.compRate)}</span>
                             </div>
                         </td>
-                        <td class="py-3 px-3.5 text-right font-mono text-slate-300">${formatNumber(item.saleReq)}</td>
-                        <td class="py-3 px-3.5 text-right font-mono text-slate-200">${formatNumber(item.capacity)}</td>
+                        <td class="py-3 px-3.5 text-right font-mono text-slate-700">${formatNumber(item.saleReq)}</td>
+                        <td class="py-3 px-3.5 text-right font-mono text-slate-800 font-medium">${formatNumber(item.capacity)}</td>
                         <td class="py-3 px-3.5 text-right font-mono ${shortageClass}">${formatNumber(item.shortage)}</td>
                         <td class="py-3 px-4 text-center">
                             ${getMeetRateBadge(item.meetRate, item.status)}
@@ -1052,7 +1010,7 @@
                             ${getNoteBadge(item.note, item.status, item)}
                         </td>
                         <td class="py-3 px-3 text-center" onclick="event.stopPropagation()">
-                            <button onclick="openModal(${item.id})" class="p-1 rounded hover:bg-slate-800 text-slate-400 hover:text-blue-400 transition" title="Xem chi tiết dự án">
+                            <button onclick="openModal(${item.id})" class="p-1 rounded hover:bg-slate-100 text-slate-400 hover:text-blue-600 transition" title="Xem chi tiết dự án">
                                 <i data-lucide="eye" class="w-4 h-4"></i>
                             </button>
                         </td>
@@ -1062,31 +1020,31 @@
 
             // TOTAL Row
             tfoot.innerHTML = `
-                <tr class="text-white text-xs">
-                    <td class="py-3.5 px-3 text-center font-bold text-slate-400 font-mono">∑</td>
-                    <td class="py-3.5 px-4 font-bold uppercase tracking-wider text-slate-200">TOTAL (TỔNG CỘNG)</td>
-                    <td class="py-3.5 px-3.5 text-slate-400 italic text-[11px]">Tất cả quy cách</td>
-                    <td class="py-3.5 px-3.5 text-right font-mono font-bold text-white">${formatNumber(summaryData.po)}</td>
-                    <td class="py-3.5 px-3.5 text-right font-mono font-bold text-slate-200">${formatNumber(summaryData.remain)}</td>
-                    <td class="py-3.5 px-3.5 text-right font-mono font-bold text-blue-400">${formatNumber(summaryData.pd)}</td>
+                <tr class="text-slate-900 text-xs">
+                    <td class="py-3.5 px-3 text-center font-bold text-slate-500 font-mono">∑</td>
+                    <td class="py-3.5 px-4 font-bold uppercase tracking-wider text-slate-900">TOTAL (TỔNG CỘNG)</td>
+                    <td class="py-3.5 px-3.5 text-slate-500 italic text-[11px]">Tất cả quy cách</td>
+                    <td class="py-3.5 px-3.5 text-right font-mono font-bold text-slate-900">${formatNumber(summaryData.po)}</td>
+                    <td class="py-3.5 px-3.5 text-right font-mono font-bold text-slate-800">${formatNumber(summaryData.remain)}</td>
+                    <td class="py-3.5 px-3.5 text-right font-mono font-bold text-blue-600">${formatNumber(summaryData.pd)}</td>
                     <td class="py-3.5 px-4">
                         <div class="flex items-center gap-2">
-                            <div class="w-12 bg-slate-800 rounded-full h-1.5 overflow-hidden">
-                                <div class="bg-blue-500 h-1.5 rounded-full" style="width: ${(summaryData.compRate * 100).toFixed(1)}%"></div>
+                            <div class="w-12 bg-slate-200 rounded-full h-1.5 overflow-hidden">
+                                <div class="bg-blue-600 h-1.5 rounded-full" style="width: ${(summaryData.compRate * 100).toFixed(1)}%"></div>
                             </div>
-                            <span class="font-bold font-mono text-slate-200">${formatPercent(summaryData.compRate)}</span>
+                            <span class="font-bold font-mono text-slate-800">${formatPercent(summaryData.compRate)}</span>
                         </div>
                     </td>
-                    <td class="py-3.5 px-3.5 text-right font-mono font-bold text-white">${formatNumber(summaryData.saleReq)}</td>
-                    <td class="py-3.5 px-3.5 text-right font-mono font-bold text-slate-200">${formatNumber(summaryData.capacity)}</td>
-                    <td class="py-3.5 px-3.5 text-right font-mono font-bold ${summaryData.shortage > 0 ? 'text-rose-400' : 'text-slate-300'}">${formatNumber(summaryData.shortage)}</td>
+                    <td class="py-3.5 px-3.5 text-right font-mono font-bold text-slate-900">${formatNumber(summaryData.saleReq)}</td>
+                    <td class="py-3.5 px-3.5 text-right font-mono font-bold text-slate-800">${formatNumber(summaryData.capacity)}</td>
+                    <td class="py-3.5 px-3.5 text-right font-mono font-bold ${summaryData.shortage > 0 ? 'text-rose-600' : 'text-slate-700'}">${formatNumber(summaryData.shortage)}</td>
                     <td class="py-3.5 px-4 text-center">
-                        <span class="inline-flex items-center px-2.5 py-0.5 rounded text-xs font-bold bg-slate-800 text-emerald-400 border border-slate-700">
+                        <span class="inline-flex items-center px-2.5 py-0.5 rounded text-xs font-bold bg-emerald-50 text-emerald-700 border border-emerald-200">
                             ${formatPercent(summaryData.meetRate)} (TB)
                         </span>
                     </td>
-                    <td class="py-3.5 px-4 text-slate-400 text-[11px] font-medium">13 dự án ghi nhận</td>
-                    <td class="py-3.5 px-3 text-center text-slate-500">-</td>
+                    <td class="py-3.5 px-4 text-slate-500 text-[11px] font-medium">10 dự án ghi nhận (21-Sep)</td>
+                    <td class="py-3.5 px-3 text-center text-slate-400">-</td>
                 </tr>
             `;
 
@@ -1182,7 +1140,7 @@
         }
 
         // ==========================================
-        // 6. CHART CONFIGURATION
+        // 6. CHART CONFIGURATION (LIGHT THEME)
         // ==========================================
         function initMainChart() {
             const ctx = document.getElementById('mainComboChart').getContext('2d');
@@ -1200,7 +1158,7 @@
                         {
                             label: 'PO Received (Seg)',
                             data: poData,
-                            backgroundColor: '#475569',
+                            backgroundColor: '#94A3B8',
                             hoverBackgroundColor: '#64748B',
                             borderRadius: 4,
                             order: 2,
@@ -1210,7 +1168,7 @@
                             label: 'PD Completion (Seg)',
                             data: pdData,
                             backgroundColor: '#2563EB',
-                            hoverBackgroundColor: '#3B82F6',
+                            hoverBackgroundColor: '#1D4ED8',
                             borderRadius: 4,
                             order: 3,
                             yAxisID: 'y'
@@ -1219,13 +1177,13 @@
                             label: 'Sale Request (Seg/ngày)',
                             data: saleReqData,
                             type: 'line',
-                            borderColor: '#D97706',
+                            borderColor: '#EA580C',
                             backgroundColor: 'transparent',
                             borderWidth: 2.5,
-                            pointBackgroundColor: '#D97706',
-                            pointBorderColor: '#0F172A',
-                            pointBorderWidth: 1.5,
-                            pointRadius: 4,
+                            pointBackgroundColor: '#EA580C',
+                            pointBorderColor: '#FFFFFF',
+                            pointBorderWidth: 2,
+                            pointRadius: 4.5,
                             tension: 0.25,
                             order: 1,
                             yAxisID: 'y1'
@@ -1242,10 +1200,10 @@
                     plugins: {
                         legend: { display: false },
                         tooltip: {
-                            backgroundColor: '#0B1120',
-                            titleColor: '#F8FAFC',
-                            bodyColor: '#CBD5E1',
-                            borderColor: '#1E293B',
+                            backgroundColor: '#0F172A',
+                            titleColor: '#FFFFFF',
+                            bodyColor: '#E2E8F0',
+                            borderColor: '#334155',
                             borderWidth: 1,
                             padding: 12,
                             boxPadding: 6,
@@ -1264,24 +1222,24 @@
                     },
                     scales: {
                         x: {
-                            grid: { color: '#1E293B', drawBorder: false },
-                            ticks: { color: '#94A3B8', font: { size: 10, family: 'Inter' }, maxRotation: 35, minRotation: 20 }
+                            grid: { color: '#E2E8F0', drawBorder: false },
+                            ticks: { color: '#475569', font: { size: 10, family: 'Inter', weight: '500' }, maxRotation: 35, minRotation: 20 }
                         },
                         y: {
                             type: 'linear',
                             display: true,
                             position: 'left',
-                            title: { display: true, text: 'Khối lượng Tổng PO & Hoàn thành (Seg)', color: '#64748B', font: { size: 10.5 } },
-                            grid: { color: '#1E293B', drawBorder: false },
-                            ticks: { color: '#94A3B8', font: { size: 10.5, family: 'JetBrains Mono' } }
+                            title: { display: true, text: 'Khối lượng Tổng PO & Hoàn thành (Seg)', color: '#64748B', font: { size: 10.5, weight: '500' } },
+                            grid: { color: '#E2E8F0', drawBorder: false },
+                            ticks: { color: '#475569', font: { size: 10.5, family: 'JetBrains Mono' } }
                         },
                         y1: {
                             type: 'linear',
                             display: true,
                             position: 'right',
-                            title: { display: true, text: 'Sale Request (Seg/ngày)', color: '#D97706', font: { size: 10.5 } },
+                            title: { display: true, text: 'Sale Request (Seg/ngày)', color: '#EA580C', font: { size: 10.5, weight: '500' } },
                             grid: { drawOnChartArea: false },
-                            ticks: { color: '#D97706', font: { size: 10.5, family: 'JetBrains Mono' } },
+                            ticks: { color: '#EA580C', font: { size: 10.5, family: 'JetBrains Mono' } },
                             min: 0,
                             max: 60
                         }
@@ -1300,14 +1258,14 @@
             const subtitleEl = document.getElementById('chart-main-subtitle');
 
             [btnCombo, btnDemand].forEach(b => {
-                if (b) b.className = 'px-2.5 py-1 font-semibold rounded text-slate-400 hover:text-slate-200 transition';
+                if (b) b.className = 'px-2.5 py-1 font-semibold rounded text-slate-600 hover:text-slate-900 transition';
             });
 
             const labels = projectData.map(p => p.name);
 
             if (mode === 'combo') {
-                btnCombo.className = 'px-2.5 py-1 font-semibold rounded bg-blue-600 text-white shadow-sm transition';
-                titleEl.innerHTML = `<i data-lucide="bar-chart-2" class="w-4 h-4 text-blue-400"></i><span>Phân Tích Tiến Độ Sản Xuất & Nhu Cầu Từng Dự Án</span>`;
+                btnCombo.className = 'px-2.5 py-1 font-semibold rounded bg-white text-blue-700 shadow-sm border border-slate-200/80 transition';
+                titleEl.innerHTML = `<i data-lucide="bar-chart-2" class="w-4 h-4 text-blue-600"></i><span>Phân Tích Tiến Độ Sản Xuất & Nhu Cầu Từng Dự Án</span>`;
                 subtitleEl.textContent = 'So sánh Khối lượng PO (Xám), Đã đúc hoàn thành (Xanh) và Nhu cầu Sale Request (Đường Cam)';
 
                 comboChartInstance.data.labels = labels;
@@ -1315,7 +1273,7 @@
                     {
                         label: 'PO Received (Seg)',
                         data: projectData.map(p => p.po),
-                        backgroundColor: '#475569',
+                        backgroundColor: '#94A3B8',
                         hoverBackgroundColor: '#64748B',
                         borderRadius: 4,
                         order: 2,
@@ -1325,7 +1283,7 @@
                         label: 'PD Completion (Seg)',
                         data: projectData.map(p => p.pd),
                         backgroundColor: '#2563EB',
-                        hoverBackgroundColor: '#3B82F6',
+                        hoverBackgroundColor: '#1D4ED8',
                         borderRadius: 4,
                         order: 3,
                         yAxisID: 'y'
@@ -1334,13 +1292,13 @@
                         label: 'Sale Request (Seg/ngày)',
                         data: projectData.map(p => p.saleReq),
                         type: 'line',
-                        borderColor: '#D97706',
+                        borderColor: '#EA580C',
                         backgroundColor: 'transparent',
                         borderWidth: 2.5,
-                        pointBackgroundColor: '#D97706',
-                        pointBorderColor: '#0F172A',
-                        pointBorderWidth: 1.5,
-                        pointRadius: 4,
+                        pointBackgroundColor: '#EA580C',
+                        pointBorderColor: '#FFFFFF',
+                        pointBorderWidth: 2,
+                        pointRadius: 4.5,
                         tension: 0.25,
                         order: 1,
                         yAxisID: 'y1'
@@ -1351,18 +1309,18 @@
                 updateChartLegend('combo');
 
             } else if (mode === 'demand') {
-                btnDemand.className = 'px-2.5 py-1 font-semibold rounded bg-blue-600 text-white shadow-sm transition';
-                titleEl.innerHTML = `<i data-lucide="scale" class="w-4 h-4 text-emerald-400"></i><span>Cân Đối Cung - Cầu & Thiếu Hụt Theo Ngày</span>`;
+                btnDemand.className = 'px-2.5 py-1 font-semibold rounded bg-white text-blue-700 shadow-sm border border-slate-200/80 transition';
+                titleEl.innerHTML = `<i data-lucide="scale" class="w-4 h-4 text-emerald-600"></i><span>Cân Đối Cung - Cầu & Thiếu Hụt Theo Ngày</span>`;
                 subtitleEl.textContent = 'Nhu cầu xuất hàng (Xám) vs Năng lực sản xuất thực tế (Xanh) vs Thiếu hụt (Đỏ)';
 
-                const shortageColors = projectData.map(p => p.shortage > 0 ? '#EF4444' : '#334155');
+                const shortageColors = projectData.map(p => p.shortage > 0 ? '#EF4444' : '#E2E8F0');
 
                 comboChartInstance.data.labels = labels;
                 comboChartInstance.data.datasets = [
                     {
                         label: 'Nhu Cầu Xuất (Seg/ngày)',
                         data: projectData.map(p => p.saleReq),
-                        backgroundColor: '#64748B',
+                        backgroundColor: '#94A3B8',
                         borderRadius: 4,
                         yAxisID: 'y'
                     },
@@ -1394,13 +1352,13 @@
             const legendContainer = document.getElementById('chart-legend-container');
             if (mode === 'combo') {
                 legendContainer.innerHTML = `
-                    <span class="flex items-center gap-1.5"><span class="w-3 h-3 rounded-sm bg-[#475569]"></span> PO Received</span>
+                    <span class="flex items-center gap-1.5"><span class="w-3 h-3 rounded-sm bg-[#94A3B8]"></span> PO Received</span>
                     <span class="flex items-center gap-1.5"><span class="w-3 h-3 rounded-sm bg-[#2563EB]"></span> PD Completion</span>
-                    <span class="flex items-center gap-1.5"><span class="w-3.5 h-1 bg-[#D97706] rounded"></span> Sale Request (Seg/ngày)</span>
+                    <span class="flex items-center gap-1.5"><span class="w-3.5 h-1 bg-[#EA580C] rounded"></span> Sale Request (Seg/ngày)</span>
                 `;
             } else if (mode === 'demand') {
                 legendContainer.innerHTML = `
-                    <span class="flex items-center gap-1.5"><span class="w-3 h-3 rounded-sm bg-[#64748B]"></span> Sale Request</span>
+                    <span class="flex items-center gap-1.5"><span class="w-3 h-3 rounded-sm bg-[#94A3B8]"></span> Sale Request</span>
                     <span class="flex items-center gap-1.5"><span class="w-3 h-3 rounded-sm bg-[#2563EB]"></span> Production Capacity</span>
                     <span class="flex items-center gap-1.5"><span class="w-3 h-3 rounded-sm bg-[#EF4444]"></span> Shortage (Thiếu hụt)</span>
                 `;
@@ -1408,7 +1366,7 @@
         }
 
         // ==========================================
-        // 7. DOUGHNUT STATUS CHART
+        // 7. DOUGHNUT STATUS CHART (LIGHT THEME)
         // ==========================================
         function initDoughnutChart() {
             const ctx = document.getElementById('statusDoughnutChart').getContext('2d');
@@ -1425,7 +1383,7 @@
                     datasets: [{
                         data: [successCount, warningCount, dangerCount],
                         backgroundColor: ['#10B981', '#F59E0B', '#EF4444'],
-                        borderColor: '#0F172A',
+                        borderColor: '#FFFFFF',
                         borderWidth: 2,
                         hoverOffset: 4
                     }]
@@ -1437,8 +1395,10 @@
                     plugins: {
                         legend: { display: false },
                         tooltip: {
-                            backgroundColor: '#0B1120',
-                            borderColor: '#1E293B',
+                            backgroundColor: '#0F172A',
+                            titleColor: '#FFFFFF',
+                            bodyColor: '#E2E8F0',
+                            borderColor: '#334155',
                             borderWidth: 1,
                             padding: 10,
                             callbacks: {
@@ -1457,26 +1417,26 @@
         function updateDoughnutBreakdown(succ, warn, dang, total) {
             const listEl = document.getElementById('doughnut-breakdown-list');
             listEl.innerHTML = `
-                <div class="flex items-center justify-between p-2 rounded-lg bg-slate-900/80 border border-slate-800 text-xs">
+                <div class="flex items-center justify-between p-2 rounded-lg bg-slate-50 border border-slate-200 text-xs">
                     <div class="flex items-center gap-2">
                         <span class="w-2.5 h-2.5 rounded-sm bg-emerald-500"></span>
-                        <span class="text-slate-300">Đạt 100% / Hoàn tất</span>
+                        <span class="text-slate-700">Đạt 100% / Hoàn tất</span>
                     </div>
-                    <span class="font-mono font-bold text-emerald-400">${succ} dự án (${((succ/total)*100).toFixed(1)}%)</span>
+                    <span class="font-mono font-bold text-emerald-700">${succ} dự án (${((succ/total)*100).toFixed(1)}%)</span>
                 </div>
-                <div class="flex items-center justify-between p-2 rounded-lg bg-slate-900/80 border border-slate-800 text-xs">
+                <div class="flex items-center justify-between p-2 rounded-lg bg-slate-50 border border-slate-200 text-xs">
                     <div class="flex items-center gap-2">
                         <span class="w-2.5 h-2.5 rounded-sm bg-amber-500"></span>
-                        <span class="text-slate-300">Đáp ứng 50% - 99%</span>
+                        <span class="text-slate-700">Đáp ứng 50% - 99%</span>
                     </div>
-                    <span class="font-mono font-bold text-amber-400">${warn} dự án (${((warn/total)*100).toFixed(1)}%)</span>
+                    <span class="font-mono font-bold text-amber-700">${warn} dự án (${((warn/total)*100).toFixed(1)}%)</span>
                 </div>
-                <div class="flex items-center justify-between p-2 rounded-lg bg-slate-900/80 border border-slate-800 text-xs">
+                <div class="flex items-center justify-between p-2 rounded-lg bg-slate-50 border border-slate-200 text-xs">
                     <div class="flex items-center gap-2">
                         <span class="w-2.5 h-2.5 rounded-sm bg-rose-500"></span>
-                        <span class="text-slate-300">Thiếu hụt (&lt;50%)</span>
+                        <span class="text-slate-700">Thiếu hụt (&lt;50%)</span>
                     </div>
-                    <span class="font-mono font-bold text-rose-400">${dang} dự án (${((dang/total)*100).toFixed(1)}%)</span>
+                    <span class="font-mono font-bold text-rose-700">${dang} dự án (${((dang/total)*100).toFixed(1)}%)</span>
                 </div>
             `;
         }
@@ -1496,68 +1456,68 @@
             modalContent.innerHTML = `
                 <!-- Main Numbers Grid -->
                 <div class="grid grid-cols-2 sm:grid-cols-4 gap-2.5">
-                    <div class="p-2.5 rounded-lg bg-slate-900 border border-slate-800">
-                        <span class="text-slate-400 text-[10px] uppercase font-mono">PO Đã Nhận</span>
-                        <p class="text-sm font-bold text-white mt-0.5 font-mono">${formatNumber(item.po)} Seg</p>
+                    <div class="p-2.5 rounded-lg bg-slate-50 border border-slate-200">
+                        <span class="text-slate-500 text-[10px] uppercase font-mono">PO Đã Nhận</span>
+                        <p class="text-sm font-bold text-slate-900 mt-0.5 font-mono">${formatNumber(item.po)} Seg</p>
                     </div>
-                    <div class="p-2.5 rounded-lg bg-slate-900 border border-slate-800">
-                        <span class="text-slate-400 text-[10px] uppercase font-mono">Đã Đúc (PD)</span>
-                        <p class="text-sm font-bold text-blue-400 mt-0.5 font-mono">${formatNumber(item.pd)} Seg</p>
+                    <div class="p-2.5 rounded-lg bg-slate-50 border border-slate-200">
+                        <span class="text-slate-500 text-[10px] uppercase font-mono">Đã Đúc (PD)</span>
+                        <p class="text-sm font-bold text-blue-600 mt-0.5 font-mono">${formatNumber(item.pd)} Seg</p>
                     </div>
-                    <div class="p-2.5 rounded-lg bg-slate-900 border border-slate-800">
-                        <span class="text-slate-400 text-[10px] uppercase font-mono">Còn Lại (Remain)</span>
-                        <p class="text-sm font-bold ${item.remain === 0 ? 'text-emerald-400' : 'text-slate-200'} mt-0.5 font-mono">${formatNumber(item.remain)} Seg</p>
+                    <div class="p-2.5 rounded-lg bg-slate-50 border border-slate-200">
+                        <span class="text-slate-500 text-[10px] uppercase font-mono">Còn Lại (Remain)</span>
+                        <p class="text-sm font-bold ${item.remain === 0 ? 'text-emerald-600' : 'text-slate-800'} mt-0.5 font-mono">${formatNumber(item.remain)} Seg</p>
                     </div>
-                    <div class="p-2.5 rounded-lg bg-slate-900 border border-slate-800">
-                        <span class="text-slate-400 text-[10px] uppercase font-mono">Tỷ Lệ Hoàn Thành</span>
-                        <p class="text-sm font-bold text-slate-200 mt-0.5 font-mono">${formatPercent(item.compRate)}</p>
+                    <div class="p-2.5 rounded-lg bg-slate-50 border border-slate-200">
+                        <span class="text-slate-500 text-[10px] uppercase font-mono">Tỷ Lệ Hoàn Thành</span>
+                        <p class="text-sm font-bold text-slate-800 mt-0.5 font-mono">${formatPercent(item.compRate)}</p>
                     </div>
                 </div>
 
                 <!-- Operational Notes Section -->
-                <div class="p-3 rounded-lg bg-slate-900/90 border border-amber-900/40 bg-amber-950/10 space-y-1.5">
-                    <div class="flex items-center gap-1.5 text-xs font-semibold text-amber-300">
+                <div class="p-3 rounded-lg bg-amber-50/80 border border-amber-200 space-y-1.5">
+                    <div class="flex items-center gap-1.5 text-xs font-semibold text-amber-800">
                         <i data-lucide="clipboard-list" class="w-3.5 h-3.5"></i>
                         <span>Ghi Chú Vận Hành & Tiến Độ Thực Tế:</span>
                     </div>
-                    <p class="text-xs text-slate-200 font-medium leading-relaxed pl-5">
+                    <p class="text-xs text-slate-800 font-medium leading-relaxed pl-5">
                         ${item.note && item.note.trim() !== '' ? item.note : 'Chưa có ghi chú đặc biệt cho dự án này.'}
                     </p>
                 </div>
 
                 <!-- Daily Supply & Demand Status -->
-                <div class="p-3 rounded-lg bg-slate-900 border border-slate-800 space-y-2 text-xs">
+                <div class="p-3 rounded-lg bg-slate-50 border border-slate-200 space-y-2 text-xs">
                     <div class="flex justify-between items-center">
-                        <span class="text-slate-400">Nhu cầu giao hàng (Sale Request):</span>
-                        <strong class="text-white font-mono">${item.saleReq} Seg/ngày</strong>
+                        <span class="text-slate-500">Nhu cầu giao hàng (Sale Request):</span>
+                        <strong class="text-slate-900 font-mono">${item.saleReq} Seg/ngày</strong>
                     </div>
                     <div class="flex justify-between items-center">
-                        <span class="text-slate-400">Năng lực sản xuất (Capacity):</span>
-                        <strong class="text-blue-400 font-mono">${item.capacity} Seg/ngày</strong>
+                        <span class="text-slate-500">Năng lực sản xuất (Capacity):</span>
+                        <strong class="text-blue-600 font-mono">${item.capacity} Seg/ngày</strong>
                     </div>
                     <div class="flex justify-between items-center">
-                        <span class="text-slate-400">Mức độ thiếu hụt (Shortage):</span>
-                        <strong class="${item.shortage > 0 ? 'text-rose-400 font-bold' : 'text-slate-400'} font-mono">${item.shortage} Seg/ngày</strong>
+                        <span class="text-slate-500">Mức độ thiếu hụt (Shortage):</span>
+                        <strong class="${item.shortage > 0 ? 'text-rose-600 font-bold' : 'text-slate-500'} font-mono">${item.shortage} Seg/ngày</strong>
                     </div>
-                    <div class="flex justify-between items-center pt-1.5 border-t border-slate-800">
-                        <span class="text-slate-300 font-semibold">Tỷ lệ đáp ứng (Meet Sale %):</span>
+                    <div class="flex justify-between items-center pt-1.5 border-t border-slate-200">
+                        <span class="text-slate-700 font-semibold">Tỷ lệ đáp ứng (Meet Sale %):</span>
                         <div>${getMeetRateBadge(item.meetRate, item.status)}</div>
                     </div>
                 </div>
 
                 ${item.remain === 0 && item.po > 0 ? `
-                <div class="p-2.5 rounded-md bg-blue-950/40 border border-blue-900/50 text-blue-300 text-xs flex items-center gap-2">
-                    <i data-lucide="check-circle-2" class="w-4 h-4 text-blue-400 shrink-0"></i>
+                <div class="p-2.5 rounded-md bg-blue-50 border border-blue-200 text-blue-800 text-xs flex items-center gap-2">
+                    <i data-lucide="check-circle-2" class="w-4 h-4 text-blue-600 shrink-0"></i>
                     <span>Dự án đã đúc hoàn tất 100% khối lượng hợp đồng (${formatNumber(item.po)} Seg).</span>
                 </div>
                 ` : (item.shortage > 0 ? `
-                <div class="p-2.5 rounded-md bg-rose-950/40 border border-rose-900/50 text-rose-300 text-xs flex items-center gap-2">
-                    <i data-lucide="alert-triangle" class="w-4 h-4 text-rose-400 shrink-0"></i>
+                <div class="p-2.5 rounded-md bg-rose-50 border border-rose-200 text-rose-800 text-xs flex items-center gap-2">
+                    <i data-lucide="alert-triangle" class="w-4 h-4 text-rose-600 shrink-0"></i>
                     <span>Cảnh báo thiếu hụt <strong>${item.shortage} Seg/ngày</strong> so với yêu cầu điều phối.</span>
                 </div>
                 ` : `
-                <div class="p-2.5 rounded-md bg-emerald-950/40 border border-emerald-900/50 text-emerald-300 text-xs flex items-center gap-2">
-                    <i data-lucide="check-circle" class="w-4 h-4 text-emerald-400 shrink-0"></i>
+                <div class="p-2.5 rounded-md bg-emerald-50 border border-emerald-200 text-emerald-800 text-xs flex items-center gap-2">
+                    <i data-lucide="check-circle" class="w-4 h-4 text-emerald-600 shrink-0"></i>
                     <span>Năng lực sản xuất đáp ứng trọn vẹn 100% kế hoạch giao hàng.</span>
                 </div>
                 `)}
@@ -1579,8 +1539,8 @@
             applyFiltersAndSearch();
             
             const toast = document.createElement('div');
-            toast.className = 'fixed top-5 right-5 bg-slate-800 text-white px-4 py-2 rounded-lg text-xs font-semibold shadow-lg border border-slate-700 z-50 flex items-center gap-2';
-            toast.innerHTML = `<i data-lucide="check-circle" class="w-4 h-4 text-emerald-400"></i><span>Đã đồng bộ lại dữ liệu mới nhất kèm ghi chú!</span>`;
+            toast.className = 'fixed top-5 right-5 bg-slate-900 text-white px-4 py-2 rounded-lg text-xs font-semibold shadow-lg border border-slate-700 z-50 flex items-center gap-2';
+            toast.innerHTML = `<i data-lucide="check-circle" class="w-4 h-4 text-emerald-400"></i><span>Đã đồng bộ dữ liệu mới nhất (21-Sep)!</span>`;
             document.body.appendChild(toast);
             lucide.createIcons();
             setTimeout(() => toast.remove(), 2000);
@@ -1624,7 +1584,7 @@
             const url = URL.createObjectURL(blob);
             const link = document.createElement("a");
             link.setAttribute("href", url);
-            link.setAttribute("download", `Project_Condition_Report_${new Date().toISOString().slice(0,10)}.csv`);
+            link.setAttribute("download", `Project_Condition_Report_21Sep.csv`);
             document.body.appendChild(link);
             link.click();
             document.body.removeChild(link);
