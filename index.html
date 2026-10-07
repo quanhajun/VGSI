@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Báo Cáo Tình Trạng Dự Án & Năng Lực Cung Ứng (07/10) | Enterprise ERP Dashboard</title>
+    <title>Báo Cáo Tình Trạng Dự Án & Năng Lực Cung Ứng | Enterprise ERP Dashboard</title>
     
     <!-- Enterprise Typography: Inter & JetBrains Mono -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -54,7 +54,6 @@
             color-scheme: light;
         }
 
-        /* Executive Neutral Matte Background - Soothing & Anti-glare */
         body {
             background-color: #EEF2F6;
             color: #1E293B;
@@ -62,7 +61,6 @@
             -webkit-font-smoothing: antialiased;
         }
 
-        /* Crisp Neutral Corporate Cards */
         .erp-card {
             background-color: #FFFFFF;
             border: 1px solid #CBD5E1;
@@ -78,7 +76,7 @@
             transform: translateY(-1px);
         }
 
-        /* Status Badges - Muted Neutral Executive Style */
+        /* Status Badges */
         .badge-ok {
             background-color: #E6F4EA;
             color: #137333;
@@ -112,10 +110,9 @@
         .badge-note {
             background-color: #F8FAFC;
             color: #334155;
-            border: 1px solid #E2E8F0;
+            border: 1px solid #CBD5E1;
         }
 
-        /* Table Specifics */
         .table-row-hover:hover {
             background-color: #F1F5F9 !important;
         }
@@ -127,12 +124,32 @@
         th.sortable:hover {
             color: #1D4ED8;
         }
+
+        /* Print styles */
+        @media print {
+            header, footer, #excelFileInput, button, .no-print {
+                display: none !important;
+            }
+            body {
+                background-color: #FFFFFF !important;
+                padding: 0 !important;
+            }
+            .erp-card {
+                box-shadow: none !important;
+                border: 1px solid #CBD5E1 !important;
+                break-inside: avoid;
+            }
+            main {
+                max-width: 100% !important;
+                padding: 0 !important;
+            }
+        }
     </style>
 </head>
 <body class="min-h-screen flex flex-col antialiased selection:bg-blue-600 selection:text-white pb-14 text-slate-800">
 
     <!-- 1. TOP ENTERPRISE NAVIGATION BAR -->
-    <header class="sticky top-0 z-30 bg-white/95 backdrop-blur-md border-b border-slate-300 shadow-sm">
+    <header class="sticky top-0 z-30 bg-white/95 backdrop-blur-md border-b border-slate-300 shadow-sm no-print">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex items-center justify-between h-16">
                 
@@ -157,17 +174,25 @@
                         <span>Ngày Đối Soát: <strong class="text-slate-900" id="nav-date-val">07/10</strong></span>
                     </div>
 
-                    <!-- Import Excel Button (Hidden file input) -->
+                    <!-- Import Excel Button -->
                     <input type="file" id="excelFileInput" accept=".xlsx, .xls" class="hidden" onchange="handleExcelUpload(event)">
-                    <button onclick="document.getElementById('excelFileInput').click()" class="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-emerald-50 hover:bg-emerald-100 text-emerald-800 border border-emerald-300 text-xs font-semibold shadow-sm transition" title="Nạp file Excel mới trực tiếp">
+                    <button onclick="document.getElementById('excelFileInput').click()" class="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-emerald-50 hover:bg-emerald-100 text-emerald-800 border border-emerald-300 text-xs font-semibold shadow-sm transition" title="Nạp file Excel mới (.xlsx)">
                         <i data-lucide="file-spreadsheet" class="w-3.5 h-3.5 text-emerald-600"></i>
                         <span class="hidden sm:inline">Nạp Excel</span>
                     </button>
 
+                    <!-- Print / PDF Button -->
+                    <button onclick="window.print()" class="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-white hover:bg-slate-100 text-slate-700 border border-slate-300 text-xs font-semibold shadow-sm transition" title="In báo cáo / Lưu PDF">
+                        <i data-lucide="printer" class="w-3.5 h-3.5 text-slate-600"></i>
+                        <span class="hidden sm:inline">In Báo Cáo</span>
+                    </button>
+
+                    <!-- Refresh Button -->
                     <button onclick="refreshData()" class="p-2 rounded-lg bg-white hover:bg-slate-100 text-slate-600 hover:text-slate-900 border border-slate-300 shadow-sm transition" title="Làm mới bảng">
                         <i data-lucide="refresh-cw" class="w-4 h-4"></i>
                     </button>
 
+                    <!-- Export CSV Button -->
                     <button onclick="exportToCSV()" class="flex items-center gap-1.5 px-3.5 py-1.5 rounded-lg bg-slate-900 hover:bg-slate-800 text-white text-xs font-semibold shadow-sm transition">
                         <i data-lucide="download" class="w-3.5 h-3.5 text-slate-300"></i>
                         <span class="hidden sm:inline">Xuất Excel / CSV</span>
@@ -189,12 +214,13 @@
                             Kỳ Đối Soát Cập Nhật: 07/10
                         </span>
                         <span class="text-xs text-slate-500 font-mono font-medium" id="exec-project-count">10 Dự Án Cọc Ly Tâm</span>
+                        <span class="px-2 py-0.5 rounded text-[10px] font-bold bg-blue-50 text-blue-700 border border-blue-200">Đã Đồng Bộ Mới Nhất</span>
                     </div>
                     <h1 class="text-xl md:text-2xl font-bold text-slate-900 tracking-tight">
                         Cân Đối Năng Lực Sản Xuất & Nhu Cầu Xuất Hàng
                     </h1>
                     <p class="text-xs text-slate-600 mt-1 max-w-3xl leading-relaxed" id="exec-summary-desc">
-                        Dữ liệu đối soát cập nhật ngày <strong class="text-slate-900">07/10</strong> ghi nhận tổng sản lượng đúc đạt <strong class="text-blue-700 font-semibold">14,253 Seg</strong> (đạt <strong class="text-slate-900 font-bold">68.6%</strong> tổng hợp đồng PO 20,789 Seg). Tổng năng lực sản xuất đạt <strong class="text-slate-800 font-bold">183 Seg/ngày</strong>, đáp ứng <strong class="text-emerald-700 font-bold">72.6%</strong> tổng nhu cầu xuất hàng (252 Seg/ngày), thiếu hụt công suất điều phối là <strong class="text-rose-700 font-bold">69 Seg/ngày</strong>.
+                        Dữ liệu đối soát cập nhật ngày <strong class="text-slate-900">07/10</strong> ghi nhận tổng sản lượng đúc đạt <strong class="text-blue-700 font-semibold">14,696 Seg</strong> (đạt <strong class="text-slate-900 font-bold">67.9%</strong> tổng hợp đồng PO 21,657 Seg). Tổng năng lực sản xuất đạt <strong class="text-slate-800 font-bold">183 Seg/ngày</strong>, đáp ứng <strong class="text-emerald-700 font-bold">72.6%</strong> tổng nhu cầu xuất hàng (252 Seg/ngày), thiếu hụt công suất điều phối là <strong class="text-rose-700 font-bold">69 Seg/ngày</strong>.
                     </p>
                 </div>
 
@@ -202,9 +228,9 @@
                 <div class="flex items-center gap-4 sm:gap-6 shrink-0 bg-slate-100/90 px-4 py-3 rounded-xl border border-slate-300 text-xs">
                     <div>
                         <div class="text-slate-500 uppercase tracking-wider text-[10px] font-semibold">Tổng Đã Đúc (PD)</div>
-                        <div class="text-base font-bold text-blue-700 font-mono mt-0.5" id="banner-pd-val">14,253 Seg</div>
+                        <div class="text-base font-bold text-blue-700 font-mono mt-0.5" id="banner-pd-val">14,696 Seg</div>
                         <div class="text-[10px] text-emerald-700 font-mono flex items-center gap-0.5 font-medium" id="banner-pd-sub">
-                            <i data-lucide="check-circle-2" class="w-3 h-3 inline"></i> Đạt 68.6% PO
+                            <i data-lucide="check-circle-2" class="w-3 h-3 inline"></i> Đạt 67.9% PO
                         </div>
                     </div>
                     <div class="h-10 w-px bg-slate-300"></div>
@@ -238,7 +264,7 @@
                         </span>
                     </div>
                     <div class="mt-3">
-                        <div class="text-3xl font-bold font-mono text-slate-900 tracking-tight" id="kpi-po-total">20,789</div>
+                        <div class="text-3xl font-bold font-mono text-slate-900 tracking-tight" id="kpi-po-total">21,657</div>
                         <div class="flex items-center gap-1.5 text-xs text-slate-600 mt-1 font-mono font-medium" id="kpi-po-delta">
                             <i data-lucide="layers" class="w-3.5 h-3.5 text-blue-600"></i>
                             <span>10 dự án ghi nhận</span>
@@ -247,7 +273,7 @@
                 </div>
                 <div class="mt-4 pt-3 border-t border-slate-200 flex items-center justify-between text-xs">
                     <span class="text-slate-500">Còn lại chưa SX (Remain):</span>
-                    <span class="text-slate-800 font-mono font-bold" id="kpi-remain-total">6,536 Seg (31.4%)</span>
+                    <span class="text-slate-800 font-mono font-bold" id="kpi-remain-total">6,961 Seg (32.1%)</span>
                 </div>
             </div>
 
@@ -261,7 +287,7 @@
                         </span>
                     </div>
                     <div class="mt-3">
-                        <div class="text-3xl font-bold font-mono text-blue-700 tracking-tight" id="kpi-pd-total">14,253</div>
+                        <div class="text-3xl font-bold font-mono text-blue-700 tracking-tight" id="kpi-pd-total">14,696</div>
                         <div class="flex items-center gap-1.5 text-xs text-emerald-700 mt-1 font-mono font-medium">
                             <i data-lucide="check-circle" class="w-3.5 h-3.5"></i>
                             <span id="kpi-pd-delta">1 dự án đã hoàn thành 100% PO</span>
@@ -271,10 +297,10 @@
                 <div class="mt-4 pt-3 border-t border-slate-200 space-y-1.5">
                     <div class="flex justify-between text-xs font-mono text-slate-600">
                         <span>Tiến độ đúc toàn bộ PO:</span>
-                        <strong class="text-blue-700 font-bold" id="kpi-pd-pct">68.6%</strong>
+                        <strong class="text-blue-700 font-bold" id="kpi-pd-pct">67.9%</strong>
                     </div>
                     <div class="w-full bg-slate-200 rounded-full h-1.5 overflow-hidden">
-                        <div class="bg-blue-600 h-1.5 rounded-full transition-all duration-500" id="kpi-pd-bar" style="width: 68.56%"></div>
+                        <div class="bg-blue-600 h-1.5 rounded-full transition-all duration-500" id="kpi-pd-bar" style="width: 67.86%"></div>
                     </div>
                 </div>
             </div>
@@ -332,7 +358,55 @@
 
         </section>
 
-        <!-- 4. OPERATIONAL DIRECTIVES & PROJECT NOTES SUMMARY BOARD -->
+        <!-- 4. CRITICAL BOTTLENECK & SHORTAGE ACTION CENTER -->
+        <section class="erp-card rounded-xl p-5 border-l-4 border-l-rose-600 bg-white space-y-3">
+            <div class="flex items-center justify-between flex-wrap gap-2">
+                <div class="flex items-center gap-2 text-rose-800 font-bold text-sm uppercase tracking-wide">
+                    <i data-lucide="alert-octagon" class="w-5 h-5 text-rose-600"></i>
+                    <span>Tâm Điểm Thiếu Hụt Công Suất & Phương Án Điều Phối (Shortage: 69 Seg/ngày)</span>
+                </div>
+                <span class="px-2.5 py-0.5 rounded-full text-xs font-bold bg-rose-100 text-rose-800 border border-rose-200">
+                    4 Dự Án Cần Điều Chỉnh
+                </span>
+            </div>
+            
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3 text-xs pt-1">
+                <!-- Bottleneck 1 -->
+                <div class="p-3 rounded-lg bg-rose-50/60 border border-rose-200 space-y-1">
+                    <div class="flex justify-between items-center font-bold text-slate-900">
+                        <span>1. Aqua City</span>
+                        <span class="text-rose-700 font-mono">-25 Seg/ngày</span>
+                    </div>
+                    <p class="text-[11px] text-slate-600">Nhu cầu 45 vs CS 20 Seg (Đáp ứng 44.4%). Cần cân đối thêm khuôn D300A/D350A.</p>
+                </div>
+                <!-- Bottleneck 2 -->
+                <div class="p-3 rounded-lg bg-rose-50/60 border border-rose-200 space-y-1">
+                    <div class="flex justify-between items-center font-bold text-slate-900">
+                        <span>2. Sun Nha Trang</span>
+                        <span class="text-rose-700 font-mono">-20 Seg/ngày</span>
+                    </div>
+                    <p class="text-[11px] text-slate-600">Nhu cầu 30 vs CS 10 Seg. Còn 61 Seg là hoàn tất 100% PO trong tuần này.</p>
+                </div>
+                <!-- Bottleneck 3 -->
+                <div class="p-3 rounded-lg bg-rose-50/60 border border-rose-200 space-y-1">
+                    <div class="flex justify-between items-center font-bold text-slate-900">
+                        <span>3. SeAH2</span>
+                        <span class="text-rose-700 font-mono">-14 Seg/ngày</span>
+                    </div>
+                    <p class="text-[11px] text-slate-600">Nhu cầu 20 vs CS 6 Seg (PO mới 211 Seg). Dự án phát sinh chưa có KH chi tiết.</p>
+                </div>
+                <!-- Bottleneck 4 -->
+                <div class="p-3 rounded-lg bg-amber-50/60 border border-amber-200 space-y-1">
+                    <div class="flex justify-between items-center font-bold text-slate-900">
+                        <span>4. Sun Vũng Tàu</span>
+                        <span class="text-amber-700 font-mono">-10 Seg/ngày</span>
+                    </div>
+                    <p class="text-[11px] text-slate-600">Nhu cầu 20 vs CS 10 Seg (PO tăng 1,442 Seg). Bắt đầu quay lại OBS14 từ 09/10.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- 5. OPERATIONAL DIRECTIVES & PROJECT NOTES SUMMARY BOARD -->
         <section class="erp-card rounded-xl p-6 border-slate-300 space-y-4">
             <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b border-slate-200 pb-3">
                 <div class="flex items-center gap-2.5">
@@ -341,10 +415,10 @@
                     </div>
                     <div>
                         <h2 class="text-sm font-bold text-slate-900 uppercase tracking-wider flex items-center gap-2">
-                            <span>Ghi Chú Vận Hành & Tiến Độ Trọng Yếu Từng Dự Án</span>
+                            <span>Ghi Chú Vận Hành & Mốc Tiến Độ Từng Dự Án</span>
                             <span class="px-2 py-0.5 text-[10px] font-semibold rounded bg-slate-100 text-slate-700 border border-slate-300">Operational Highlights</span>
                         </h2>
-                        <p class="text-xs text-slate-500">Tổng hợp các mốc tiến độ hoàn tất, kế hoạch đúc và lưu ý công nợ / cọc thử</p>
+                        <p class="text-xs text-slate-500">Tổng hợp các mốc hoàn tất sản xuất, điều phối búa đóng và cọc thử</p>
                     </div>
                 </div>
                 <div class="flex items-center gap-2 text-xs font-mono text-slate-500">
@@ -366,7 +440,7 @@
                     <div class="text-xs font-bold text-slate-900">Sun Nha Trang & Hóa Chất DVL</div>
                     <p class="text-[11px] text-slate-600 leading-snug">
                         • <strong>Sun Nha Trang:</strong> Đã đúc 5,508/5,569 Seg (còn 61 Seg) — Tuần này kết thúc sản xuất (CS 10/30).<br>
-                        • <strong>Hóa Chất DVL:</strong> Ngày 09/10 kết thúc sản xuất (đã đúc 50/304 Seg, CS 20 Seg đạt 100%).
+                        • <strong>Hóa Chất DVL:</strong> Đã đúc 264/304 Seg (86.8%, còn 40 Seg) — Ngày 09/10 kết thúc sản xuất (CS 20 Seg đạt 100%).
                     </p>
                 </div>
 
@@ -380,7 +454,7 @@
                     </div>
                     <div class="text-xs font-bold text-slate-900">SPL Nam Thuận & Tôn Đông Á</div>
                     <p class="text-[11px] text-slate-600 leading-snug">
-                        • <strong>SPL Nam Thuận:</strong> Ngày 12/10 kết thúc PO đã nhận (80/380 Seg, CS 20 Seg đạt 100%).<br>
+                        • <strong>SPL Nam Thuận:</strong> Đã đúc 278/380 Seg (73.2%, còn 102 Seg) — Ngày 12/10 kết thúc PO đã nhận (CS 20 Seg đạt 100%).<br>
                         • <strong>Tôn Đông Á:</strong> Ngày 17/10 kết thúc sản xuất (778/2,419 Seg, CS 30 Seg đạt 100%).
                     </p>
                 </div>
@@ -396,8 +470,8 @@
                     <div class="text-xs font-bold text-slate-900">Aqua City, Sun VT & SeAH2</div>
                     <p class="text-[11px] text-slate-600 leading-snug">
                         • <strong>Aqua City:</strong> Nhu cầu 45, CS 20 -> thiếu 25 Seg/ngày.<br>
-                        • <strong>Sun Vũng Tàu:</strong> Quay lại OBS14 từ 09/10, thiếu 10 Seg/ngày.<br>
-                        • <strong>SeAH2:</strong> Phát sinh PO 185 Seg (chưa có KH cụ thể), thiếu 14 Seg/ngày.
+                        • <strong>Sun Vũng Tàu:</strong> PO 1,442 Seg (đã đúc 358 Seg) — Quay lại OBS14 từ 09/10, thiếu 10 Seg/ngày.<br>
+                        • <strong>SeAH2:</strong> PO phát sinh 211 Seg (đã đúc 70 Seg), thiếu 14 Seg/ngày.
                     </p>
                 </div>
 
@@ -420,7 +494,7 @@
             </div>
         </section>
 
-        <!-- 5. CHARTS SECTION -->
+        <!-- 6. CHARTS SECTION -->
         <section class="grid grid-cols-1 lg:grid-cols-3 gap-6">
             
             <!-- Biểu đồ chính (2 Cột rộng) -->
@@ -442,6 +516,9 @@
                             </button>
                             <button id="btn-chart-demand" onclick="switchChartMode('demand')" class="px-2.5 py-1 font-semibold rounded text-slate-600 hover:text-slate-900 transition">
                                 Cân Đối Cung - Cầu (Ngày)
+                            </button>
+                            <button id="btn-chart-dia" onclick="switchChartMode('dia')" class="px-2.5 py-1 font-semibold rounded text-slate-600 hover:text-slate-900 transition">
+                                Theo Quy Cách Cọc
                             </button>
                         </div>
                     </div>
@@ -496,7 +573,7 @@
 
         </section>
 
-        <!-- 6. DATA TABLE WITH INTEGRATED OPERATIONAL NOTES -->
+        <!-- 7. DATA TABLE WITH ADVANCED MULTI-DIMENSIONAL FILTERS -->
         <section class="erp-card rounded-xl p-6 space-y-4">
             
             <!-- Table Header Controls & Search Bar -->
@@ -513,14 +590,16 @@
                 </div>
 
                 <!-- Search & Filters -->
-                <div class="flex flex-wrap items-center gap-3">
-                    <div class="relative min-w-[240px]">
+                <div class="flex flex-wrap items-center gap-2.5">
+                    
+                    <!-- Search Input -->
+                    <div class="relative min-w-[220px]">
                         <i data-lucide="search" class="w-4 h-4 text-slate-400 absolute left-3 top-1/2 -translate-y-1/2 pointer-events-none"></i>
                         <input 
                             type="text" 
                             id="table-search" 
                             onkeyup="handleSearch()"
-                            placeholder="Tìm kiếm dự án, ghi chú, quy cách..." 
+                            placeholder="Tìm tên dự án, ghi chú..." 
                             class="w-full pl-9 pr-8 py-1.5 rounded-lg bg-white border border-slate-300 text-xs text-slate-800 placeholder-slate-400 focus:outline-none focus:border-slate-500 focus:ring-1 focus:ring-slate-400 transition shadow-sm"
                         >
                         <button id="clear-search" onclick="clearSearch()" class="hidden absolute right-2.5 top-1/2 -translate-y-1/2 text-slate-400 hover:text-slate-700">
@@ -528,13 +607,25 @@
                         </button>
                     </div>
 
-                    <select id="status-filter" onchange="handleFilter()" class="py-1.5 px-3 rounded-lg bg-white border border-slate-300 text-xs text-slate-800 focus:outline-none focus:border-slate-500 transition shadow-sm">
+                    <!-- Diameter Filter -->
+                    <select id="dia-filter" onchange="handleFilter()" class="py-1.5 px-3 rounded-lg bg-white border border-slate-300 text-xs text-slate-800 focus:outline-none focus:border-slate-500 transition shadow-sm font-medium">
+                        <option value="all">Tất Cả Quy Cách</option>
+                        <option value="D300A">D300A</option>
+                        <option value="D350A">D350A</option>
+                        <option value="D400A">D400A</option>
+                        <option value="D500A">D500A</option>
+                        <option value="D600A">D600A</option>
+                    </select>
+
+                    <!-- Status Filter -->
+                    <select id="status-filter" onchange="handleFilter()" class="py-1.5 px-3 rounded-lg bg-white border border-slate-300 text-xs text-slate-800 focus:outline-none focus:border-slate-500 transition shadow-sm font-medium">
                         <option value="all">Tất Cả Trạng Thái</option>
                         <option value="success">Đạt Yêu Cầu (>=100%)</option>
                         <option value="warning">Cảnh Báo (50% - 99%)</option>
                         <option value="danger">Thiếu Hụt (&lt;50%)</option>
                         <option value="completed">Đã Xong 100% PO</option>
                     </select>
+
                 </div>
             </div>
 
@@ -579,7 +670,7 @@
                             <th class="py-3 px-4 min-w-[200px]">
                                 <div class="flex items-center gap-1">Ghi Chú Vận Hành</div>
                             </th>
-                            <th class="py-3 px-3 text-center">Thao tác</th>
+                            <th class="py-3 px-3 text-center no-print">Thao tác</th>
                         </tr>
                     </thead>
                     <tbody id="tableBody" class="divide-y divide-slate-200 text-slate-700 font-normal">
@@ -606,8 +697,8 @@
 
     </main>
 
-    <!-- 7. LIVE STATUS BAR (MINIMALIST CORPORATE FOOTER) -->
-    <footer class="fixed bottom-0 inset-x-0 z-30 bg-white/95 backdrop-blur-md border-t border-slate-300 py-2 px-4 text-[11px] font-mono text-slate-500 shadow-sm">
+    <!-- 8. LIVE STATUS BAR (MINIMALIST CORPORATE FOOTER) -->
+    <footer class="fixed bottom-0 inset-x-0 z-30 bg-white/95 backdrop-blur-md border-t border-slate-300 py-2 px-4 text-[11px] font-mono text-slate-500 shadow-sm no-print">
         <div class="max-w-7xl mx-auto flex flex-wrap items-center justify-between gap-3">
             
             <!-- Left: Engine Status -->
@@ -633,8 +724,8 @@
         </div>
     </footer>
 
-    <!-- 8. PROJECT DETAILS & OPERATIONAL QUICK VIEW MODAL -->
-    <div id="projectModal" class="fixed inset-0 z-50 hidden flex items-center justify-center p-4 bg-slate-900/50 backdrop-blur-sm transition-all">
+    <!-- 9. PROJECT DETAILS & OPERATIONAL QUICK VIEW MODAL -->
+    <div id="projectModal" class="fixed inset-0 z-50 hidden flex items-center justify-center p-4 bg-slate-900/50 backdrop-blur-sm transition-all no-print">
         <div class="erp-card w-full max-w-xl rounded-xl border border-slate-300 shadow-2xl p-6 relative max-h-[90vh] overflow-y-auto bg-white">
             <div class="absolute top-4 right-4">
                 <button onclick="closeModal()" class="p-1.5 rounded-lg bg-slate-100 hover:bg-slate-200 text-slate-500 hover:text-slate-800 transition">
@@ -665,7 +756,7 @@
         </div>
     </div>
 
-    <!-- 9. JAVASCRIPT BUSINESS LOGIC -->
+    <!-- 10. JAVASCRIPT BUSINESS LOGIC -->
     <script>
         // ==========================================
         // 1. DATA REPOSITORY: LATEST PROJECT CONDITION (07/10)
@@ -707,10 +798,10 @@
                 id: 3, 
                 name: "SUN VUNGTAU", 
                 dia: "D400A", 
-                po: 600, 
-                remain: 242, 
+                po: 1442, 
+                remain: 1084, 
                 pd: 358, 
-                compRate: 358 / 600, // 59.67%
+                compRate: 358 / 1442, // 24.83%
                 saleReq: 20, 
                 capacity: 10, 
                 shortage: 10, 
@@ -753,9 +844,9 @@
                 name: "HOA CHAT DVL", 
                 dia: "D300A, D400A", 
                 po: 304, 
-                remain: 254, 
-                pd: 50, 
-                compRate: 50 / 304, // 16.45%
+                remain: 40, 
+                pd: 264, 
+                compRate: 264 / 304, // 86.84%
                 saleReq: 20, 
                 capacity: 20, 
                 shortage: 0, 
@@ -768,9 +859,9 @@
                 name: "SPL NAMTHUAN", 
                 dia: "D350A", 
                 po: 380, 
-                remain: 300, 
-                pd: 80, 
-                compRate: 80 / 380, // 21.05%
+                remain: 102, 
+                pd: 278, 
+                compRate: 278 / 380, // 73.16%
                 saleReq: 20, 
                 capacity: 20, 
                 shortage: 0, 
@@ -782,10 +873,10 @@
                 id: 8, 
                 name: "SEAH2", 
                 dia: "D400A, D500A", 
-                po: 185, 
-                remain: 146, 
-                pd: 39, 
-                compRate: 39 / 185, // 21.08%
+                po: 211, 
+                remain: 141, 
+                pd: 70, 
+                compRate: 70 / 211, // 33.18%
                 saleReq: 20, 
                 capacity: 6, 
                 shortage: 14, 
@@ -827,7 +918,6 @@
 
         let summaryData = calculateSummary(projectData);
 
-        // Calculate Totals dynamically
         function calculateSummary(data) {
             const po = data.reduce((sum, p) => sum + (p.po || 0), 0);
             const remain = data.reduce((sum, p) => sum + (p.remain || 0), 0);
@@ -854,7 +944,7 @@
         
         let comboChartInstance = null;
         let doughnutChartInstance = null;
-        let currentChartMode = 'combo'; // 'combo' | 'demand'
+        let currentChartMode = 'combo'; // 'combo' | 'demand' | 'dia'
 
         // ==========================================
         // 2. INITIALIZATION
@@ -868,11 +958,9 @@
             initDoughnutChart();
         });
 
-        // Dynamic Dashboard Metric Update
         function updateDashboardMetrics() {
             summaryData = calculateSummary(projectData);
             
-            // Header & Executive
             document.getElementById('header-version-badge').textContent = `Kỳ Đối Soát: ${currentDateLabel}`;
             const navDate = document.getElementById('nav-date-val');
             if (navDate) navDate.textContent = currentDateLabel;
@@ -888,7 +976,6 @@
                 execDesc.innerHTML = `Dữ liệu đối soát cập nhật ngày <strong class="text-slate-900">${currentDateLabel}</strong> ghi nhận tổng sản lượng đúc đạt <strong class="text-blue-700 font-semibold">${formatNumber(summaryData.pd)} Seg</strong> (đạt <strong class="text-slate-900 font-bold">${formatPercent(summaryData.compRate)}</strong> tổng hợp đồng PO ${formatNumber(summaryData.po)} Seg). Tổng năng lực sản xuất đạt <strong class="text-slate-800 font-bold">${formatNumber(summaryData.capacity)} Seg/ngày</strong>, đáp ứng <strong class="text-emerald-700 font-bold">${formatPercent(summaryData.meetRate)}</strong> tổng nhu cầu xuất hàng (${formatNumber(summaryData.saleReq)} Seg/ngày), thiếu hụt công suất điều phối là <strong class="text-rose-700 font-bold">${formatNumber(summaryData.shortage)} Seg/ngày</strong>.`;
             }
 
-            // Quick Pill box
             document.getElementById('banner-pd-val').textContent = `${formatNumber(summaryData.pd)} Seg`;
             document.getElementById('banner-pd-sub').innerHTML = `<i data-lucide="check-circle-2" class="w-3 h-3 inline"></i> Đạt ${formatPercent(summaryData.compRate)} PO`;
             document.getElementById('banner-cap-val').textContent = `${formatNumber(summaryData.capacity)} Seg/ngày`;
@@ -896,7 +983,6 @@
             document.getElementById('banner-shortage-val').textContent = `${formatNumber(summaryData.shortage)} Seg/ngày`;
             document.getElementById('banner-meet-sub').innerHTML = `<i data-lucide="gauge" class="w-3 h-3 inline"></i> Đáp ứng ${formatPercent(summaryData.meetRate)}`;
 
-            // KPI Cards
             document.getElementById('kpi-po-total').textContent = formatNumber(summaryData.po);
             document.getElementById('kpi-po-delta').innerHTML = `<i data-lucide="layers" class="w-3.5 h-3.5 text-blue-600"></i><span>${projectData.length} dự án ghi nhận</span>`;
             document.getElementById('kpi-remain-total').textContent = `${formatNumber(summaryData.remain)} Seg (${formatPercent(summaryData.remain / summaryData.po)})`;
@@ -917,7 +1003,6 @@
             document.getElementById('kpi-ok-count').textContent = `${okCount} / ${projectData.length} Dự án`;
             document.getElementById('kpi-meet-bar').style.width = `${Math.min(summaryData.meetRate * 100, 100)}%`;
 
-            // Footer
             const footerStatus = document.getElementById('footer-sync-status');
             if (footerStatus) footerStatus.textContent = `ĐÃ ĐỒNG BỘ ${projectData.length} DỰ ÁN (${currentDateLabel})`;
             
@@ -931,7 +1016,6 @@
             if (doughnutCenter) doughnutCenter.textContent = formatPercent(summaryData.meetRate);
         }
 
-        // Live Clock
         function startLiveClock() {
             function updateTime() {
                 const now = new Date();
@@ -953,7 +1037,6 @@
             return (val * 100).toFixed(1) + '%';
         }
 
-        // Format Note Badge
         function getNoteBadge(note, status, item) {
             if (!note || note.trim() === '') return '<span class="text-slate-400">-</span>';
             
@@ -1075,7 +1158,7 @@
                         <td class="py-3 px-4">
                             ${getNoteBadge(item.note, item.status, item)}
                         </td>
-                        <td class="py-3 px-3 text-center" onclick="event.stopPropagation()">
+                        <td class="py-3 px-3 text-center no-print" onclick="event.stopPropagation()">
                             <button onclick="openModal(${item.id})" class="p-1 rounded hover:bg-slate-200 text-slate-400 hover:text-blue-700 transition" title="Xem chi tiết dự án">
                                 <i data-lucide="eye" class="w-4 h-4"></i>
                             </button>
@@ -1110,7 +1193,7 @@
                         </span>
                     </td>
                     <td class="py-3.5 px-4 text-slate-600 text-[11px] font-medium">${projectData.length} dự án ghi nhận (${currentDateLabel})</td>
-                    <td class="py-3.5 px-3 text-center text-slate-400">-</td>
+                    <td class="py-3.5 px-3 text-center text-slate-400 no-print">-</td>
                 </tr>
             `;
 
@@ -1147,6 +1230,7 @@
         function applyFiltersAndSearch() {
             const query = document.getElementById('table-search').value.toLowerCase().trim();
             const status = document.getElementById('status-filter').value;
+            const diaFilter = document.getElementById('dia-filter').value;
 
             let filtered = projectData.filter(item => {
                 const matchesQuery = item.name.toLowerCase().includes(query) || 
@@ -1160,14 +1244,18 @@
                 else if (status === 'danger') matchesStatus = (item.meetRate !== null && item.meetRate < 0.5);
                 else if (status === 'completed') matchesStatus = (item.status === 'completed' || item.remain <= 0);
 
-                return matchesQuery && matchesStatus;
+                let matchesDia = true;
+                if (diaFilter !== 'all') {
+                    matchesDia = item.dia.includes(diaFilter);
+                }
+
+                return matchesQuery && matchesStatus && matchesDia;
             });
 
             sortDataArray(filtered, currentSort.column, currentSort.ascending);
             renderTable(filtered);
         }
 
-        // Sorting Logic
         function sortTable(column) {
             if (currentSort.column === column) {
                 currentSort.ascending = !currentSort.ascending;
@@ -1320,10 +1408,11 @@
             currentChartMode = mode;
             const btnCombo = document.getElementById('btn-chart-combo');
             const btnDemand = document.getElementById('btn-chart-demand');
+            const btnDia = document.getElementById('btn-chart-dia');
             const titleEl = document.getElementById('chart-main-title');
             const subtitleEl = document.getElementById('chart-main-subtitle');
 
-            [btnCombo, btnDemand].forEach(b => {
+            [btnCombo, btnDemand, btnDia].forEach(b => {
                 if (b) b.className = 'px-2.5 py-1 font-semibold rounded text-slate-600 hover:text-slate-900 transition';
             });
 
@@ -1408,6 +1497,45 @@
                 comboChartInstance.options.scales.y.title.text = 'Sản lượng Seg / Ngày';
                 comboChartInstance.options.scales.y1.display = false;
                 updateChartLegend('demand');
+
+            } else if (mode === 'dia') {
+                btnDia.className = 'px-2.5 py-1 font-semibold rounded bg-white text-slate-900 shadow-sm border border-slate-300 transition';
+                titleEl.innerHTML = `<i data-lucide="disc" class="w-4 h-4 text-purple-600"></i><span>Khối Lượng Theo Quy Cách Đường Kính Cọc</span>`;
+                subtitleEl.textContent = 'Tổng hợp Khối lượng PO (Xám) và Đã đúc hoàn thành (Tím) phân loại theo D300A, D350A, D400A, D500A, D600A';
+
+                const diaList = ['D300A', 'D350A', 'D400A', 'D500A', 'D600A'];
+                const diaPO = [0, 0, 0, 0, 0];
+                const diaPD = [0, 0, 0, 0, 0];
+
+                projectData.forEach(p => {
+                    diaList.forEach((d, idx) => {
+                        if (p.dia.includes(d)) {
+                            diaPO[idx] += p.po;
+                            diaPD[idx] += p.pd;
+                        }
+                    });
+                });
+
+                comboChartInstance.data.labels = diaList;
+                comboChartInstance.data.datasets = [
+                    {
+                        label: 'Tổng PO theo Quy cách (Seg)',
+                        data: diaPO,
+                        backgroundColor: '#94A3B8',
+                        borderRadius: 4,
+                        yAxisID: 'y'
+                    },
+                    {
+                        label: 'Đã đúc theo Quy cách (Seg)',
+                        data: diaPD,
+                        backgroundColor: '#7C3AED',
+                        borderRadius: 4,
+                        yAxisID: 'y'
+                    }
+                ];
+                comboChartInstance.options.scales.y.title.text = 'Khối lượng Tổng Segment (Seg)';
+                comboChartInstance.options.scales.y1.display = false;
+                updateChartLegend('dia');
             }
 
             comboChartInstance.update();
@@ -1427,6 +1555,11 @@
                     <span class="flex items-center gap-1.5"><span class="w-3 h-3 rounded-sm bg-[#94A3B8]"></span> Sale Request</span>
                     <span class="flex items-center gap-1.5"><span class="w-3 h-3 rounded-sm bg-[#2563EB]"></span> Production Capacity</span>
                     <span class="flex items-center gap-1.5"><span class="w-3 h-3 rounded-sm bg-[#E11D48]"></span> Shortage (Thiếu hụt)</span>
+                `;
+            } else if (mode === 'dia') {
+                legendContainer.innerHTML = `
+                    <span class="flex items-center gap-1.5"><span class="w-3 h-3 rounded-sm bg-[#94A3B8]"></span> Tổng PO (Seg)</span>
+                    <span class="flex items-center gap-1.5"><span class="w-3 h-3 rounded-sm bg-[#7C3AED]"></span> Đã Đúc (Seg)</span>
                 `;
             }
         }
@@ -1619,7 +1752,6 @@
                     const worksheet = workbook.Sheets[sheetName];
                     const rows = XLSX.utils.sheet_to_json(worksheet, { header: 1 });
 
-                    // Find Date cell
                     let extractedDate = currentDateLabel;
                     rows.forEach(r => {
                         r.forEach(c => {
@@ -1630,7 +1762,6 @@
                         });
                     });
 
-                    // Parse project rows
                     const newProjects = [];
                     for (let i = 0; i < rows.length; i++) {
                         const r = rows[i];
@@ -1678,7 +1809,6 @@
                         updateDashboardMetrics();
                         renderTable(activeDataset);
                         
-                        // Re-render charts
                         switchChartMode(currentChartMode);
                         const successCount = projectData.filter(p => p.status === 'success' || p.status === 'completed' || (p.meetRate !== null && p.meetRate >= 1.0)).length;
                         const warningCount = projectData.filter(p => p.status === 'warning' || (p.meetRate !== null && p.meetRate >= 0.5 && p.meetRate < 1.0)).length;
@@ -1700,10 +1830,10 @@
             reader.readAsArrayBuffer(file);
         }
 
-        // Refresh Data
         function refreshData() {
             document.getElementById('table-search').value = '';
             document.getElementById('status-filter').value = 'all';
+            document.getElementById('dia-filter').value = 'all';
             currentSort = { column: 'id', ascending: true };
             applyFiltersAndSearch();
             showToast(`Đã đồng bộ dữ liệu mới nhất (${currentDateLabel})!`);
@@ -1719,7 +1849,6 @@
             setTimeout(() => toast.remove(), 2500);
         }
 
-        // Export to CSV
         function exportToCSV() {
             const headers = ["STT", "Ten Du An", "Duong Kinh (Dia)", "PO Received (Seg)", "Remain PD (Seg)", "PD Completion (Seg)", "Completion %", "Sale Request (Seg/day)", "Production Capacity (Seg/day)", "Shortage (Seg/day)", "Meet Sale %", "Ghi Chu"];
             const rows = projectData.map(p => [
