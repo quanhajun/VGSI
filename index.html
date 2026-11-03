@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="vi">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -8,7 +9,9 @@
   <!-- Typography: Plus Jakarta Sans & JetBrains Mono -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link
+    href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700&display=swap"
+    rel="stylesheet">
 
   <!-- Font Awesome 6.4.0 Icons -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
@@ -28,7 +31,7 @@
       --bg-emerald-tint: #f0fdf4;
       --bg-amber-tint: #fffbeb;
       --bg-purple-tint: #faf5ff;
-      
+
       --color-primary: #1e3a8a;
       --color-royal: #3b82f6;
       --color-soft-blue: #60a5fa;
@@ -39,20 +42,20 @@
       --color-amber: #f59e0b;
       --color-rose: #f43f5e;
       --color-purple: #8b5cf6;
-      
+
       --text-heading: #1e293b;
       --text-body: #475569;
       --text-muted: #64748b;
       --text-light: #94a3b8;
-      
+
       --border-light: #e2e8f0;
       --border-card: #eef2f6;
       --border-active: #60a5fa;
-      
+
       --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.04);
       --shadow-card: 0 4px 12px rgba(15, 23, 42, 0.03), 0 1px 2px rgba(0, 0, 0, 0.02);
       --shadow-hover: 0 8px 18px rgba(15, 23, 42, 0.06);
-      
+
       --radius-sm: 6px;
       --radius-md: 10px;
       --radius-lg: 14px;
@@ -849,22 +852,41 @@
     }
 
     @keyframes slideInRight {
-      from { transform: translateX(100%); opacity: 0; }
-      to { transform: translateX(0); opacity: 1; }
+      from {
+        transform: translateX(100%);
+        opacity: 0;
+      }
+
+      to {
+        transform: translateX(0);
+        opacity: 1;
+      }
     }
 
     @media print {
-      .dept-nav-wrapper, .btn-print-report, .search-input-box, .select-filter-box, .header-quick-filters, .no-print {
+
+      .dept-nav-wrapper,
+      .btn-print-report,
+      .search-input-box,
+      .select-filter-box,
+      .header-quick-filters,
+      .no-print {
         display: none !important;
       }
+
       body {
         background: #ffffff;
         padding-bottom: 0;
       }
+
       .main-wrapper {
         padding: 0;
       }
-      .scorecard-item, .chart-panel-card, .table-container-card, .monthly-summary-container {
+
+      .scorecard-item,
+      .chart-panel-card,
+      .table-container-card,
+      .monthly-summary-container {
         box-shadow: none !important;
         border: 1px solid #cbd5e1 !important;
         page-break-inside: avoid;
@@ -906,8 +928,15 @@
     }
 
     @keyframes loginCardPop {
-      0% { opacity: 0; transform: scale(0.92) translateY(12px); }
-      100% { opacity: 1; transform: scale(1) translateY(0); }
+      0% {
+        opacity: 0;
+        transform: scale(0.92) translateY(12px);
+      }
+
+      100% {
+        opacity: 1;
+        transform: scale(1) translateY(0);
+      }
     }
 
     .login-card.shake {
@@ -915,11 +944,27 @@
     }
 
     @keyframes loginShake {
-      0%, 100% { transform: translateX(0); }
-      20% { transform: translateX(-10px); }
-      40% { transform: translateX(10px); }
-      60% { transform: translateX(-6px); }
-      80% { transform: translateX(6px); }
+
+      0%,
+      100% {
+        transform: translateX(0);
+      }
+
+      20% {
+        transform: translateX(-10px);
+      }
+
+      40% {
+        transform: translateX(10px);
+      }
+
+      60% {
+        transform: translateX(-6px);
+      }
+
+      80% {
+        transform: translateX(6px);
+      }
     }
 
     .login-icon-box {
@@ -1007,7 +1052,7 @@
       box-shadow: 0 0 0 3px rgba(56, 189, 248, 0.25);
     }
 
-    .login-input:focus + .login-input-icon {
+    .login-input:focus+.login-input-icon {
       color: #38bdf8;
     }
 
@@ -1108,9 +1153,9 @@
       color: #dc2626;
       border-color: #fca5a5;
     }
-
   </style>
 </head>
+
 <body>
 
   <!-- ============================================================== -->
@@ -1121,11 +1166,11 @@
       <div class="login-icon-box">
         <i class="fa-solid fa-shield-halved"></i>
       </div>
-      
+
       <h2 class="login-title">
         Bảo mật nội bộ VGSI
       </h2>
-      
+
       <p class="login-subtitle">
         Hệ Thống Dữ Liệu Quản Trị Vận Hành & Điều Tiết Dự Án<br>
         <span style="color: #64748b; font-size: 11.5px;">Vui lòng nhập mã PIN bảo mật để truy cập Dashboard</span>
@@ -1135,15 +1180,10 @@
         <label for="pinInput">Mã PIN xác thực:</label>
         <div class="login-input-wrapper">
           <i class="fa-solid fa-key login-input-icon"></i>
-          <input 
-            type="password" 
-            id="pinInput" 
-            class="login-input" 
-            placeholder="Nhập mã PIN..." 
-            autocomplete="current-password" 
-            maxlength="20"
-          />
-          <i class="fa-solid fa-eye-slash login-toggle-pw" id="togglePwBtn" onclick="togglePasswordVisibility()" title="Hiển thị / Ẩn mã PIN"></i>
+          <input type="password" id="pinInput" class="login-input" placeholder="Nhập mã PIN..."
+            autocomplete="current-password" maxlength="20" />
+          <i class="fa-solid fa-eye-slash login-toggle-pw" id="togglePwBtn" onclick="togglePasswordVisibility()"
+            title="Hiển thị / Ẩn mã PIN"></i>
         </div>
       </div>
 
@@ -1170,407 +1210,437 @@
   <div id="main-content" style="display: none;">
     <div class="main-wrapper">
 
-    <!-- 1. PORTAL HEADER -->
-    <header class="portal-header-bar">
-      <div class="portal-title-area">
-        <h1>
-          <i class="fa-solid fa-chart-line" style="color: #2563eb;"></i>
-          BÁO CÁO CÂN ĐỐI NĂNG LỰC SẢN XUẤT VÀ YÊU CẦU GIAO HÀNG
-        </h1>
-        <p>Kỳ Đối Soát: <strong id="header-date-badge" style="color: #1e293b;">04/11/2026</strong> • So Sánh Năng Lực Cung Ứng & Kế Hoạch Xuất Hàng Các Dự Án • Dữ Liệu Tích Hợp Sheet CONDITION PROJECT</p>
-      </div>
-
-      <div class="header-quick-filters">
-        <button class="btn-lock-session" onclick="lockSession()" title="Khóa màn hình / Đăng xuất">
-          <i class="fa-solid fa-arrow-right-from-bracket"></i> Khóa Trang
-        </button>
-        <!-- Live Excel File Input -->
-        <input type="file" id="excelFileInput" accept=".xlsx, .xls" style="display: none;" onchange="handleExcelUpload(event)">
-        
-        <button class="btn-print-report" onclick="document.getElementById('excelFileInput').click()" title="Nạp file Excel mới (.xlsx)">
-          <i class="fa-solid fa-file-excel" style="color: #10b981;"></i> Nạp Excel
-        </button>
-
-        <button class="btn-print-report" onclick="refreshData()" title="Làm mới lại dữ liệu">
-          <i class="fa-solid fa-arrows-rotate" style="color: #3b82f6;"></i> Làm Mới
-        </button>
-
-        <button class="btn-print-report" onclick="exportToCSV()" title="Tải xuống tệp CSV / Excel">
-          <i class="fa-solid fa-download" style="color: #6366f1;"></i> Xuất CSV
-        </button>
-
-        <button class="btn-print-report btn-primary-action" onclick="window.print()" title="In báo cáo / Lưu PDF">
-          <i class="fa-solid fa-print"></i> In Báo Cáo
-        </button>
-      </div>
-    </header>
-
-    <!-- 3. SUB-BANNER WITH DIAMETER FILTER CHIPS -->
-    <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:14px; flex-wrap:wrap; gap:10px;">
-      <h2 style="font-size: 16px; font-weight: 800; color: #1e3a8a; display: flex; align-items: center; gap: 8px;">
-        <i class="fa-solid fa-cubes-stacked" style="color: #3b82f6;"></i>
-        CÂN ĐỐI NĂNG LỰC SẢN XUẤT CỌC BÊ TÔNG LY TÂM (KỲ 04/11)
-      </h2>
-      <div style="display: flex; gap: 8px; flex-wrap: wrap;">
-        <div class="filter-chip active" id="chip-dia-all" onclick="setDiaChip('all', this)">
-          <span class="dot-indicator" style="background: #3b82f6;"></span> Tất Cả Quy Cách
+      <!-- 1. PORTAL HEADER -->
+      <header class="portal-header-bar">
+        <div class="portal-title-area">
+          <h1>
+            <i class="fa-solid fa-chart-line" style="color: #2563eb;"></i>
+            BÁO CÁO CÂN ĐỐI NĂNG LỰC SẢN XUẤT VÀ YÊU CẦU GIAO HÀNG
+          </h1>
+          <p>Kỳ Đối Soát: <strong id="header-date-badge" style="color: #1e293b;">04/11/2026</strong> • So Sánh Năng Lực
+            Cung Ứng & Kế Hoạch Xuất Hàng Các Dự Án • Dữ Liệu Tích Hợp Sheet CONDITION PROJECT</p>
         </div>
-        <div class="filter-chip" id="chip-dia-d400" onclick="setDiaChip('D400A', this)">
-          <span class="dot-indicator" style="background: #3b82f6;"></span> D400A (Chủ Lực)
-        </div>
-        <div class="filter-chip" id="chip-dia-d300" onclick="setDiaChip('D300A', this)">
-          <span class="dot-indicator" style="background: #0ea5e9;"></span> D300A & D350A
-        </div>
-        <div class="filter-chip" id="chip-dia-d600" onclick="setDiaChip('D600A', this)">
-          <span class="dot-indicator" style="background: #8b5cf6;"></span> D600A
-        </div>
-      </div>
-    </div>
 
-    <!-- 4. 5 EXECUTIVE SCORECARDS -->
-    <div class="executive-scorecard-grid">
-      
-      <!-- Card 1: Tổng PO -->
-      <div class="scorecard-item" style="--card-accent: #3b82f6;">
-        <div class="scorecard-header-label">
-          <span>Tổng Khối Lượng PO</span>
-          <i class="fa-solid fa-file-contract" style="color: #3b82f6;"></i>
+        <div class="header-quick-filters">
+          <button class="btn-lock-session" onclick="lockSession()" title="Khóa màn hình / Đăng xuất">
+            <i class="fa-solid fa-arrow-right-from-bracket"></i> Khóa Trang
+          </button>
+          <!-- Live Excel File Input -->
+          <input type="file" id="excelFileInput" accept=".xlsx, .xls" style="display: none;"
+            onchange="handleExcelUpload(event)">
+
+          <button class="btn-print-report" onclick="document.getElementById('excelFileInput').click()"
+            title="Nạp file Excel mới (.xlsx)">
+            <i class="fa-solid fa-file-excel" style="color: #10b981;"></i> Nạp Excel
+          </button>
+
+          <button class="btn-print-report" onclick="refreshData()" title="Làm mới lại dữ liệu">
+            <i class="fa-solid fa-arrows-rotate" style="color: #3b82f6;"></i> Làm Mới
+          </button>
+
+          <button class="btn-print-report" onclick="exportToCSV()" title="Tải xuống tệp CSV / Excel">
+            <i class="fa-solid fa-download" style="color: #6366f1;"></i> Xuất CSV
+          </button>
+
+          <button class="btn-print-report btn-primary-action" onclick="window.print()" title="In báo cáo / Lưu PDF">
+            <i class="fa-solid fa-print"></i> In Báo Cáo
+          </button>
         </div>
-        <div class="scorecard-main-val">
-          <span id="scorecard-po-val">16,147</span>
-          <span class="unit">Seg</span>
-        </div>
-        <div class="scorecard-footer-info">
-          <span>Tồn chưa đúc: <strong id="scorecard-remain-val">5,576 Seg</strong></span>
-          <span class="badge-gain-yoy" id="scorecard-proj-count">7 Dự Án</span>
+      </header>
+
+      <!-- 3. SUB-BANNER WITH DIAMETER FILTER CHIPS -->
+      <div
+        style="display:flex; justify-content:space-between; align-items:center; margin-bottom:14px; flex-wrap:wrap; gap:10px;">
+        <h2 style="font-size: 16px; font-weight: 800; color: #1e3a8a; display: flex; align-items: center; gap: 8px;">
+          <i class="fa-solid fa-cubes-stacked" style="color: #3b82f6;"></i>
+          PHÂN HỆ CÂN ĐỐI NĂNG LỰC SẢN XUẤT CỌC BÊ TÔNG LY TÂM (KỲ 04/11)
+        </h2>
+        <div style="display: flex; gap: 8px; flex-wrap: wrap;">
+          <div class="filter-chip active" id="chip-dia-all" onclick="setDiaChip('all', this)">
+            <span class="dot-indicator" style="background: #3b82f6;"></span> Tất Cả Quy Cách
+          </div>
+          <div class="filter-chip" id="chip-dia-d400" onclick="setDiaChip('D400A', this)">
+            <span class="dot-indicator" style="background: #3b82f6;"></span> D400A (Chủ Lực)
+          </div>
+          <div class="filter-chip" id="chip-dia-d300" onclick="setDiaChip('D300A', this)">
+            <span class="dot-indicator" style="background: #0ea5e9;"></span> D300A & D350A
+          </div>
+          <div class="filter-chip" id="chip-dia-d600" onclick="setDiaChip('D600A', this)">
+            <span class="dot-indicator" style="background: #8b5cf6;"></span> D600A
+          </div>
         </div>
       </div>
 
-      <!-- Card 2: Tổng Đã Đúc PD -->
-      <div class="scorecard-item" style="--card-accent: #0ea5e9;">
-        <div class="scorecard-header-label">
-          <span>Lũy Kế Đã Đúc (PD)</span>
-          <i class="fa-solid fa-industry" style="color: #0ea5e9;"></i>
+      <!-- 4. 5 EXECUTIVE SCORECARDS -->
+      <div class="executive-scorecard-grid">
+
+        <!-- Card 1: Tổng PO -->
+        <div class="scorecard-item" style="--card-accent: #3b82f6;">
+          <div class="scorecard-header-label">
+            <span>Tổng Khối Lượng PO</span>
+            <i class="fa-solid fa-file-contract" style="color: #3b82f6;"></i>
+          </div>
+          <div class="scorecard-main-val">
+            <span id="scorecard-po-val">16,402</span>
+            <span class="unit">Seg</span>
+          </div>
+          <div class="scorecard-footer-info">
+            <span>Tồn chưa đúc: <strong id="scorecard-remain-val">5,640 Seg</strong></span>
+            <span class="badge-gain-yoy" id="scorecard-proj-count">7 Dự Án</span>
+          </div>
         </div>
-        <div class="scorecard-main-val">
-          <span id="scorecard-pd-val" style="color: #0284c7;">10,571</span>
-          <span class="unit">Seg</span>
+
+        <!-- Card 2: Tổng Đã Đúc PD -->
+        <div class="scorecard-item" style="--card-accent: #0ea5e9;">
+          <div class="scorecard-header-label">
+            <span>Lũy Kế Đã Đúc (PD)</span>
+            <i class="fa-solid fa-industry" style="color: #0ea5e9;"></i>
+          </div>
+          <div class="scorecard-main-val">
+            <span id="scorecard-pd-val" style="color: #0284c7;">10,762</span>
+            <span class="unit">Seg</span>
+          </div>
+          <div class="scorecard-footer-info">
+            <span>Đạt tiến độ PO: <strong id="scorecard-pd-pct">65.6%</strong></span>
+            <span class="badge-gain-positive" id="scorecard-pd-badge"><i class="fa-solid fa-arrow-trend-up"></i> 65.6%
+              PO</span>
+          </div>
         </div>
-        <div class="scorecard-footer-info">
-          <span>Đạt tiến độ PO: <strong id="scorecard-pd-pct">65.5%</strong></span>
-          <span class="badge-gain-positive" id="scorecard-pd-badge"><i class="fa-solid fa-arrow-trend-up"></i> 65.5% PO</span>
+
+        <!-- Card 3: Nhu Cầu Giao Hàng -->
+        <div class="scorecard-item" style="--card-accent: #64748b;">
+          <div class="scorecard-header-label">
+            <span>Nhu Cầu Giao Hàng / Ngày</span>
+            <i class="fa-solid fa-truck-fast" style="color: #64748b;"></i>
+          </div>
+          <div class="scorecard-main-val">
+            <span id="scorecard-req-val">235</span>
+            <span class="unit">Seg/ngày</span>
+          </div>
+          <div class="scorecard-footer-info">
+            <span>6 Dự án có nhu cầu</span>
+            <span class="badge-gain-neutral">Kỳ 04/11</span>
+          </div>
         </div>
+
+        <!-- Card 4: Năng Lực SX -->
+        <div class="scorecard-item" style="--card-accent: #10b981;">
+          <div class="scorecard-header-label">
+            <span>Năng Lực SX Thực Tế</span>
+            <i class="fa-solid fa-gauge-high" style="color: #10b981;"></i>
+          </div>
+          <div class="scorecard-main-val">
+            <span id="scorecard-cap-val" style="color: #059669;">195</span>
+            <span class="unit">Seg/ngày</span>
+          </div>
+          <div class="scorecard-footer-info">
+            <span>Tỷ lệ đáp ứng: <strong id="scorecard-meet-pct">83.0%</strong></span>
+            <span class="badge-gain-positive"><i class="fa-solid fa-check"></i> 83.0% Đạt</span>
+          </div>
+        </div>
+
+        <!-- Card 5: Cân Đối Thiếu Hụt -->
+        <div class="scorecard-item" style="--card-accent: #f43f5e;">
+          <div class="scorecard-header-label">
+            <span>Thiếu Hụt Cục Bộ / Ngày</span>
+            <i class="fa-solid fa-triangle-exclamation" style="color: #f43f5e;"></i>
+          </div>
+          <div class="scorecard-main-val">
+            <span id="scorecard-shortage-val" style="color: #e11d48;">-40</span>
+            <span class="unit">Seg/ngày</span>
+          </div>
+          <div class="scorecard-footer-info">
+            <span id="scorecard-shortage-hint">Vàm Cỏ -15, Sun VT -12, Aqua -8, Chang Shin -5</span>
+            <span class="badge-gain-danger">Cần Điều Tiết</span>
+          </div>
+        </div>
+
       </div>
 
-      <!-- Card 3: Nhu Cầu Giao Hàng -->
-      <div class="scorecard-item" style="--card-accent: #64748b;">
-        <div class="scorecard-header-label">
-          <span>Nhu Cầu Giao Hàng / Ngày</span>
-          <i class="fa-solid fa-truck-fast" style="color: #64748b;"></i>
+      <!-- 5. TÓM TẮT QUẢN TRỊ VẬN HÀNH (THREE PILLARS) -->
+      <div class="monthly-summary-container">
+        <div class="summary-title-row">
+          <h3 class="summary-heading">
+            <i class="fa-solid fa-clipboard-check" style="color: #2563eb;"></i>
+            Tóm Tắt Quản Trị Cung Ứng & Vận Hành Kỳ Đối Soát <span id="summary-date-title"
+              style="color:#2563eb;">04/11/2026</span>
+          </h3>
+          <span class="badge-status-sep" id="summary-header-badge">
+            ✔ Năng Lực Đạt 195/235 Seg (83.0%) • Đã Đúc 10,762/16,402 Seg (65.6% PO) • Tồn Còn Lại 5,640 Seg
+          </span>
         </div>
-        <div class="scorecard-main-val">
-          <span id="scorecard-req-val">225</span>
-          <span class="unit">Seg/ngày</span>
-        </div>
-        <div class="scorecard-footer-info">
-          <span>5 Dự án có nhu cầu</span>
-          <span class="badge-gain-neutral">Kỳ 04/11</span>
-        </div>
-      </div>
 
-      <!-- Card 4: Năng Lực SX -->
-      <div class="scorecard-item" style="--card-accent: #10b981;">
-        <div class="scorecard-header-label">
-          <span>Năng Lực SX Thực Tế</span>
-          <i class="fa-solid fa-gauge-high" style="color: #10b981;"></i>
-        </div>
-        <div class="scorecard-main-val">
-          <span id="scorecard-cap-val" style="color: #059669;">193</span>
-          <span class="unit">Seg/ngày</span>
-        </div>
-        <div class="scorecard-footer-info">
-          <span>Tỷ lệ đáp ứng: <strong id="scorecard-meet-pct">83%</strong></span>
-          <span class="badge-gain-positive"><i class="fa-solid fa-check"></i> 83% Đạt</span>
-        </div>
-      </div>
-
-      <!-- Card 5: Cân Đối Thiếu Hụt -->
-      <div class="scorecard-item" style="--card-accent: #f43f5e;">
-        <div class="scorecard-header-label">
-          <span>Thiếu Hụt Cục Bộ / Ngày</span>
-          <i class="fa-solid fa-triangle-exclamation" style="color: #f43f5e;"></i>
-        </div>
-        <div class="scorecard-main-val">
-          <span id="scorecard-shortage-val" style="color: #e11d48;">-40</span>
-          <span class="unit">Seg/ngày</span>
-        </div>
-        <div class="scorecard-footer-info">
-          <span id="scorecard-shortage-hint">Vàm Cỏ -15, Sun VT -12, Aqua -8</span>
-          <span class="badge-gain-danger">Cần Điều Tiết</span>
-        </div>
-      </div>
-
-    </div>
-
-    <!-- 5. TÓM TẮT QUẢN TRỊ VẬN HÀNH (THREE PILLARS) -->
-    <div class="monthly-summary-container">
-      <div class="summary-title-row">
-        <h3 class="summary-heading">
-          <i class="fa-solid fa-clipboard-check" style="color: #2563eb;"></i>
-          Tóm Tắt Quản Trị Cung Ứng & Vận Hành Kỳ Đối Soát <span id="summary-date-title" style="color:#2563eb;">04/11/2026</span>
-        </h3>
-        <span class="badge-status-sep" id="summary-header-badge">
-          ✔ Năng Lực Đạt 195/235 Seg (83%) • Đã Đúc 10,571/16,147 Seg (65.5% PO) • Tồn Còn Lại 5,576 Seg
-        </span>
-      </div>
-
-      <div class="three-pillars-grid">
-        <!-- Pillar 1: Aqua City & Vàm Cỏ Port -->
-        <div class="pillar-card-box" style="--pillar-theme: #2563eb;">
-          <div class="pillar-head-group">
-            <div class="pillar-icon-wrapper">
-              <i class="fa-solid fa-bolt"></i>
+        <div class="three-pillars-grid">
+          <!-- Pillar 1: Aqua City & Vàm Cỏ Port -->
+          <div class="pillar-card-box" style="--pillar-theme: #2563eb;">
+            <div class="pillar-head-group">
+              <div class="pillar-icon-wrapper">
+                <i class="fa-solid fa-bolt"></i>
+              </div>
+              <div class="pillar-main-title">1. Aqua City & Vàm Cỏ Port (Tập Trung Huy Động)</div>
             </div>
-            <div class="pillar-main-title">1. Aqua City & Vàm Cỏ Port (Tập Trung Huy Động)</div>
-          </div>
-          <div class="pillar-chips-row">
-            <span class="chip-detail">Aqua: <strong>92/100 Seg (92.0%)</strong></span>
-            <span class="chip-detail">Vàm Cỏ: <strong>40/55 Seg (72.7%)</strong></span>
-          </div>
-          <ul class="pillar-bullet-points">
-            <li><strong>Aqua City:</strong> Khối lượng PO tăng vọt lên <strong>5,400 Seg</strong> (+2,250 Seg). Nhu cầu giao hàng tăng lên 100 Seg/ngày. NM tập trung huy động theo chỉ đạo TGĐ đạt <strong>92 Seg/ngày</strong> (-8 Seg, đáp ứng 92.0%). Đã đúc 3,023 Seg (56.0%), tồn 2,377 Seg.</li>
-            <li><strong>Vàm Cỏ Port:</strong> Đã đúc <strong>6,738 / 7,838 Seg</strong> (đạt 86.0% PO, chỉ còn 1,100 Seg). Hiện đang tồn kho bãi công trường <strong>&gt;700 đoạn</strong> nên NM chủ động tạm giảm CS còn 40/55 Seg/ngày để điều tiết lưu kho.</li>
-          </ul>
-        </div>
-
-        <!-- Pillar 2: Sun Vũng Tàu -->
-        <div class="pillar-card-box" style="--pillar-theme: #f59e0b;">
-          <div class="pillar-head-group">
-            <div class="pillar-icon-wrapper">
-              <i class="fa-solid fa-gears"></i>
+            <div class="pillar-chips-row">
+              <span class="chip-detail">Aqua: <strong>92/100 Seg (92.0%)</strong></span>
+              <span class="chip-detail">Vàm Cỏ: <strong>40/55 Seg (72.7%)</strong></span>
             </div>
-            <div class="pillar-main-title">2. Sun Vũng Tàu (Duy Trì OBS14 Ổn Định)</div>
+            <ul class="pillar-bullet-points">
+              <li><strong>Aqua City:</strong> Khối lượng PO <strong>5,400 Seg</strong>, nhu cầu 100 Seg/ngày. NM tập trung huy động theo chỉ đạo TGĐ đạt <strong>92 Seg/ngày</strong> (-8 Seg, đáp ứng 92.0%). Đã đúc <strong>3,115 Seg</strong> (57.7%), tồn 2,285 Seg.</li>
+              <li><strong>Vàm Cỏ Port:</strong> Đã đúc <strong>6,778 / 7,838 Seg</strong> (đạt 86.5% PO, chỉ còn 1,060 Seg). Hiện đang tồn kho bãi công trường <strong>&gt;700 đoạn</strong> nên NM chủ động tạm giảm CS còn 40/55 Seg/ngày để điều tiết lưu kho.</li>
+            </ul>
           </div>
-          <div class="pillar-chips-row">
-            <span class="chip-detail">CS Thực Tế: <strong>30 Seg/ngày</strong></span>
-            <span class="chip-detail">Đáp ứng: <strong>75.0%</strong></span>
-          </div>
-          <ul class="pillar-bullet-points">
-            <li>Nhu cầu 40 vs CS thực tế <strong>30 Seg/ngày</strong> (-10 Seg, đáp ứng 75.0%). Tiếp tục duy trì quay lại phương án đúc OBS14 từ ngày 17/10.</li>
-            <li>Sản lượng đúc lũy kế đạt <strong>762 Seg</strong> (29.1% PO 2,622 Seg), khối lượng tồn cần tiếp tục đúc giao công trường là <strong>1,860 Seg</strong>.</li>
-          </ul>
-        </div>
 
-        <!-- Pillar 3: Dự Án Mới & Danh Mục Chờ PO -->
-        <div class="pillar-card-box" style="--pillar-theme: #10b981;">
-          <div class="pillar-head-group">
-            <div class="pillar-icon-wrapper">
-              <i class="fa-solid fa-sparkles"></i>
+          <!-- Pillar 2: Sun Vũng Tàu -->
+          <div class="pillar-card-box" style="--pillar-theme: #f59e0b;">
+            <div class="pillar-head-group">
+              <div class="pillar-icon-wrapper">
+                <i class="fa-solid fa-gears"></i>
+              </div>
+              <div class="pillar-main-title">2. Sun Vũng Tàu (Duy Trì OBS14 Ổn Định)</div>
             </div>
-            <div class="pillar-main-title">3. Dự Án Mới Bổ Sung & Danh Mục Chờ PO</div>
+            <div class="pillar-chips-row">
+              <span class="chip-detail">CS Thực Tế: <strong>28 Seg/ngày</strong></span>
+              <span class="chip-detail">Đáp ứng: <strong>70.0%</strong></span>
+            </div>
+            <ul class="pillar-bullet-points">
+              <li>Nhu cầu 40 vs CS thực tế <strong>28 Seg/ngày</strong> (-12 Seg, đáp ứng 70.0%). Tiếp tục duy trì quay lại phương án đúc OBS14.</li>
+              <li>Sản lượng đúc lũy kế đạt <strong>794 Seg</strong> (30.3% PO 2,622 Seg), khối lượng tồn cần tiếp tục đúc giao công trường là <strong>1,828 Seg</strong>.</li>
+            </ul>
           </div>
-          <div class="pillar-chips-row">
-            <span class="chip-detail">Nam Kim: <strong>106.7%</strong></span>
-            <span class="chip-detail">Tôn Ba Son: <strong>100%</strong></span>
-            <span class="chip-detail">Chang Shin: <strong>255 đ</strong></span>
+
+          <!-- Pillar 3: Dự Án Mới Bổ Sung & Chang Shin -->
+          <div class="pillar-card-box" style="--pillar-theme: #10b981;">
+            <div class="pillar-head-group">
+              <div class="pillar-icon-wrapper">
+                <i class="fa-solid fa-sparkles"></i>
+              </div>
+              <div class="pillar-main-title">3. Dự Án Mới Bổ Sung & Chang Shin</div>
+            </div>
+            <div class="pillar-chips-row">
+              <span class="chip-detail">Nam Kim: <strong>100%</strong></span>
+              <span class="chip-detail">Tôn Ba Son: <strong>100%</strong></span>
+              <span class="chip-detail">Chang Shin: <strong>PO 255 đ</strong></span>
+            </div>
+            <ul class="pillar-bullet-points">
+              <li><strong>Nam Kim:</strong> PO 130 Seg (cọc búa đóng D400A), đã đúc <strong>60 Seg</strong> (46.2%), CS 15/15 Seg/ngày (<strong>đạt 100.0%</strong>, tồn 70 Seg).</li>
+              <li><strong>Tôn Ba Son:</strong> PO 157 Seg (Xưởng tôn D400A), đã đúc <strong>15 Seg</strong> (9.6%), CS 15/15 Seg/ngày (<strong>đạt 100.0%</strong>, tồn 142 Seg).</li>
+              <li><strong>Chang Shin & Thạnh Lộc:</strong> Chang Shin chính thức kích hoạt PO <strong>255 đoạn</strong>, nhu cầu 10 Seg/ngày, công suất 5 Seg/ngày (đáp ứng 50.0%); Thạnh Lộc đã xong cọc thử D600A, chờ PO đại trà.</li>
+            </ul>
           </div>
-          <ul class="pillar-bullet-points">
-            <li><strong>Nam Kim (Mới):</strong> PO 130 Seg (cọc búa đóng D400A), đã đúc 48 Seg, CS 16/15 Seg/ngày (<strong>thặng dư +1 Seg</strong>, đạt 106.7%).</li>
-            <li><strong>Tôn Ba Son (Mới):</strong> PO 157 Seg (Xưởng tôn D400A), CS 15/15 Seg/ngày (<strong>đạt 100.0%</strong>).</li>
-            <li><strong>Chang Shin & Thạnh Lộc:</strong> Chang Shin tiềm năng nhận PO 255 đoạn (400-12m); Thạnh Lộc đã xong cọc thử D600A, đang chờ đơn hàng đại trà.</li>
-          </ul>
         </div>
       </div>
-    </div>
 
-    <!-- 6. CHARTS SECTION (2 DUO + 1 FULL PROGRESS) -->
-    <div class="charts-duo-grid">
-      <!-- Chart 1: Cân Đối Cung Cầu -->
-      <div class="chart-panel-card">
+      <!-- 6. CHARTS SECTION (2 DUO + 1 FULL PROGRESS) -->
+      <div class="charts-duo-grid">
+        <!-- Chart 1: Cân Đối Cung Cầu -->
+        <div class="chart-panel-card">
+          <div class="chart-panel-head">
+            <div class="chart-panel-title">
+              <i class="fa-solid fa-scale-balanced" style="color: #3b82f6;"></i>
+              Cân Đối Cung - Cầu & Thiếu Hụt Năng Lực Hàng Ngày
+            </div>
+            <div class="chart-legend-hint">
+              Nhu Cầu Xuất (Xám) • Năng Lực SX (Xanh) • Thiếu Hụt (Đỏ)
+            </div>
+          </div>
+          <div class="chart-drawing-box">
+            <canvas id="demandChart"></canvas>
+          </div>
+        </div>
+
+        <!-- Chart 2: Doughnut Tỷ Lệ Đáp Ứng -->
+        <div class="chart-panel-card">
+          <div class="chart-panel-head">
+            <div class="chart-panel-title">
+              <i class="fa-solid fa-chart-pie" style="color: #10b981;"></i>
+              Tỷ Lệ Đáp Ứng Toàn Nhà Máy
+            </div>
+            <span class="badge-gain-yoy" id="doughnut-proj-badge">7 Dự Án</span>
+          </div>
+          <div class="chart-drawing-box" style="display:flex; align-items:center; justify-content:center;">
+            <canvas id="statusDoughnutChart"></canvas>
+            <div style="position: absolute; text-align: center; pointer-events: none;">
+              <div style="font-size: 10px; font-weight: 700; color: #64748b; text-transform: uppercase;">Đáp Ứng TB
+              </div>
+              <div id="doughnut-center-txt"
+                style="font-size: 22px; font-weight: 800; color: #059669; font-family: 'JetBrains Mono';">85.8%</div>
+            </div>
+          </div>
+          <div id="doughnut-breakdown-list" style="margin-top: 10px; display: flex; flex-direction: column; gap: 6px;">
+            <!-- Injected via JS -->
+          </div>
+        </div>
+      </div>
+
+      <!-- Chart 3: Tiến Độ Hợp Đồng & Khối Lượng Tồn PO -->
+      <div class="chart-panel-card" style="margin-bottom: 24px;">
         <div class="chart-panel-head">
           <div class="chart-panel-title">
-            <i class="fa-solid fa-scale-balanced" style="color: #3b82f6;"></i>
-            Cân Đối Cung - Cầu & Thiếu Hụt Năng Lực Hàng Ngày
+            <i class="fa-solid fa-bars-progress" style="color: #6366f1;"></i>
+            Tiến Độ Đúc Hợp Đồng & Khối Lượng Tồn Đọng PO Từng Dự Án
           </div>
-          <div class="chart-legend-hint">
-            Nhu Cầu Xuất (Xám) • Năng Lực SX (Xanh) • Thiếu Hụt (Đỏ)
-          </div>
+          <span class="badge-gain-positive" id="progress-chart-header-badge">
+            Toàn NM: 10,571 / 16,147 Seg (65.5% PO)
+          </span>
         </div>
-        <div class="chart-drawing-box">
-          <canvas id="demandChart"></canvas>
+        <div class="chart-drawing-box" style="height: 310px;">
+          <canvas id="progressChart"></canvas>
+        </div>
+        <div
+          style="margin-top: 12px; display: flex; justify-content: space-between; align-items: center; font-size: 11.5px; color: #64748b; border-top: 1px solid #f1f5f9; padding-top: 8px;">
+          <div style="display: flex; gap: 16px;">
+            <span><span
+                style="display:inline-block; width:10px; height:10px; background:#3b82f6; border-radius:2px; margin-right:4px;"></span>
+              Đã Đúc (PD Completion)</span>
+            <span><span
+                style="display:inline-block; width:10px; height:10px; background:#f59e0b; border-radius:2px; margin-right:4px;"></span>
+              Tồn Chưa Đúc (Remain)</span>
+            <span><span
+                style="display:inline-block; width:14px; height:3px; background:#10b981; margin-right:4px; vertical-align:middle;"></span>
+              Tỷ Lệ Hoàn Thành (%)</span>
+          </div>
+          <div style="font-family:'JetBrains Mono';">*Đơn vị: Segment (Seg)</div>
         </div>
       </div>
 
-      <!-- Chart 2: Doughnut Tỷ Lệ Đáp Ứng -->
-      <div class="chart-panel-card">
-        <div class="chart-panel-head">
-          <div class="chart-panel-title">
-            <i class="fa-solid fa-chart-pie" style="color: #10b981;"></i>
-            Tỷ Lệ Đáp Ứng Toàn Nhà Máy
+      <!-- 7. CLEAN DETAILED DATA TABLE -->
+      <div class="table-container-card">
+        <div class="table-header-flex">
+          <div class="table-section-title">
+            <i class="fa-solid fa-table-list" style="color: #2563eb;"></i>
+            BẢNG THEO DÕI CHI TIẾT NĂNG LỰC SẢN XUẤT VÀ YÊU CẦU GIAO HÀNG
           </div>
-          <span class="badge-gain-yoy" id="doughnut-proj-badge">7 Dự Án</span>
-        </div>
-        <div class="chart-drawing-box" style="display:flex; align-items:center; justify-content:center;">
-          <canvas id="statusDoughnutChart"></canvas>
-          <div style="position: absolute; text-align: center; pointer-events: none;">
-            <div style="font-size: 10px; font-weight: 700; color: #64748b; text-transform: uppercase;">Đáp Ứng TB</div>
-            <div id="doughnut-center-txt" style="font-size: 22px; font-weight: 800; color: #059669; font-family: 'JetBrains Mono';">83%</div>
+
+          <div class="table-controls-row">
+            <!-- Search Box -->
+            <div class="search-input-box">
+              <i class="fa-solid fa-magnifying-glass" style="color: #94a3b8;"></i>
+              <input type="text" id="table-search" placeholder="Tìm tên dự án, quy cách, ghi chú..."
+                onkeyup="handleSearch()">
+            </div>
+
+            <!-- Diameter Filter Select -->
+            <select id="select-dia-filter" class="select-filter-box" onchange="handleSelectFilter()">
+              <option value="all">Tất Cả Quy Cách</option>
+              <option value="D300A">D300A</option>
+              <option value="D350A">D350A</option>
+              <option value="D400A">D400A</option>
+              <option value="D600A">D600A</option>
+            </select>
+
+            <!-- Status Filter Select -->
+            <select id="select-status-filter" class="select-filter-box" onchange="handleSelectFilter()">
+              <option value="all">Tất Cả Trạng Thái</option>
+              <option value="success">Đạt Yêu Cầu (>=100%)</option>
+              <option value="warning">Cảnh Báo (50% - 99%)</option>
+              <option value="danger">Thiếu Hụt (&lt;50%)</option>
+              <option value="completed">Đã Xong 100% PO / Đóng SX</option>
+              <option value="neutral">Chuẩn Bị / Tiềm Năng</option>
+            </select>
           </div>
         </div>
-        <div id="doughnut-breakdown-list" style="margin-top: 10px; display: flex; flex-direction: column; gap: 6px;">
+
+        <div class="table-responsive-wrapper">
+          <table class="clean-data-table" id="projectDataTable">
+            <thead>
+              <tr>
+                <th style="width: 50px; text-align: center;">STT</th>
+                <th class="sortable" onclick="sortTable('name')">Tên Dự Án <span id="sort-icon-name"></span></th>
+                <th class="sortable" onclick="sortTable('dia')">Quy Cách (Dia) <span id="sort-icon-dia"></span></th>
+                <th class="sortable" style="text-align: right;" onclick="sortTable('po')">PO Received (Seg) <span
+                    id="sort-icon-po"></span></th>
+                <th class="sortable" style="text-align: right;" onclick="sortTable('remain')">Remain PD (Seg) <span
+                    id="sort-icon-remain"></span></th>
+                <th class="sortable" style="text-align: right;" onclick="sortTable('pd')">PD Completion (Seg) <span
+                    id="sort-icon-pd"></span></th>
+                <th class="sortable" style="width: 140px;" onclick="sortTable('compRate')">Tiến Độ % <span
+                    id="sort-icon-compRate"></span></th>
+                <th class="sortable" style="text-align: right;" onclick="sortTable('saleReq')">Sale Request <span
+                    id="sort-icon-saleReq"></span></th>
+                <th class="sortable" style="text-align: right;" onclick="sortTable('capacity')">CS Thực Tế <span
+                    id="sort-icon-capacity"></span></th>
+                <th class="sortable" style="text-align: right;" onclick="sortTable('shortage')">Shortage <span
+                    id="sort-icon-shortage"></span></th>
+                <th class="sortable" style="text-align: center;" onclick="sortTable('meetRate')">Tỷ Lệ Đáp Ứng <span
+                    id="sort-icon-meetRate"></span></th>
+                <th>Ghi Chú Vận Hành</th>
+                <th style="text-align: center; width: 60px;" class="no-print">Chi Tiết</th>
+              </tr>
+            </thead>
+            <tbody id="tableBody">
+              <!-- Dynamic rows injected via JS -->
+            </tbody>
+            <tfoot id="tableFoot">
+              <!-- Dynamic total row injected via JS -->
+            </tfoot>
+          </table>
+        </div>
+
+        <div
+          style="display: flex; justify-content: space-between; align-items: center; margin-top: 12px; font-size: 11.5px; color: #64748b; flex-wrap: wrap; gap: 8px;">
+          <div id="table-record-count" style="font-weight: 700;">Hiển thị 7 / 7 dự án</div>
+          <div style="display: flex; gap: 8px; flex-wrap: wrap;">
+            <span class="badge-item ok">● Đạt / An Toàn (>=100%)</span>
+            <span class="badge-item warn">▲ Cảnh Báo (50% - 99%)</span>
+            <span class="badge-item danger">✕ Thiếu Hụt (&lt;50%)</span>
+            <span class="badge-item purple">● Tiềm Năng / Cọc Thử</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- 8. CORPORATE ENTERPRISE FOOTER -->
+      <footer class="portal-footer">
+        <div style="display: flex; align-items: center; gap: 10px;">
+          <span style="display: inline-block; width: 8px; height: 8px; background: #10b981; border-radius: 50%;"></span>
+          <span>HỆ THỐNG ĐIỀU HÀNH BÁO CÁO VGSI • REALTIME SYNC</span>
+          <span style="color: #cbd5e1;">|</span>
+          <span>FILE NGUỒN: <strong>PROJECT CONDITION1.xlsx</strong></span>
+          <span style="color: #cbd5e1;">|</span>
+          <span>SHEET: <strong style="color: #2563eb;">CONDITION PROJECT</strong></span>
+        </div>
+
+        <div style="display: flex; align-items: center; gap: 14px;">
+          <span id="footer-sync-status" style="font-weight: 700; color: #059669;">ĐÃ ĐỒNG BỘ 7 DỰ ÁN (04/11)</span>
+          <span
+            style="background: #f1f5f9; padding: 3px 10px; border-radius: 6px; font-family: 'JetBrains Mono'; font-weight: 700; color: #334155;">
+            <i class="fa-regular fa-clock"></i> <span id="footer-live-clock">--:--:--</span>
+          </span>
+        </div>
+      </footer>
+
+    </div>
+
+    <!-- 9. PROJECT DETAILS MODAL -->
+    <div id="projectModal" class="modal-overlay" style="display: none;" onclick="if(event.target===this) closeModal();">
+      <div class="modal-card">
+        <div class="modal-header">
+          <div style="display: flex; align-items: center; gap: 12px;">
+            <div id="modal-idx"
+              style="width: 38px; height: 38px; background: #2563eb; color: #ffffff; border-radius: 8px; display: flex; align-items: center; justify-content: center; font-weight: 800; font-family: 'JetBrains Mono';">
+              1
+            </div>
+            <div>
+              <h3 id="modal-title" style="font-size: 16px; font-weight: 800; color: #1e293b;">VAM CO PORT</h3>
+              <p id="modal-dia" style="font-size: 12px; color: #64748b; font-family: 'JetBrains Mono';">Quy cách: D400A,
+                D300A</p>
+            </div>
+          </div>
+          <button class="modal-close-btn" onclick="closeModal()">
+            <i class="fa-solid fa-xmark"></i>
+          </button>
+        </div>
+
+        <div id="modal-content" style="display: flex; flex-direction: column; gap: 14px;">
           <!-- Injected via JS -->
         </div>
-      </div>
-    </div>
 
-    <!-- Chart 3: Tiến Độ Hợp Đồng & Khối Lượng Tồn PO -->
-    <div class="chart-panel-card" style="margin-bottom: 24px;">
-      <div class="chart-panel-head">
-        <div class="chart-panel-title">
-          <i class="fa-solid fa-bars-progress" style="color: #6366f1;"></i>
-          Tiến Độ Đúc Hợp Đồng & Khối Lượng Tồn Đọng PO Từng Dự Án
-        </div>
-        <span class="badge-gain-positive" id="progress-chart-header-badge">
-          Toàn NM: 10,571 / 16,147 Seg (65.5% PO)
-        </span>
-      </div>
-      <div class="chart-drawing-box" style="height: 310px;">
-        <canvas id="progressChart"></canvas>
-      </div>
-      <div style="margin-top: 12px; display: flex; justify-content: space-between; align-items: center; font-size: 11.5px; color: #64748b; border-top: 1px solid #f1f5f9; padding-top: 8px;">
-        <div style="display: flex; gap: 16px;">
-          <span><span style="display:inline-block; width:10px; height:10px; background:#3b82f6; border-radius:2px; margin-right:4px;"></span> Đã Đúc (PD Completion)</span>
-          <span><span style="display:inline-block; width:10px; height:10px; background:#f59e0b; border-radius:2px; margin-right:4px;"></span> Tồn Chưa Đúc (Remain)</span>
-          <span><span style="display:inline-block; width:14px; height:3px; background:#10b981; margin-right:4px; vertical-align:middle;"></span> Tỷ Lệ Hoàn Thành (%)</span>
-        </div>
-        <div style="font-family:'JetBrains Mono';">*Đơn vị: Segment (Seg)</div>
-      </div>
-    </div>
-
-    <!-- 7. CLEAN DETAILED DATA TABLE -->
-    <div class="table-container-card">
-      <div class="table-header-flex">
-        <div class="table-section-title">
-          <i class="fa-solid fa-table-list" style="color: #2563eb;"></i>
-          BẢNG THEO DÕI CHI TIẾT NĂNG LỰC SẢN XUẤT VÀ YÊU CẦU GIAO HÀNG
-        </div>
-
-        <div class="table-controls-row">
-          <!-- Search Box -->
-          <div class="search-input-box">
-            <i class="fa-solid fa-magnifying-glass" style="color: #94a3b8;"></i>
-            <input type="text" id="table-search" placeholder="Tìm tên dự án, quy cách, ghi chú..." onkeyup="handleSearch()">
-          </div>
-
-          <!-- Diameter Filter Select -->
-          <select id="select-dia-filter" class="select-filter-box" onchange="handleSelectFilter()">
-            <option value="all">Tất Cả Quy Cách</option>
-            <option value="D300A">D300A</option>
-            <option value="D350A">D350A</option>
-            <option value="D400A">D400A</option>
-            <option value="D600A">D600A</option>
-          </select>
-
-          <!-- Status Filter Select -->
-          <select id="select-status-filter" class="select-filter-box" onchange="handleSelectFilter()">
-            <option value="all">Tất Cả Trạng Thái</option>
-            <option value="success">Đạt Yêu Cầu (>=100%)</option>
-            <option value="warning">Cảnh Báo (50% - 99%)</option>
-            <option value="danger">Thiếu Hụt (&lt;50%)</option>
-            <option value="completed">Đã Xong 100% PO / Đóng SX</option>
-            <option value="neutral">Chuẩn Bị / Tiềm Năng</option>
-          </select>
-        </div>
-      </div>
-
-      <div class="table-responsive-wrapper">
-        <table class="clean-data-table" id="projectDataTable">
-          <thead>
-            <tr>
-              <th style="width: 50px; text-align: center;">STT</th>
-              <th class="sortable" onclick="sortTable('name')">Tên Dự Án <span id="sort-icon-name"></span></th>
-              <th class="sortable" onclick="sortTable('dia')">Quy Cách (Dia) <span id="sort-icon-dia"></span></th>
-              <th class="sortable" style="text-align: right;" onclick="sortTable('po')">PO Received (Seg) <span id="sort-icon-po"></span></th>
-              <th class="sortable" style="text-align: right;" onclick="sortTable('remain')">Remain PD (Seg) <span id="sort-icon-remain"></span></th>
-              <th class="sortable" style="text-align: right;" onclick="sortTable('pd')">PD Completion (Seg) <span id="sort-icon-pd"></span></th>
-              <th class="sortable" style="width: 140px;" onclick="sortTable('compRate')">Tiến Độ % <span id="sort-icon-compRate"></span></th>
-              <th class="sortable" style="text-align: right;" onclick="sortTable('saleReq')">Sale Request <span id="sort-icon-saleReq"></span></th>
-              <th class="sortable" style="text-align: right;" onclick="sortTable('capacity')">CS Thực Tế <span id="sort-icon-capacity"></span></th>
-              <th class="sortable" style="text-align: right;" onclick="sortTable('shortage')">Shortage <span id="sort-icon-shortage"></span></th>
-              <th class="sortable" style="text-align: center;" onclick="sortTable('meetRate')">Tỷ Lệ Đáp Ứng <span id="sort-icon-meetRate"></span></th>
-              <th>Ghi Chú Vận Hành</th>
-              <th style="text-align: center; width: 60px;" class="no-print">Chi Tiết</th>
-            </tr>
-          </thead>
-          <tbody id="tableBody">
-            <!-- Dynamic rows injected via JS -->
-          </tbody>
-          <tfoot id="tableFoot">
-            <!-- Dynamic total row injected via JS -->
-          </tfoot>
-        </table>
-      </div>
-
-      <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 12px; font-size: 11.5px; color: #64748b; flex-wrap: wrap; gap: 8px;">
-        <div id="table-record-count" style="font-weight: 700;">Hiển thị 7 / 7 dự án</div>
-        <div style="display: flex; gap: 8px; flex-wrap: wrap;">
-          <span class="badge-item ok">● Đạt / An Toàn (>=100%)</span>
-          <span class="badge-item warn">▲ Cảnh Báo (50% - 99%)</span>
-          <span class="badge-item danger">✕ Thiếu Hụt (&lt;50%)</span>
-          <span class="badge-item purple">● Tiềm Năng / Cọc Thử</span>
+        <div
+          style="margin-top: 18px; padding-top: 14px; border-top: 1px solid #f1f5f9; display: flex; justify-content: space-between; align-items: center;">
+          <span style="font-size: 11px; color: #94A3B8; font-family: 'JetBrains Mono';" id="modal-source-date">Dữ liệu:
+            Sheet CONDITION PROJECT (04/11)</span>
+          <button class="btn-print-report" onclick="closeModal()">Đóng</button>
         </div>
       </div>
     </div>
-
-    <!-- 8. CORPORATE ENTERPRISE FOOTER -->
-    <footer class="portal-footer">
-      <div style="display: flex; align-items: center; gap: 10px;">
-        <span style="display: inline-block; width: 8px; height: 8px; background: #10b981; border-radius: 50%;"></span>
-        <span>HỆ THỐNG ĐIỀU HÀNH BÁO CÁO VGSI • REALTIME SYNC</span>
-        <span style="color: #cbd5e1;">|</span>
-        <span>FILE NGUỒN: <strong>PROJECT CONDITION1.xlsx</strong></span>
-        <span style="color: #cbd5e1;">|</span>
-        <span>SHEET: <strong style="color: #2563eb;">CONDITION PROJECT</strong></span>
-      </div>
-
-      <div style="display: flex; align-items: center; gap: 14px;">
-        <span id="footer-sync-status" style="font-weight: 700; color: #059669;">ĐÃ ĐỒNG BỘ 7 DỰ ÁN (04/11)</span>
-        <span style="background: #f1f5f9; padding: 3px 10px; border-radius: 6px; font-family: 'JetBrains Mono'; font-weight: 700; color: #334155;">
-          <i class="fa-regular fa-clock"></i> <span id="footer-live-clock">--:--:--</span>
-        </span>
-      </div>
-    </footer>
-
-  </div>
-
-  <!-- 9. PROJECT DETAILS MODAL -->
-  <div id="projectModal" class="modal-overlay" style="display: none;" onclick="if(event.target===this) closeModal();">
-    <div class="modal-card">
-      <div class="modal-header">
-        <div style="display: flex; align-items: center; gap: 12px;">
-          <div id="modal-idx" style="width: 38px; height: 38px; background: #2563eb; color: #ffffff; border-radius: 8px; display: flex; align-items: center; justify-content: center; font-weight: 800; font-family: 'JetBrains Mono';">
-            1
-          </div>
-          <div>
-            <h3 id="modal-title" style="font-size: 16px; font-weight: 800; color: #1e293b;">VAM CO PORT</h3>
-            <p id="modal-dia" style="font-size: 12px; color: #64748b; font-family: 'JetBrains Mono';">Quy cách: D400A, D300A</p>
-          </div>
-        </div>
-        <button class="modal-close-btn" onclick="closeModal()">
-          <i class="fa-solid fa-xmark"></i>
-        </button>
-      </div>
-
-      <div id="modal-content" style="display: flex; flex-direction: column; gap: 14px;">
-        <!-- Injected via JS -->
-      </div>
-
-      <div style="margin-top: 18px; padding-top: 14px; border-top: 1px solid #f1f5f9; display: flex; justify-content: space-between; align-items: center;">
-        <span style="font-size: 11px; color: #94A3B8; font-family: 'JetBrains Mono';" id="modal-source-date">Dữ liệu: Sheet CONDITION PROJECT (02/11)</span>
-        <button class="btn-print-report" onclick="closeModal()">Đóng</button>
-      </div>
-    </div>
-  </div>
 
   </div><!-- END #main-content -->
 
@@ -1584,110 +1654,110 @@
     let currentDateLabel = "04/11";
 
     let projectData = [
-      { 
-        id: 1, 
-        name: "VAM CO PORT", 
-        dia: "D400A, D300A", 
-        po: 7838, 
-        remain: 1100, 
-        pd: 6738, 
-        compRate: 6738 / 7838, // 85.97%
-        saleReq: 55, 
-        capacity: 40, 
-        shortage: 15, 
+      {
+        id: 1,
+        name: "VAM CO PORT",
+        dia: "D400A, D300A",
+        po: 7838,
+        remain: 1060,
+        pd: 6778,
+        compRate: 6778 / 7838, // 86.48%
+        saleReq: 55,
+        capacity: 40,
+        shortage: 15,
         meetRate: 40 / 55, // 72.73%
-        note: "Đang tồn kho >700 đoạn, tạm giảm số lượng sản xuất", 
-        status: "warning" 
+        note: "Đang tồn kho >700 đoạn, tạm giảm số lượng sản xuất",
+        status: "warning"
       },
-      { 
-        id: 2, 
-        name: "SUN VUNGTAU", 
-        dia: "D400A", 
-        po: 2622, 
-        remain: 1860, 
-        pd: 762, 
-        compRate: 762 / 2622, // 29.06%
-        saleReq: 40, 
-        capacity: 30, 
-        shortage: 10, 
-        meetRate: 30 / 40, // 75.00%
-        note: "Bắt đầu quay lại OBS14 Từ ngày 17/10", 
-        status: "warning" 
+      {
+        id: 2,
+        name: "SUN VUNGTAU",
+        dia: "D400A",
+        po: 2622,
+        remain: 1828,
+        pd: 794,
+        compRate: 794 / 2622, // 30.28%
+        saleReq: 40,
+        capacity: 28,
+        shortage: 12,
+        meetRate: 28 / 40, // 70.00%
+        note: "Bắt đầu quay lại OBS14",
+        status: "warning"
       },
-      { 
-        id: 3, 
-        name: "NAMKIM", 
-        dia: "D400A", 
-        po: 130, 
-        remain: 82, 
-        pd: 48, 
-        compRate: 48 / 130, // 36.92%
-        saleReq: 15, 
-        capacity: 16, 
-        shortage: -1, 
-        meetRate: 16 / 15, // 106.67%
-        note: "130 Đoạn, sử dụng búa đóng", 
-        status: "success" 
-      },
-      { 
-        id: 4, 
-        name: "TÔN BA SON", 
-        dia: "D400A", 
-        po: 157, 
-        remain: 157, 
-        pd: 0, 
-        compRate: 0.0, // 0.00%
-        saleReq: 15, 
-        capacity: 15, 
-        shortage: 0, 
+      {
+        id: 3,
+        name: "NAMKIM",
+        dia: "D400A",
+        po: 130,
+        remain: 70,
+        pd: 60,
+        compRate: 60 / 130, // 46.15%
+        saleReq: 15,
+        capacity: 15,
+        shortage: 0,
         meetRate: 15 / 15, // 100.00%
-        note: "157 đoạn - Xưởng tôn", 
-        status: "success" 
+        note: "130 Đoạn, sử dụng búa đóng",
+        status: "success"
       },
-      { 
-        id: 5, 
-        name: "AQUA CITY", 
-        dia: "D300A, D350A", 
-        po: 5400, 
-        remain: 2377, 
-        pd: 3023, 
-        compRate: 3023 / 5400, // 55.98%
-        saleReq: 100, 
-        capacity: 92, 
-        shortage: 8, 
+      {
+        id: 4,
+        name: "TÔN BA SON",
+        dia: "D400A",
+        po: 157,
+        remain: 142,
+        pd: 15,
+        compRate: 15 / 157, // 9.55%
+        saleReq: 15,
+        capacity: 15,
+        shortage: 0,
+        meetRate: 15 / 15, // 100.00%
+        note: "157 đoạn - Xưởng tôn",
+        status: "success"
+      },
+      {
+        id: 5,
+        name: "AQUA CITY",
+        dia: "D300A, D350A",
+        po: 5400,
+        remain: 2285,
+        pd: 3115,
+        compRate: 3115 / 5400, // 57.69%
+        saleReq: 100,
+        capacity: 92,
+        shortage: 8,
         meetRate: 92 / 100, // 92.00%
-        note: "Tập trung tăng cường theo yêu cầu của TGD", 
-        status: "warning" 
+        note: "Tập trung tăng cường theo yêu cầu của TGD",
+        status: "warning"
       },
-      { 
-        id: 6, 
-        name: "CHANG SHIN", 
-        dia: "D400A", 
-        po: 0, 
-        remain: 0, 
-        pd: 0, 
-        compRate: 0, 
-        saleReq: 0, 
-        capacity: 0, 
-        shortage: 0, 
-        meetRate: null, 
-        note: "Có thể nhận PO 255 đoạn 400-12m", 
-        status: "neutral" 
+      {
+        id: 6,
+        name: "CHANG SHIN",
+        dia: "D400A",
+        po: 255,
+        remain: 255,
+        pd: 0,
+        compRate: 0,
+        saleReq: 10,
+        capacity: 5,
+        shortage: 5,
+        meetRate: 5 / 10, // 50.00%
+        note: "Có thể nhận PO 255 đoạn 400-12m",
+        status: "warning"
       },
-      { 
-        id: 7, 
-        name: "THANH LOC", 
-        dia: "D600A", 
-        po: 0, 
-        remain: 0, 
-        pd: 0, 
-        compRate: 0, 
-        saleReq: 0, 
-        capacity: 0, 
-        shortage: 0, 
-        meetRate: null, 
-        note: "Xong cọc thử\nChưa nhận đơn hàng đại trà", 
-        status: "neutral" 
+      {
+        id: 7,
+        name: "THANH LOC",
+        dia: "D600A",
+        po: 0,
+        remain: 0,
+        pd: 0,
+        compRate: 0,
+        saleReq: 0,
+        capacity: 0,
+        shortage: 0,
+        meetRate: null,
+        note: "Xong cọc thử\nChưa nhận đơn hàng đại trà",
+        status: "neutral"
       }
     ];
 
@@ -2047,10 +2117,10 @@
 
       let filtered = projectData.filter(item => {
         // Query search
-        const matchesQuery = item.name.toLowerCase().includes(query) || 
-                             item.dia.toLowerCase().includes(query) ||
-                             item.note.toLowerCase().includes(query) ||
-                             item.id.toString().includes(query);
+        const matchesQuery = item.name.toLowerCase().includes(query) ||
+          item.dia.toLowerCase().includes(query) ||
+          item.note.toLowerCase().includes(query) ||
+          item.id.toString().includes(query);
 
         // View Tab Filter
         let matchesTab = true;
@@ -2172,7 +2242,7 @@
               titleFont: { family: 'Plus Jakarta Sans', size: 12, weight: '700' },
               bodyFont: { family: 'JetBrains Mono', size: 11 },
               callbacks: {
-                label: function(ctx) {
+                label: function (ctx) {
                   return ` ${ctx.dataset.label}: ${formatNumber(ctx.raw)} Seg/ngày`;
                 }
               }
@@ -2220,7 +2290,7 @@
               backgroundColor: '#1e293b',
               padding: 10,
               callbacks: {
-                label: function(c) {
+                label: function (c) {
                   return ` ${c.label}: ${c.raw} Dự án`;
                 }
               }
@@ -2235,11 +2305,11 @@
         listEl.innerHTML = `
           <div style="display:flex; justify-content:space-between; align-items:center; font-size:11.5px; padding:4px 8px; background:#f8fafc; border-radius:6px; border:1px solid #e2e8f0;">
             <span><span style="display:inline-block; width:8px; height:8px; background:#10b981; border-radius:50%; margin-right:6px;"></span> Đạt >= 100% / Tiềm Năng</span>
-            <strong style="color:#059669; font-family:'JetBrains Mono';">${succ} DA (${((succ/projectData.length)*100).toFixed(0)}%)</strong>
+            <strong style="color:#059669; font-family:'JetBrains Mono';">${succ} DA (${((succ / projectData.length) * 100).toFixed(0)}%)</strong>
           </div>
           <div style="display:flex; justify-content:space-between; align-items:center; font-size:11.5px; padding:4px 8px; background:#f8fafc; border-radius:6px; border:1px solid #e2e8f0;">
             <span><span style="display:inline-block; width:8px; height:8px; background:#f59e0b; border-radius:50%; margin-right:6px;"></span> Cảnh Báo (50% - 99%)</span>
-            <strong style="color:#b45309; font-family:'JetBrains Mono';">${warn} DA (${((warn/projectData.length)*100).toFixed(0)}%)</strong>
+            <strong style="color:#b45309; font-family:'JetBrains Mono';">${warn} DA (${((warn / projectData.length) * 100).toFixed(0)}%)</strong>
           </div>
         `;
       }
@@ -2299,7 +2369,7 @@
               backgroundColor: '#1e293b',
               padding: 10,
               callbacks: {
-                label: function(ctx) {
+                label: function (ctx) {
                   if (ctx.dataset.type === 'line') return ` ${ctx.dataset.label}: ${ctx.parsed.y}%`;
                   return ` ${ctx.dataset.label}: ${formatNumber(ctx.parsed.y)} Seg`;
                 }
@@ -2434,7 +2504,7 @@
       if (!file) return;
 
       const reader = new FileReader();
-      reader.onload = function(evt) {
+      reader.onload = function (evt) {
         try {
           const data = new Uint8Array(evt.target.result);
           const workbook = XLSX.read(data, { type: 'array' });
@@ -2447,7 +2517,7 @@
           rows.forEach(r => {
             if (Array.isArray(r)) {
               r.forEach(c => {
-                if (typeof c === 'string' && (c.includes('Ngày so sánh') || c.includes('Ngày đối soát') || c.includes('02/11') || c.includes('26/10') || c.includes('19/10') || c.toLowerCase().includes('ngày'))) {
+                if (typeof c === 'string' && (c.includes('Ngày so sánh') || c.includes('Ngày đối soát') || c.includes('04/11') || c.includes('02/11') || c.includes('26/10') || c.includes('19/10') || c.toLowerCase().includes('ngày'))) {
                   const m = c.match(/\d{1,2}[\/\-]\d{1,2}/);
                   if (m) extractedDate = m[0];
                 }
@@ -2596,7 +2666,7 @@
       const toast = document.createElement('div');
       toast.className = 'toast-msg';
       toast.style.background = type === 'danger' ? '#be123c' : '#1e293b';
-      toast.innerHTML = `<i class="fa-solid ${type === 'danger' ? 'fa-circle-exclamation' : 'fa-circle-check'}" style="color:${type==='danger'?'#fecdd3':'#34d399'};"></i> <span>${msg}</span>`;
+      toast.innerHTML = `<i class="fa-solid ${type === 'danger' ? 'fa-circle-exclamation' : 'fa-circle-check'}" style="color:${type === 'danger' ? '#fecdd3' : '#34d399'};"></i> <span>${msg}</span>`;
       document.body.appendChild(toast);
       setTimeout(() => toast.remove(), 2500);
     }
@@ -2706,4 +2776,5 @@
   </script>
 
 </body>
+
 </html>
